@@ -62,16 +62,16 @@
     border-radius: 3px;
     width: 15%;
 
-    @media (max-width: 499px){
+    @media (max-width: 768px){
         display: flex;
         flex-direction: column;
-        width: 255px;
+        width: 75%;
         margin: 10px 45px;
     }
 
     
     @media (min-width: 500px) and (max-width:768px){
-        width: 76.5%;
+        /* width: 76.5%; */
         margin: 10px 66px;
     }
 }
