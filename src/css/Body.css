@@ -65,7 +65,7 @@
     @media (max-width: 499px){
         display: flex;
         flex-direction: column;
-        width: 70%;
+        width: 255px;
         margin: 10px 45px;
     }
 
