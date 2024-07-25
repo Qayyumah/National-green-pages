@@ -30,7 +30,7 @@ const Header = () => {
                         <CustomClose onClick={()=>setBurgerStatus(false)}/>
                     </CloseWrapper>
                     <a href='#'>Home</a>
-                    <a href='#'>About Us<select><option></option></select></a>
+                    <a href='#'>About Us</a>
                     <a href='#'>Post a Business</a>
                     <a href='#'>Advert Rates</a>
                     <a href='#'>Contact Us</a>
