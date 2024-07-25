@@ -35,8 +35,15 @@
     @media (max-width: 768px){
         display: none;
     }
+
+    @media (min-width: 769px) and (max-width: 1024px){
+        font-size: 12px;
+        margin: 10px 20px;
+        
+    }
 }
 .firstHeaderLink select{
+    background: #ffffff;
     border: none;
     color: rgb(54, 221, 54);
     font-weight: 400;
@@ -50,6 +57,8 @@
     @media (max-width:767px){
         display: none;
     }
+
+   
 }
 .secondHeader a{
     text-decoration-line: none;
@@ -60,6 +69,10 @@
     @media (max-width:768px){
         font-size: 10px;
         padding: 5px 10px;
+    }
+    @media (min-width: 769px) and (max-width: 1024px){
+        font-size: 10px;
+        padding: 5px 8px;
     }
 
 }
