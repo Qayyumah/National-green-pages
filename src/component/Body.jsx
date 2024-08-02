@@ -1,8 +1,12 @@
 import React from 'react'
-import '../css/Body.css'
+import '../assets/body.css'
+import Header from './Header'
+import Footer from './Footer'
 
 const Body = () => {
   return (
+    <div>
+    <Header/>
     <div className='container'>
         <div className='content'>
             <h1>NationalGreenPages</h1>
@@ -14,6 +18,8 @@ const Body = () => {
             <select><option>All Categories</option></select>
             <button>Search</button>
         </div>
+    </div>
+    <Footer/>
     </div>
   )
 }
