@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import '../assets/header.css'
 import { useState } from 'react'
 import styled from 'styled-components'
-import ReactSelect from 'react-select'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 
 const Header = () => {
     const [burgerStatus, setBurgerStatus] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className='head'>
         <div className='header1'>
@@ -34,7 +35,10 @@ const Header = () => {
             <CloseWrapper>
                 <CustomClose onClick={()=>setBurgerStatus(false)}/>
             </CloseWrapper>
-            <img src='/images/profile.png'/>
+            <Head>
+                <Link to='/signin'>Log In</Link>
+                <Link to='/signup'>Sign Up</Link>
+            </Head>
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
             <Link to='/advert-rates'><a href='#'>Advert Rates</a></Link>
@@ -44,9 +48,12 @@ const Header = () => {
             <Link to='/contact'><a href='#'>Contact Us</a></Link>
         </BurgerNav>
     </div> 
-        <div className='image'>
-            <img src='/images/profile.png'/>
-        </div>
+        
+    <div className='link'>
+        <Link to='/signin'>Log In</Link>
+        <p>/</p>
+        <Link to='/signup'>Sign Up</Link>
+    </div>
        
     </div>
   )
@@ -98,10 +105,20 @@ const BurgerNav = styled.div`
             color: rgb(54, 221, 54);
         }
 
-        img{
-            width: 15%;
-            padding: 15px 10px;
-        }
+`
+
+const Head = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+
+    a{
+        color: green;  
+        font-weight: bold;
+        font-size: 15px;
+    }
 `
 
 const CustomClose = styled(CloseIcon)`

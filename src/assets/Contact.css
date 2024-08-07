@@ -1,0 +1,60 @@
+.contact{
+    min-height: 100vh;
+    padding-top: 120px;
+}
+.contact h1{
+    text-align: center;
+    font-size: 30px;
+    color: green;
+    margin-bottom: 20px;
+}
+.contents{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    margin: 0 280px;
+
+    @media (max-width: 960px){
+        margin: 0 100px;
+    }
+
+    @media (max-width: 430px){
+        margin: 0 20px;
+    }
+}
+.contents input{
+    width: 100%;
+    padding: 15px 10px;
+    margin: 10px 0;
+    font-size: 18px;
+    border-radius: 10px;
+    color: #ccc;
+    border-color: green;
+
+   
+}
+.contents textarea{
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #ccc;
+    border-color: green;
+}
+
+.contents button{
+    padding: 15px 10px;
+    width: 25%;
+    margin: 20px 0;
+    color: #fff;
+    background-color: rgb(6, 90, 6);
+    border-radius: 10px;
+    font-size: 18px;
+
+    @media (max-width: 575px){
+        width: 35%;
+    }
+
+}

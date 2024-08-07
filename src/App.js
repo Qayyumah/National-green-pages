@@ -3,6 +3,10 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import About from './component/About';
 import Body from './component/Body';
 import SignIn from './component/SignIn';
+import SignUp from './component/SignUp';
+import PostBusiness from './component/PostBusiness';
+import Contact from './component/Contact';
+
 
 
 function App() {
@@ -13,6 +17,9 @@ function App() {
         <Route exact path='/' element={<Body/>}/>
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/signin' element={<SignIn/>}/>
+        <Route exact path='/signup' element={<SignUp/>}/>
+        <Route exact path='/post' element={<PostBusiness/>}/>
+        <Route exact path='/contact' element={<Contact/>}/>
       </Routes>
    </div>
     </Router>

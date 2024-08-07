@@ -4,15 +4,26 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left;
-    /* min-height: 100vh; */
+    min-height: 100vh;
     text-align: center;
-    padding: 180px 0;
-    margin-top: 85px;
+    /* padding: 210px 0; */
+    /* margin-top: 85px; */
     color: #ffffff;
     
     @media (max-width: 560px){
-        padding-top: 85px;
         margin-top: 70px;
+    }
+}
+
+.content {
+    padding-top: 235px;
+
+    @media(max-width: 1024px){
+        padding-top: 170px;
+    }
+
+    @media (max-width: 560px){
+        padding-top: 85px;
     }
 }
 
