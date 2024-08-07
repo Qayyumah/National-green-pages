@@ -5,6 +5,7 @@
     align-items: center;
     min-height: 100vh;
     justify-content: space-between;
+    background-color: rgb(145, 203, 145);
 
     @media (max-width: 1024px){
         padding: 70px 0px;
@@ -21,7 +22,6 @@
 
 .about-content{
     padding: 0 90px;
-
     @media (max-width: 1024px){
         padding: 0 20px;
     }
@@ -40,7 +40,7 @@
      }
 }
 .about-content p{
-    color: rgb(12, 145, 12);
+    color: #000;
     font-size: 20px;
 }
 .about-image{
@@ -51,8 +51,9 @@
        display: none;  
     }
 }
+
 .about-image img{
-    height: 600px;
+    height: 550px;
     display: block;
 
     @media (max-width: 1024px){

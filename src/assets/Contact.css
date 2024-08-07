@@ -1,11 +1,12 @@
 .contact{
     min-height: 100vh;
     padding-top: 120px;
+    background-color: rgb(17, 17, 17);
 }
 .contact h1{
     text-align: center;
-    font-size: 30px;
-    color: green;
+    font-size: 35px;
+    color: #fff;
     margin-bottom: 20px;
 }
 .contents{
@@ -31,8 +32,6 @@
     border-radius: 10px;
     color: #ccc;
     border-color: green;
-
-   
 }
 .contents textarea{
     width: 100%;
@@ -46,12 +45,13 @@
 
 .contents button{
     padding: 15px 10px;
-    width: 25%;
+    width: 22%;
     margin: 20px 0;
-    color: #fff;
-    background-color: rgb(6, 90, 6);
+    color: white;
+    background-color: rgb(27, 111, 31);
     border-radius: 10px;
     font-size: 18px;
+    border: none;
 
     @media (max-width: 575px){
         width: 35%;

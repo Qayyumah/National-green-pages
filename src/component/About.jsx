@@ -36,7 +36,7 @@ const About = () => {
                  </div>
             </div>
             <div className='about-image'>
-                <img src='/images/map.jpg'/>
+                <img src='/images/about.jpg'/>
             </div>
         </div>
         <Footer/>

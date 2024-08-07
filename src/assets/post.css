@@ -1,7 +1,9 @@
 .post{
     text-align: center;
-    /* background-color: rgb(214, 212, 212); */
+    background-color: rgb(145, 203, 145);
+    padding-top: 20px;
 }
+
 .form{
     padding: 10px 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -9,7 +11,7 @@
     transition: transform 0.2s;
     width: 500px;
     margin: auto;
-    margin-top: 120px;
+    margin-top: 100px;
     margin-bottom: 20px;
     min-height: 100vh;
     background-color: rgb(246, 251, 246);
