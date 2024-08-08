@@ -35,7 +35,7 @@
     }
 
     @media (max-width: 768px){
-         text-align: center;
+         text-align: left;
          font-size: 28px;
      }
 }
