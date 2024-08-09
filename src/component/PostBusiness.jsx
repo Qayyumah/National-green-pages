@@ -3,6 +3,8 @@ import '../assets/post.css'
 import { useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import { set } from 'react-hook-form'
+
 
 const PostBusiness = () => {
 
@@ -21,6 +23,12 @@ const PostBusiness = () => {
         productphoto:'',
         address:''
     })
+    const[emails, setEmails]= useState('')
+    const [phone, setPhone] = useState('')
+    const [whatsapp, setWhatsapp] = useState('')
+    const [message , setMessage]=useState('')
+    const [phoneMessage, setPhoneMessage]= useState('')
+    const [whatsappMessage, setWhatsappMessage] = useState('')
 
     const handleChange = (e) => {
         setValues({...values, [e.target.name]:[e.target.value]})
@@ -31,6 +39,45 @@ const PostBusiness = () => {
         console.log(values)
     }
 
+  const handleInput=(emails)=>{
+    const rgExp = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2,6}$/
+    if (rgExp.test(emails)) {
+        setMessage('')
+    }else if(emails === ""){
+        setMessage('Please enter email')
+    }else if(!rgExp.test(emails)){
+        setMessage('Email is not valid')
+    }else{
+        setMessage('')
+    }
+  }
+
+    const handlePhoneInput=(phone)=>{
+        const pexp = /^\d{11}$/
+        if (pexp.test(phone)){
+            setPhoneMessage('')
+        }else if(phone === ""){
+            setPhoneMessage('Please enter your phone number')
+        }else if(!pexp.test(phone)){
+            setPhoneMessage('phone number is not valid')
+        }else{
+            setPhoneMessage('')
+        }
+    }
+
+    const handleWhatsappInput = (whatsapp)=>{
+        const whatsapExp = /^\d{11}$/
+        if (whatsapExp.test(whatsapp)){
+            setWhatsappMessage('')
+        }else if(whatsapp === ""){
+            setWhatsappMessage('Please enter your whatsapp number')
+        }else if(!whatsapExp.test(phone)){
+            setWhatsappMessage('Number is not valid')
+        }else{
+            setWhatsappMessage('')
+        }
+    }
+  
   return (
     <div className='post'>
         <Header/>
@@ -38,10 +85,11 @@ const PostBusiness = () => {
             <h1>Data Collation Form</h1>
             <form onSubmit={handleSubmit}>
                 <label for='name'>Company Name*</label>
-                <input type='text' name='companyname' onChange={(e)=> handleChange(e)} required/>
+                <input type='text' name='companyname' onChange={(e)=> handleChange(e)} required />
 
                 <label for='email'>Email*</label>
-                <input type='text' name='email' onChange={(e)=> handleChange(e)} required/>
+                <input type='text' name='email' onChange={(e)=> handleChange(e)} required onInput={(e)=>handleInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{message}</p>
 
                 <label for='name'>State</label>
                 <input type='text' name='state' onChange={(e)=> handleChange(e)}/>
@@ -53,10 +101,12 @@ const PostBusiness = () => {
                 <input type='text' name='town' onChange={(e)=> handleChange(e)}/>
 
                 <label for='name'>Phone Number*</label>
-                <input type='text' name='phonenumber' onChange={(e)=> handleChange(e)} required/>
+                <input type='text' name='phonenumber' onChange={(e)=> handleChange(e)} required onInput={(e)=>handlePhoneInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{phoneMessage}</p>
 
                 <label for='name'>WhatsAPP Number*</label>
-                <input type='text' name='whatsappnumber' onChange={(e)=> handleChange(e)} required/>
+                <input type='text' name='whatsappnumber' onChange={(e)=> handleChange(e)} required onInput={(e)=>handleWhatsappInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{whatsappMessage}</p>
 
                 <label for='name'>Category Of Business</label>
                 <input type='text' name='categoryofbusiness' onChange={(e)=> handleChange(e)}/>
