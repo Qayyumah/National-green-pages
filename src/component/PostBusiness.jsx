@@ -23,9 +23,11 @@ const PostBusiness = () => {
         productphoto:'',
         address:''
     })
+    const [companyName, setCompanyName] = useState('')
     const[emails, setEmails]= useState('')
     const [phone, setPhone] = useState('')
     const [whatsapp, setWhatsapp] = useState('')
+    const [companyMessage, setCompanyMessage] = useState('')
     const [message , setMessage]=useState('')
     const [phoneMessage, setPhoneMessage]= useState('')
     const [whatsappMessage, setWhatsappMessage] = useState('')
@@ -77,6 +79,15 @@ const PostBusiness = () => {
             setWhatsappMessage('')
         }
     }
+
+    const handleNameInput = ()=>{
+        const nameExp = '/^\d{A-Z}$/'
+        if(nameExp.test(companyName)){
+            setCompanyMessage('')
+        }else if(companyName === ""){
+            setCompanyMessage('Name is required')
+        }
+    }
   
   return (
     <div className='post'>
@@ -85,11 +96,11 @@ const PostBusiness = () => {
             <h1>Data Collation Form</h1>
             <form onSubmit={handleSubmit}>
                 <label for='name'>Company Name*</label>
-                <input type='text' name='companyname' onChange={(e)=> handleChange(e)} required />
+                <input type='text' name='companyname' onInput={(e)=>{handleNameInput(e.target.value)}} onChange={(e)=> handleChange(e)}/>
 
                 <label for='email'>Email*</label>
-                <input type='text' name='email' onChange={(e)=> handleChange(e)} required onInput={(e)=>handleInput(e.target.value)}/>
-                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{message}</p>
+                <input type='text' name='email' onChange={(e)=> handleChange(e)} onInput={(e)=>handleInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left',margin:'0'}}>{message}</p>
 
                 <label for='name'>State</label>
                 <input type='text' name='state' onChange={(e)=> handleChange(e)}/>
@@ -101,12 +112,12 @@ const PostBusiness = () => {
                 <input type='text' name='town' onChange={(e)=> handleChange(e)}/>
 
                 <label for='name'>Phone Number*</label>
-                <input type='text' name='phonenumber' onChange={(e)=> handleChange(e)} required onInput={(e)=>handlePhoneInput(e.target.value)}/>
-                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{phoneMessage}</p>
+                <input type='text' name='phonenumber' onChange={(e)=> handleChange(e)} onInput={(e)=>handlePhoneInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left',margin:'0'}}>{phoneMessage}</p>
 
                 <label for='name'>WhatsAPP Number*</label>
-                <input type='text' name='whatsappnumber' onChange={(e)=> handleChange(e)} required onInput={(e)=>handleWhatsappInput(e.target.value)}/>
-                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{whatsappMessage}</p>
+                <input type='text' name='whatsappnumber' onChange={(e)=> handleChange(e)} onInput={(e)=>handleWhatsappInput(e.target.value)}/>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left',margin:'0'}}>{whatsappMessage}</p>
 
                 <label for='name'>Category Of Business</label>
                 <input type='text' name='categoryofbusiness' onChange={(e)=> handleChange(e)}/>
@@ -118,10 +129,14 @@ const PostBusiness = () => {
                 <input type='text' name='staffstrength' onChange={(e)=> handleChange(e)}/>
 
                 <label for='name'>Selfie photo of CEO</label>
-                <input type='file' name='selfiephoto' placeholder='upload a photo' onChange={(e)=> handleChange(e)}/>
+                <div className='upload'>
+                    <button onChange={(e)=> handleChange(e)}>upload a photo</button>
+                </div>
 
                 <label for='name'>Product/Signboard's photo</label>
-                <input type='file' name='productphoto' placeholder='upload a photo' onChange={(e)=> handleChange(e)}/>
+                <div className='upload'>
+                    <button onChange={(e)=> handleChange(e)}>upload a photo</button>
+                </div>
 
                 <label>Address</label>
                 <textarea name='address' onChange={(e)=> handleChange(e)}></textarea>

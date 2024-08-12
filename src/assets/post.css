@@ -13,7 +13,7 @@
     margin: auto;
     margin-top: 100px;
     margin-bottom: 20px;
-    min-height: 100vh;
+    min-height: min-content;
     background-color: rgb(246, 251, 246);
 
     @media (max-width: 500px){
@@ -70,4 +70,20 @@ textarea{
     width: 40%;
     font-size: 16px;
 }
+.upload {
+    border: 1px solid #3c3a3a75;
+}
+.upload button{
+    cursor: pointer;
+    width: 30%;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 5px;
 
+    @media (max-width:500px){
+        width: 40%;
+        font-size: 13px;
+        padding: 5px 5px;
+    }
+}

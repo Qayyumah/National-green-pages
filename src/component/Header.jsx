@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const Header = () => {
     const [burgerStatus, setBurgerStatus] = useState(false)
-    const [isOpen, setIsOpen] = useState(false)
+
 
   return (
     <div className='head'>
@@ -37,7 +37,6 @@ const Header = () => {
             </CloseWrapper>
             <Head>
                 <Link to='/signin'>Log In</Link>
-                <Link to='/signup'>Sign Up</Link>
             </Head>
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
@@ -51,8 +50,6 @@ const Header = () => {
         
     <div className='link'>
         <Link to='/signin'>Log In</Link>
-        <p>/</p>
-        <Link to='/signup'>Sign Up</Link>
     </div>
        
     </div>
@@ -81,7 +78,6 @@ const BurgerNav = styled.div`
     right: 0;
     background: #ffffff;
     width: 300px;
-    /* z-index: ; */
     list-style: none;
     padding: 20px;
     display: flex;
@@ -95,7 +91,6 @@ const BurgerNav = styled.div`
             margin-top: 20px;
             font-weight: 400;
             padding: 10px 10px;
-            /* border-bottom: 1px solid rgb(23, 118, 23); */
             text-decoration-line: none !important;
             color: rgb(54, 221, 54);
         }
@@ -108,10 +103,10 @@ const BurgerNav = styled.div`
 `
 
 const Head = styled.div`
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 
 
     a{

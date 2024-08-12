@@ -34,6 +34,7 @@ const Contact = () => {
         setMessage('')
     }
   }
+
   return (
     <div>
         <Header/>
@@ -69,14 +70,15 @@ const Contact = () => {
                 <form onSubmit={handleSubmit}>
                   <h2>Send Message</h2>
                   <div className='input'>
-                    <input type='text' name='yourname' required placeholder='Name' onChange={(e)=>{handleChange(e)}}/>
+                    <input type='text' name='yourname' placeholder='Name' onChange={(e)=>{handleChange(e)}}/>
+                    <p style={{color:'red', fontSize:'12px', textAlign:'left'}}></p>
                   </div>
                   <div className='input'>
-                    <input type='text' name='email' required placeholder='Email' onChange={(e)=>{handleChange(e)}} onInput={(e)=>handleInput(e.target.value)} />
-                    <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{message}</p>
+                    <input type='text' name='email' placeholder='Email' onChange={(e)=>{handleChange(e)}} onInput={(e)=>handleInput(e.target.value)} />
+                    <p style={{color:'red', fontSize:'12px', textAlign:'left', margin:'0'}}>{message}</p>
                   </div>
                   <div className='input'>
-                    <textarea type='text' name='text' required placeholder='Enter your message' onChange={(e)=>{handleChange(e)}}/>
+                    <textarea type='text' name='text'placeholder='Enter your message' onChange={(e)=>{handleChange(e)}}/>
                   </div>
                   <div className='input'>
                     <input type='submit' value='submit'/>

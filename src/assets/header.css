@@ -60,10 +60,10 @@
     }
 }
 .link{
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 
     @media (max-width: 950px){
         display: none;
@@ -75,8 +75,4 @@
     color: rgb(16, 88, 16);
     font-size: 17px;
     font-weight: bold;
-}
-
-.link p{
-    font-weight: 600;
 }
