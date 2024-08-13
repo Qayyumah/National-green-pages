@@ -60,19 +60,22 @@
     }
 }
 .link{
-    /* display: flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between; */
+    justify-content: center;
 
     @media (max-width: 950px){
         display: none;
     }
 }
 .link a{
-    margin: 0 10px;
     text-decoration-line: none;
     color: rgb(16, 88, 16);
     font-size: 17px;
     font-weight: bold;
+}
+
+.link img{
+    width: 25px;
 }

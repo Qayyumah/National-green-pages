@@ -36,6 +36,7 @@ const Header = () => {
                 <CustomClose onClick={()=>setBurgerStatus(false)}/>
             </CloseWrapper>
             <Head>
+                <Link to='/signin'><img src='images/profile.png'/></Link>
                 <Link to='/signin'>Log In</Link>
             </Head>
             <Link to='/'><a href='#'>Home</a></Link>
@@ -49,6 +50,7 @@ const Header = () => {
     </div> 
         
     <div className='link'>
+        <Link to='/signin'><img src='images/profile.png'/></Link>
         <Link to='/signin'>Log In</Link>
     </div>
        
@@ -103,16 +105,21 @@ const BurgerNav = styled.div`
 `
 
 const Head = styled.div`
-    /* display: flex;
+    cursor: pointer;
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between; */
-
+    padding: 0 15px;
 
     a{
         color: green;  
         font-weight: bold;
         font-size: 15px;
+        margin-left: -15px;
+    }
+    img{
+        width: 25px;
+        margin-right: 0;
     }
 `
 

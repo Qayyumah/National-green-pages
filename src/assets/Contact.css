@@ -130,3 +130,8 @@
     font-size: 18px;
     border-radius: 5px;
 }
+.contact-form p{
+    margin-top: 0;
+    color: red;
+    
+}

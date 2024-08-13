@@ -3,51 +3,24 @@ import '../assets/signIn.css'
 import { useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
 
 const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
-  const[values, setValues] = useState({
-    email:'',
-    password:''
+
+  const schema = yup.object().shape({
+    email: yup.string().email('Email is not valid').required('Email is required'),
+    password: yup.string().required('Password is required')
   })
-  const [mail, setMail] = useState('')
-  const [pass, setPass] = useState('')
-  const [message, setMessage] = useState('')
-  const [passMessage, setPassMessage] = useState('')
 
-  const handleChange = (e) => {
-    setValues({...values, [e.target.name]:[e.target.value]})
-}
+  const {register, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(schema)
+  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(values)
-  }
-
-  const handleLogInput=(mail)=>{
-    const rgExp = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2,6}$/
-    if (rgExp.test(mail)) {
-        setMessage('')
-    }else if(mail === ""){
-        setMessage('Please enter email')
-    }else if(!rgExp.test(mail)){
-        setMessage('Wrong Email')
-    }else{
-        setMessage('Error')
-    }
-  }
-
-  const handlePassInput=(pass)=>{
-    const passExp = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
-    if (passExp.test(pass)){
-      setPassMessage('')
-    }else if(pass === ""){
-      setPassMessage('Please enter a valid password')
-    }else if(!passExp.test(pass)){
-      setPassMessage('wrong password')
-    }else{
-      setPassMessage('Error')
-    }
+  const signSubmit = (data) => {
+    console.log(data)
   }
 
   return (
@@ -62,22 +35,32 @@ const SignIn = () => {
             <button onClick={()=>{setShowMail(true)}}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Gmail</button>
           {
             showMail?
-            <div className='inputs-signin'>
+            <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
               <div className='left-img' style={{cursor:'pointer'}}>
                 <img src='images/akar-icons_arrow-left.png' onClick={()=>{setShowMail(false)}}/>
               </div>
               <div className='input-img-sign-in'>
-                <input placeholder='Email' name='email' type='email' onInput={(e)=>handleLogInput(e.target.value)} onChange={(e)=>{handleChange(e)}} required/>
+                <input 
+                  placeholder='Email'
+                   name='email' 
+                   type='email'  
+                   {...register("email")}
+                   />
                 <img src='/images/mdi_email-edit-outline.png'/>
               </div>
-              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{message}</p>
+              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.email?.message}</p>
               <div className='input-img-sign-in'>
-                <input placeholder='Password' name='password' type='password' onChange={(e)=>{handleChange(e)}} onInput={(e)=>{handlePassInput(e.target.value)}} required/>
+                <input 
+                  placeholder='Password' 
+                  name='password' 
+                  type='password' 
+                  {...register("password")}
+                />
                 <img src='/images/carbon_password.png'/>
               </div>
-              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{passMessage}</p>
-              <button>Login</button>
-            </div>:null
+              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
+              <button type='submit'>submit</button>
+            </form>:null
           }
           </div>
           <button><img src='/images/flat-color-icons_google.png'/>Sign in with Google</button>
