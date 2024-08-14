@@ -23,6 +23,10 @@ const SignIn = () => {
     console.log(data)
   }
 
+  const handleClick = ()=>{
+    setShowMail(!showMail)
+  }
+
   return (
     <div>
     <Header/>
@@ -32,13 +36,10 @@ const SignIn = () => {
       <h1>SignIn</h1>
         <div className='sign-in'>
           <div className='gmail'>
-            <button onClick={()=>{setShowMail(true)}}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Gmail</button>
-          {
-            showMail?
+            <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
+
+            {showMail && (
             <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
-              <div className='left-img' style={{cursor:'pointer'}}>
-                <img src='images/akar-icons_arrow-left.png' onClick={()=>{setShowMail(false)}}/>
-              </div>
               <div className='input-img-sign-in'>
                 <input 
                   placeholder='Email'
@@ -60,9 +61,10 @@ const SignIn = () => {
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
               <button type='submit'>submit</button>
-            </form>:null
-          }
+            </form>
+            )}
           </div>
+          
           <button><img src='/images/flat-color-icons_google.png'/>Sign in with Google</button>
           <button><img src='/images/dashicons_facebook-alt.png'/>Sign in with Facebook</button>
         </div>

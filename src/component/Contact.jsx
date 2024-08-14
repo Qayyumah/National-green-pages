@@ -2,58 +2,39 @@ import React from 'react'
 import '../assets/Contact.css'
 import Header from './Header'
 import Footer from './Footer'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 
 const Contact = () => {
-  const [mail, setMail] = useState('')
-  const [message, setMessage] = useState('')
-
   const schema = yup.object().shape({
     yourname: yup.string().required('Name is required!'),
-    email: yup.string().email().required()
+    email: yup.string().email('Email is not valid').required('Email is required!'),
+    message: yup.string().required('Required!')
   })
 
   const {register, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema)
 })
 
-
-  const handleChange = () => {
-    
-}
-
   const contactForm = (data) => {
-    data.preventDefault()
+
     console.log(data)
 
-  }
-
-  const handleInput=(mail)=>{
-    const rgExp = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{2,6}$/
-    if (rgExp.test(mail)) {
-        setMessage('')
-    }else if(mail === ""){
-      setMessage('Email is required')
-    }
-    else if(!rgExp.test(mail)){
-        setMessage('Email is not valid')
-    }else{
-        setMessage('')
-    }
   }
 
   return (
     <div>
         <Header/>
           <div className='con-body'>
-          <h2 style={{textAlign:'center', fontSize:'36px', color:'#000', marginBottom:'20px'}}>Contact Us</h2>
             <div className='contact'>
+            
               <div className='contact-container'>
+              
                 <div className='contact-info'>
+                <h2 style={{textAlign:'left', fontSize:'26px', fontWeight:'600', marginLeft:'35px', color:'#000', marginBottom:'20px'}}>Contact Us</h2>
                   <div className='infos'>
+                  
                     <div className='icon'>
                       <img src=''/>
                     </div>
@@ -83,7 +64,6 @@ const Contact = () => {
                     <input type='text' 
                       name='yourname' 
                       placeholder='Name' 
-                      onChange={(e)=>{handleChange(e)}} 
                       {...register("yourname")}
                     />
                     <p>{errors.yourname?.message}</p>
@@ -92,15 +72,17 @@ const Contact = () => {
                     <input type='text' 
                       name='email' 
                       placeholder='Email' 
-                      onChange={(e)=>{handleChange(e)}} 
-                      onInput={(e)=>handleInput(e.target.value)}
                       {...register("email")}
                     />
-                    <p>{message}</p>
                   </div>
+                  <p>{errors.email?.message}</p>
                   <div className='input'>
-                    <textarea type='text' name='text'placeholder='Enter your message' onChange={(e)=>{handleChange(e)}}/>
+                    <textarea type='text' 
+                    name='text'
+                    placeholder='Enter your message'  
+                    {...register("message")}/>
                   </div>
+                  <p>{errors.message?.message}</p>
                   <div className='input'>
                     <input type='submit' value='submit'/>
                   </div>

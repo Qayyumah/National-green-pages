@@ -71,7 +71,7 @@ textarea{
     font-size: 16px;
 }
 .upload {
-    border: 1px solid #3c3a3a75;
+    border: 1px solid rgb(38, 142, 38);
     padding: 10px 0;
 }
 .upload button{
@@ -96,6 +96,7 @@ textarea{
     padding: 5px 0;
     border-radius: 3px;
     color: #fff;
+    cursor: pointer;
 
     @media (max-width: 501px){
         width: 45%;
