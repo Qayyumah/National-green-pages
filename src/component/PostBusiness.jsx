@@ -11,6 +11,8 @@ import {yupResolver} from '@hookform/resolvers/yup'
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png')
     const [productImage, setProductImage] = useState('images/upload.png')
+    const [result, setResult]= useState()
+    const [resultState, setResultState]=useState(false)
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -23,15 +25,27 @@ const PostBusiness = () => {
         categoryofbusiness: yup.string().required('Input a Business Category'),
         website: yup.string().required('Website is required'),
         staffstrength: yup.string().required('Required!'),
-        address: yup.string().required('Required!')    
+        address: yup.string().required('Required!'),
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     })
 
-    const SubmitForm = (data) => {
+    const SubmitForm = async(data)=>{
         console.log(data)
+       try{
+        const response = await fetch('https://d892-102-89-84-117.ngrok-free.app/api/add-business/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json' , "Authorization": `Bearer ${localStorage.getItem("")}`},
+            body: JSON.stringify(data)
+            })
+            const res = await response.json()
+            setResult('Request sent succesfully')
+       }catch(error){
+        setResult('unable to send your request')
+       }
+      
     }
 
     const handleImage = (e)=>{
@@ -42,15 +56,14 @@ const PostBusiness = () => {
     const handleProduct = (e)=>{
         setProductImage(URL.createObjectURL(e.target.files[0]))
     }
-
-
+    
   return (
     <div className='post'>
         <Header/>
         <div className='form'>
             <h1>Data Collation Form</h1>
             <form onSubmit={handleSubmit(SubmitForm)}>
-                <label for='name'>Company Name*</label>
+                <label for='name'>Company Name</label>
                 <input type='text' name='companyname'  
                 {...register("companyname")}/>
                 <p>{errors.companyname?.message}</p>
@@ -75,13 +88,13 @@ const PostBusiness = () => {
                 {...register("town")}/>
                 <p>{errors.town?.message}</p>
 
-                <label for='name'>Phone Number*</label>
+                <label for='name'>Phone Number</label>
                 <input type='text' name='phonenumber' 
                 {...register("phonenumber")}/>
                 <p>{errors.phonenumber?.message}</p>
 
 
-                <label for='name'>WhatsAPP Number*</label>
+                <label for='name'>WhatsAPP Number</label>
                 <input type='text' name='whatsappnumber' 
                 {...register("whatsappnumber")}/>
                 <p>{errors.whatsappnumber?.message}</p>
@@ -104,14 +117,24 @@ const PostBusiness = () => {
 
                 <label for='name'>Selfie photo of CEO</label>
                 <div className='upload'>
-                    <input type='file' id='imgs' style={{display:'none'}} onChange={handleImage}/>
+                    <input 
+                        type='file' 
+                        id='imgs' 
+                        style={{display:'none'}} 
+                        onChange={handleImage}
+                    />
                     <img src={image} for='imgs'  />
                     <label htmlFor='imgs'>Upload a photo</label>
                 </div>
 
                 <label for='name'>Product/Signboard's photo</label>
                 <div className='upload'>
-                    <input type='file' id='productImg' style={{display:'none'}} onChange={handleProduct}/>
+                    <input 
+                        type='file' 
+                        id='productImg' 
+                        style={{display:'none'}} 
+                        onChange={handleProduct}
+                    />
                     <img src={productImage} for='imgs' />
                     <label htmlFor='productImg'>Upload a photo</label>
                 </div>
@@ -123,7 +146,9 @@ const PostBusiness = () => {
 
                 <button type='submit'>Submit</button>
             </form>
+             {result}
         </div>
+
         <Footer/>
     </div>
   )

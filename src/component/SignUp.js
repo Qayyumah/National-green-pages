@@ -8,11 +8,12 @@ import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom'
 
-const SignIn = () => {
+const SignUp = () => {
   const [showMail, setShowMail] = useState(false)
 
 
   const schema = yup.object().shape({
+    fullname: yup.string().required('Name is required'),
     email: yup.string().email('Email is not valid').required('Email is required'),
     password: yup.string().required('Password is required')
   })
@@ -45,13 +46,24 @@ const SignIn = () => {
     <div className='sign'>
      
       <div className='section-con'>
-      <h1>SignIn</h1>
+      <h1>SignUp</h1>
         <div className='sign-in'>
           <div className='gmail'>
-            <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
+            <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign up with Email{showMail? '':''}</button>
 
             {showMail && (
             <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
+                <div className='input-img-sign-in'>
+                    <input
+                        placeholder='Full-Name'
+                        name='fullname'
+                        type='name'
+                        {...register("fullname")}
+                    />
+                    <img src='images/name.png'/>
+                </div>
+                <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.fullname?.message}</p>
+
               <div className='input-img-sign-in'>
                 <input 
                   placeholder='Email'
@@ -62,6 +74,7 @@ const SignIn = () => {
                 <img src='/images/mdi_email-edit-outline.png'/>
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.email?.message}</p>
+
               <div className='input-img-sign-in'>
                 <input 
                   placeholder='Password' 
@@ -72,17 +85,18 @@ const SignIn = () => {
                 <img src='/images/carbon_password.png'/>
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
+
               <button type='submit'>submit</button>
             </form>
             )}
           </div>
           
-          <button><img src='/images/flat-color-icons_google.png'/>Sign in with Google</button>
-          <button><img src='/images/dashicons_facebook-alt.png'/>Sign in with Facebook</button>
+          <button><img src='/images/flat-color-icons_google.png'/>Sign up with Google</button>
+          <button><img src='/images/dashicons_facebook-alt.png'/>Sign up with Facebook</button>
 
           <div className='alreadylogged'>
-          <p>Don't have an account?<Link to='/signup'>Sign Up</Link></p>
-    </div>
+                <p>Already have an account?<Link to='/signin'>Log in</Link></p>
+          </div>
         </div>
       </div>
     </div>
@@ -91,4 +105,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignUp

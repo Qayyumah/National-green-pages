@@ -18,7 +18,13 @@ const Contact = () => {
 })
 
   const contactForm = (data) => {
-
+    fetch('',{
+      method:'POST',
+      headers:{'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(()=>{
+        console.log('new')
+    })
     console.log(data)
 
   }

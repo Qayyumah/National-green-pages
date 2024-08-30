@@ -64,6 +64,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+   
 
     @media (max-width: 950px){
         display: none;
@@ -74,6 +75,7 @@
     color: rgb(16, 88, 16);
     font-size: 17px;
     font-weight: bold;
+    margin: 0 10px;
 }
 
 .link img{

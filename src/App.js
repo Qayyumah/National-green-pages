@@ -8,6 +8,8 @@ import Contact from './component/Contact';
 import Dashboard from './component/Dashboard';
 import Advert from './component/Advert';
 import Listing from './component/Listing';
+import PrivateRoute from './component/PrivateRoute';
+import SignUp from './component/SignUp';
 
 
 
@@ -19,6 +21,7 @@ function App() {
         <Route exact path='/' element={<Body/>}/>
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/signin' element={<SignIn/>}/>
+        <Route exact path='/signup' element={<SignUp/>}/>
         <Route exact path='/post' element={<PostBusiness/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<Dashboard/>}/>

@@ -9,7 +9,6 @@ import CloseIcon from '@material-ui/icons/Close';
 const Header = () => {
     const [burgerStatus, setBurgerStatus] = useState(false)
 
-
   return (
     <div className='head'>
         <div className='header1'>
@@ -38,6 +37,8 @@ const Header = () => {
             <Head>
                 <Link to='/signin'><img src='images/profile.png'/></Link>
                 <Link to='/signin'>Log In</Link>
+                <p style={{marginBottom:'-5px'}}>/</p>
+                <Link to='/signup'>Sign Up</Link>
             </Head>
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
@@ -50,8 +51,9 @@ const Header = () => {
     </div> 
         
     <div className='link'>
-        <Link to='/signin'><img src='images/profile.png'/></Link>
-        <Link to='/signin'>Log In</Link>
+        <img src='images/profile.png'/>
+        <Link to='/signin' style={{marginLeft:'-1px'}}>Log In</Link> /
+        <Link to='/signup'>Sign Up</Link>
     </div>
        
     </div>
@@ -85,7 +87,7 @@ const BurgerNav = styled.div`
     display: flex;
     flex-direction: column;
     text-align: start;
-    transform: ${props => props.show ? 'translateX(0)' : 'translateX(100%)'};
+    transform: ${props => props.show ? 'translateX(0%)' : 'translateX(100%)'};
     transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
         
         a{
@@ -115,11 +117,13 @@ const Head = styled.div`
         color: green;  
         font-weight: bold;
         font-size: 15px;
-        margin-left: -15px;
+        /* margin: 0 20px; */
+        /* margin-left: -15px; */
+        /* margin-right: 10px; */
     }
     img{
         width: 25px;
-        margin-right: 0;
+        margin-right: -10px;
     }
 `
 
