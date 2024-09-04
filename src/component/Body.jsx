@@ -13,6 +13,7 @@ const Body = () => {
     search:''
   })
   const [states, setStates]= useState([])
+  const [searchResult, setSearchResult] = ([])
 
   const handleChange=(e)=>{
     setValue({...value, [e.target.name]: e.target.value})
@@ -24,7 +25,10 @@ const Body = () => {
     console.log(value)
     fetch('https://91da-102-89-76-117.ngrok-free.app/api/find-business/?search=Marny Cooper', value)
     .then((response)=>{
-      console.log(response)
+      setSearchResult(response)
+    })
+    .then((error)=>{
+      setSearchResult(error)
     })
   }
   useEffect(()=>{
@@ -63,7 +67,9 @@ const Body = () => {
         <div className='back-img'>
           <img src='images/arow.png' onClick={()=> setBtn(false)}/>
         </div>
-        <h1>Here is your search result:</h1>
+        {searchResult.map((result)=>(
+          <h1>Here is your search result:</h1>
+        ))}
       </div>:null
       }
     <Footer/>

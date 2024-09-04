@@ -18,7 +18,7 @@ const SignUp = () => {
     fullname: yup.string().required('Name is required'),
     email: yup.string().email('Email is not valid').required('Email is required'),
     password1: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
-    password2: yup.string().required().oneOf([yup.ref('password1')], 'Password must match')
+    password2: yup.string().required('Required').oneOf([yup.ref('password1')], 'Password must match')
   })
 
   const {register, handleSubmit, formState: {errors}} = useForm({
@@ -39,9 +39,9 @@ const SignUp = () => {
     setNavigate(true)
   }
 
-  // if (navigate){
-  //   return <Navigate to='/SignIn'/>
-  // }
+  if (navigate){
+    return <Navigate to='/SignIn'/>
+  }
 
   const handleClick = ()=>{
     setShowMail(!showMail)

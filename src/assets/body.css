@@ -52,16 +52,15 @@
     border-radius: 3px;
     width: 15%;
 
-    @media (max-width:768px){
-        margin: 10px 45px;
-        width: 76%;
+    @media (max-width: 1024px){
+        margin: 10px 50px;
+        width: 0;
     }
 
-    @media (min-width: 768px) and (max-width:1024px){
-        width: 79%;
-        margin: 10px 95px;
+    @media(max-width: 768px){
+        width: 0;
+        margin: 10px 50px;
     }
-    
 }
 .inputs{
     display: flex;
@@ -70,11 +69,7 @@
     margin-top: 30px;
     justify-content: center;
 
-    @media(max-width: 768px){
-        flex-direction: column;
-        gap: 5px;
-    }
-    @media (min-width: 768px) and (max-width: 1024px){
+    @media(max-width: 1024px){
         flex-direction: column;
         gap: 5px;
     }
@@ -84,17 +79,14 @@
     font-size: 18px;
     padding: 12px;
     border-radius: 3px;
-    /* width: 15%; */
 
     /*mobile*/
-    @media (max-width: 768px){
-        width: 69%;
-        margin: 10px 45px;
+    @media (max-width: 1024px){
+        margin: 0 50px;
     }
-
-    @media (min-width: 768px) and (max-width:1024px){
-        width: 76.5%;
-        margin: 10px 96px;
+    @media(max-width: 768px){
+        padding: 12px 10px;
+        margin: 10px 50px;
     }
 }
 .inputs button{
@@ -108,31 +100,28 @@
     margin-left: 20px;
     cursor: pointer;
 
-    
-    @media (max-width: 768px){
-        width: 50%;
-        padding: 13px 0px;
-        margin: 0 95px;
-        margin-bottom: 70px;
+    @media(max-width: 1024px){
+        width: 0;
+        padding: 10px 50px;
+        display: flex;
+        justify-content: center;
+        margin: auto;
     }
 
-    @media (min-width: 768px) and (max-width: 1024px){
-        margin: 0 200px;
-        width: 50%;
-    }
 }
 
 .search-result{
     min-height: 100vh;
     margin-top: 150px;
+    padding: 0 20px;
 }
 .back-img img{
     cursor: pointer;
 }
 .loader {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 280px;
 }
 .loader img{
-    width: 50%;
+    width: 100px;
 }

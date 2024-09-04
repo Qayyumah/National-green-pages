@@ -85,7 +85,7 @@
     flex-direction: column;
     border-radius: 5px;
     margin: 10px 0;
-    padding: 10px 10px;
+    padding: 10px 15px;
     background-color: #c2c6bcb7;
 
     @media (max-width: 500px){
@@ -100,7 +100,7 @@
     }
 }
 .inputs-signin input{
-    width: 199px;
+    /* width: 199px; */
     height: 39px;
     margin-top: 16px;
     padding-left: 50px;
@@ -111,16 +111,23 @@
     color: #BCBCBC;
 
     @media (max-width: 500px){
-        width: 215px;
-       
+        /* width: 215px; */
+        padding-left: 60px;
+        margin: 0 5px;
+        margin-top: 16px;
     }
 
     @media (max-width: 376px){
-        width: 220px;
+        /* width: 220px; */
+        padding-left: 65px;
+        margin: 0 2px;
+        margin-top: 16px;
     }
     @media (max-width: 325px){
-        width: 215px;
-
+        /* width: 215px; */
+        padding-left: 65px;
+        margin: 0 2px;
+        margin-top: 16px;
     }
 }
 .input-img-sign-in{
@@ -131,18 +138,6 @@
 .input-img-sign-in img{
     margin-left: -240px;
     margin-bottom: -17px;
-
-    @media (max-width: 500px){
-        
-        margin-left: -260px;
-    }
-    @media (max-width:376px){
-        margin-left: -260px;
-    }
-
-    @media (max-width: 331px){
-        margin-left: -260px;
-    }
 }
 .inputs-signin button{
     width: 250px;
@@ -154,11 +149,7 @@
     background-color: #010101;
     color: #FFFFFF;
 
-    @media (max-width: 377px){
-        width: 90px;
-    }
-
-    @media (max-width: 335px){
+    @media (max-width: 500px){
         width: 100%;
     }
 }
