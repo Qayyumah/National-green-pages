@@ -7,34 +7,41 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 const SignUp = () => {
-  const [showMail, setShowMail] = useState(false)
-
+  const [showMail, setShowMail] = useState(false);
+  const [navigate, setNavigate] = useState(false)
 
   const schema = yup.object().shape({
     fullname: yup.string().required('Name is required'),
     email: yup.string().email('Email is not valid').required('Email is required'),
-    password: yup.string().required('Password is required')
+    password1: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
+    password2: yup.string().required().oneOf([yup.ref('password1')], 'Password must match')
   })
 
   const {register, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema)
   })
 
-  const signSubmit = async(data) => {
-    try{
-      const response = await fetch('https://d892-102-89-84-117.ngrok-free.app/api/login/', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-          })
-          const res = await response.json()
-          console.log(res)
-     }catch(error){
+
+  const signSubmit = (data)=>{
+    console.log(data)
+    axios.post(
+      'https://91da-102-89-76-117.ngrok-free.app/api/register/', data,
+    ).then((response)=>{
+      console.log(response)
+    }).then((error)=>{
       console.log(error)
-     }
+    })
+
+    setNavigate(true)
   }
+
+  // if (navigate){
+  //   return <Navigate to='/SignIn'/>
+  // }
 
   const handleClick = ()=>{
     setShowMail(!showMail)
@@ -80,11 +87,22 @@ const SignUp = () => {
                   placeholder='Password' 
                   name='password' 
                   type='password' 
-                  {...register("password")}
+                  {...register("password1")}
                 />
                 <img src='/images/carbon_password.png'/>
               </div>
-              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
+              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password1?.message}</p>
+
+              <div className='input-img-sign-in'>
+                <input 
+                  placeholder='Confirm Password' 
+                  name='password' 
+                  type='password' 
+                  {...register("password2")}
+                />
+                <img src='/images/carbon_password.png'/>
+              </div>
+              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password2?.message}</p>
 
               <button type='submit'>submit</button>
             </form>

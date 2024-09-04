@@ -1,16 +1,18 @@
 import React from 'react'
 import '../assets/signIn.css'
+import axios from 'axios'
 import { useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
-
+  const [navigate, setNavigate] = useState(false)
+  const[result, setResult]= useState('')
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -21,18 +23,21 @@ const SignIn = () => {
     resolver: yupResolver(schema)
   })
 
-  const signSubmit = async(data) => {
-    try{
-      const response = await fetch('https://d892-102-89-84-117.ngrok-free.app/api/login/', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-          })
-          const res = await response.json()
-          console.log(res)
-     }catch(error){
-      console.log(error)
-     }
+  const signSubmit = async e => {
+    // console.log(data)
+    const {data} = await axios.post('https://91da-102-89-76-117.ngrok-free.app/api/login/')
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`
+    // .then((response)=>{
+    //   console.log(response)
+    // })
+    // .catch((error)=>{
+    //   console.log(error.response.data)
+    // })
+    setNavigate(true)
+  }
+
+  if (navigate){
+    return <Navigate to='/post'/>
   }
 
   const handleClick = ()=>{
@@ -43,7 +48,6 @@ const SignIn = () => {
     <div>
     <Header/>
     <div className='sign'>
-     
       <div className='section-con'>
       <h1>SignIn</h1>
         <div className='sign-in'>
@@ -73,6 +77,7 @@ const SignIn = () => {
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
               <button type='submit'>submit</button>
+              {result}
             </form>
             )}
           </div>

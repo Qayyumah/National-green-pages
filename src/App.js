@@ -1,5 +1,7 @@
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { useEffect } from 'react';
+import { useState } from 'react';
 import About from './component/About';
 import Body from './component/Body';
 import SignIn from './component/SignIn';
@@ -10,24 +12,39 @@ import Advert from './component/Advert';
 import Listing from './component/Listing';
 import PrivateRoute from './component/PrivateRoute';
 import SignUp from './component/SignUp';
+import Loader from './component/Loader';
 
 
 
 function App() {
+  const [loading, setLoading] = useState(false)
+
+  //loader functionality
+
+  useEffect (()=>{
+    setLoading(true)
+    setTimeout(()=>{
+      setLoading(false)
+    }, 1000)
+  }, [])
+
   return (
     <Router>
     <div className="App">
+    {
+      loading?<Loader/>:
       <Routes>
         <Route exact path='/' element={<Body/>}/>
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/signin' element={<SignIn/>}/>
         <Route exact path='/signup' element={<SignUp/>}/>
-        <Route exact path='/post' element={<PostBusiness/>}/>
+        <Route exact path='/post' element={<PrivateRoute component={<PostBusiness/>}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<Dashboard/>}/>
         <Route exact path='/advert-rates' element={<Advert/>}/>
         <Route exact path='/listing' element={<Listing/>}/>
       </Routes>
+    }
    </div>
     </Router>
    

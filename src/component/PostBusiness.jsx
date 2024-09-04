@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import axios from 'axios'
 import '../assets/post.css'
 import { useState } from 'react'
 import Header from './Header'
@@ -11,8 +12,6 @@ import {yupResolver} from '@hookform/resolvers/yup'
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png')
     const [productImage, setProductImage] = useState('images/upload.png')
-    const [result, setResult]= useState()
-    const [resultState, setResultState]=useState(false)
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -25,6 +24,8 @@ const PostBusiness = () => {
         categoryofbusiness: yup.string().required('Input a Business Category'),
         website: yup.string().required('Website is required'),
         staffstrength: yup.string().required('Required!'),
+        ceoImg: yup.string(),
+        logo: yup.string(),
         address: yup.string().required('Required!'),
     })
 
@@ -32,21 +33,22 @@ const PostBusiness = () => {
         resolver: yupResolver(schema)
     })
 
-    const SubmitForm = async(data)=>{
-        console.log(data)
-       try{
-        const response = await fetch('https://d892-102-89-84-117.ngrok-free.app/api/add-business/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json' , "Authorization": `Bearer ${localStorage.getItem("")}`},
-            body: JSON.stringify(data)
-            })
-            const res = await response.json()
-            setResult('Request sent succesfully')
-       }catch(error){
-        setResult('unable to send your request')
-       }
-      
+    const SubmitForm = (data)=>{
+        axios.post('').then(response=>{
+            console.log(response.data)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     }
+
+    useEffect(()=>{
+        (
+            async ()=> {
+                const response = await axios.get('')
+            
+            })()
+    }, [])
 
     const handleImage = (e)=>{
         setImage(URL.createObjectURL(e.target.files[0]))
@@ -124,7 +126,7 @@ const PostBusiness = () => {
                         onChange={handleImage}
                     />
                     <img src={image} for='imgs'  />
-                    <label htmlFor='imgs'>Upload a photo</label>
+                    <label htmlFor='imgs' {...register("ceoImg")}>Upload a photo</label>
                 </div>
 
                 <label for='name'>Product/Signboard's photo</label>
@@ -136,7 +138,7 @@ const PostBusiness = () => {
                         onChange={handleProduct}
                     />
                     <img src={productImage} for='imgs' />
-                    <label htmlFor='productImg'>Upload a photo</label>
+                    <label htmlFor='productImg' {...register("logo")}>Upload a photo</label>
                 </div>
 
                 <label>Address</label>
@@ -146,7 +148,6 @@ const PostBusiness = () => {
 
                 <button type='submit'>Submit</button>
             </form>
-             {result}
         </div>
 
         <Footer/>
