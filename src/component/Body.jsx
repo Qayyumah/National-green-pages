@@ -13,7 +13,7 @@ const Body = () => {
     search:''
   })
   const [states, setStates]= useState([])
-  const [searchResult, setSearchResult] = ([])
+  const [searchResults, setSearchResults] = useState([])
 
   const handleChange=(e)=>{
     setValue({...value, [e.target.name]: e.target.value})
@@ -23,12 +23,20 @@ const Body = () => {
     e.preventDefault()
     setBtn(true)
     console.log(value)
-    fetch('https://91da-102-89-76-117.ngrok-free.app/api/find-business/?search=Marny Cooper', value)
-    .then((response)=>{
-      setSearchResult(response)
+    console.log(window.location.hostname, window.location.protocol)
+
+    const link = window.location.protocol + '//'+ window.location.hostname
+    console.log(link)
+    axios.get(`${link}/api/find-business/?search=`, value, {
+      headers:{
+        'Content-Type':'application/json'
+      }
     })
-    .then((error)=>{
-      setSearchResult(error)
+    .then((response)=>{
+      setSearchResults(response.data)
+    })
+    .catch((error)=>{
+      console.log(error)
     })
   }
   useEffect(()=>{
@@ -67,9 +75,13 @@ const Body = () => {
         <div className='back-img'>
           <img src='images/arow.png' onClick={()=> setBtn(false)}/>
         </div>
-        {searchResult.map((result)=>(
-          <h1>Here is your search result:</h1>
-        ))}
+        {
+          searchResults.map((searchResult)=>{
+            return <div>
+              <h3>Company Name: {searchResult.companyname}</h3>
+            </div>
+          })
+        }
       </div>:null
       }
     <Footer/>

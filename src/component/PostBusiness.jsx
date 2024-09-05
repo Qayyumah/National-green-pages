@@ -34,21 +34,26 @@ const PostBusiness = () => {
     })
 
     const SubmitForm = (data)=>{
-        axios.post('').then(response=>{
+        // console.log()
+        axios.post('https://c9f4-102-89-84-164.ngrok-free.app/api/add-business/', data, {
+            headers:{
+                Authorization: `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response=>{
             console.log(response.data)
         })
         .catch(error =>{
             console.log(error)
         })
     }
-
-    useEffect(()=>{
-        (
-            async ()=> {
-                const response = await axios.get('')
+    // useEffect(()=>{
+    //     (
+    //         async ()=> {
+    //             const response = await axios.get('')
             
-            })()
-    }, [])
+    //         })()
+    // }, [])
 
     const handleImage = (e)=>{
         setImage(URL.createObjectURL(e.target.files[0]))

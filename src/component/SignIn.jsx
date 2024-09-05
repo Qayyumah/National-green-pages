@@ -23,16 +23,22 @@ const SignIn = () => {
     resolver: yupResolver(schema)
   })
 
-  const signSubmit = async e => {
-    // console.log(data)
-    const {data} = await axios.post('https://91da-102-89-76-117.ngrok-free.app/api/login/')
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`
-    // .then((response)=>{
-    //   console.log(response)
-    // })
-    // .catch((error)=>{
-    //   console.log(error.response.data)
-    // })
+  const signSubmit = (data) => {
+    console.log(data)
+    
+    axios.post('https://c9f4-102-89-84-164.ngrok-free.app/api/login/', data)
+    
+    .then((response)=>{
+      console.log(response.data)
+      localStorage.setItem('token', response.data['key'])
+      console.log('first')
+
+      // axios.defaults.headers.common['Authorization'] = `Token ${res`
+
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
     setNavigate(true)
   }
 

@@ -50,16 +50,17 @@
     padding: 12px;
     font-size: 18px;
     border-radius: 3px;
-    width: 15%;
+    /* width: 15%; */
 
     @media (max-width: 1024px){
         margin: 10px 50px;
-        width: 0;
+        /* width: 0; */
     }
 
     @media(max-width: 768px){
-        width: 0;
-        margin: 10px 50px;
+        /* width: none; */
+        padding: 12px 10px;
+        /* margin: 10px 50px; */
     }
 }
 .inputs{
@@ -113,7 +114,7 @@
 .search-result{
     min-height: 100vh;
     margin-top: 150px;
-    padding: 0 20px;
+    /* padding: 0 120px; */
 }
 .back-img img{
     cursor: pointer;
