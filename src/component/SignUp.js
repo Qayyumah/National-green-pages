@@ -29,7 +29,7 @@ const SignUp = () => {
   const signSubmit = (data)=>{
     console.log(data)
     axios.post(
-      `${process.env.REACT_API_URL}/api/register/`, data,
+      `${process.env.REACT_APP_API_URL}/api/register/`, data,
     ).then((response)=>{
       console.log(response.data)
     }).then((error)=>{

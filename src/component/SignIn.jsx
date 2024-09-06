@@ -26,7 +26,7 @@ const SignIn = () => {
   const signSubmit = (data) => {
     console.log(data)
     
-    axios.post(`${process.env.REACT_API_URL}/api/login/`, data)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
     
     .then((response)=>{
       console.log(response.data)

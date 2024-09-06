@@ -22,7 +22,8 @@ const Body = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
     setBtn(true)
-    axios.get(`${process.env.REACT_API_URL}/api/find-business/?search=`, value, {
+    console.log(`${process.env.REACT_APP_API_URL}/api/find-business/?search=`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/find-business/?search=`, value, {
       headers:{
         'Content-Type':'application/json'
       }
