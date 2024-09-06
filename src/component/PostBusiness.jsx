@@ -9,6 +9,7 @@ import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 
 
+
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png')
     const [productImage, setProductImage] = useState('images/upload.png')

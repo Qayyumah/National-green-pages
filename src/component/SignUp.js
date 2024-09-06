@@ -30,6 +30,7 @@ const SignUp = () => {
     console.log(data)
     axios.post(
       `${process.env.REACT_APP_API_URL}/api/register/`, data,
+      {withCredentials: true}
     ).then((response)=>{
       console.log(response.data)
     }).then((error)=>{

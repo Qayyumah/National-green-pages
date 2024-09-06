@@ -7,7 +7,8 @@ import Footer from './Footer'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import { Link, Navigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
@@ -26,24 +27,20 @@ const SignIn = () => {
   const signSubmit = (data) => {
     console.log(data)
     
-    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data, {withCredentials: true})
     
     .then((response)=>{
       console.log(response.data)
       localStorage.setItem('token', response.data['key'])
-      console.log('first')
-
-      // axios.defaults.headers.common['Authorization'] = `Token ${res`
-
-    })
-    .catch((error)=>{
+    }).then((error)=>{
       console.log(error)
     })
+
     setNavigate(true)
   }
 
   if (navigate){
-    return <Navigate to='/post'/>
+    return <Navigate to='/PostBusiness'/>
   }
 
   const handleClick = ()=>{
