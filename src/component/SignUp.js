@@ -29,7 +29,7 @@ const SignUp = () => {
   const signSubmit = (data)=>{
     console.log(data)
     axios.post(
-      'https://c9f4-102-89-84-164.ngrok-free.app/api/register/', data,
+      `${process.env.REACT_API_URL}/api/register/`, data,
     ).then((response)=>{
       console.log(response.data)
     }).then((error)=>{

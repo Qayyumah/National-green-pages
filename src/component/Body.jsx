@@ -22,12 +22,7 @@ const Body = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
     setBtn(true)
-    console.log(value)
-    console.log(window.location.hostname, window.location.protocol)
-
-    const link = window.location.protocol + '//'+ window.location.hostname
-    console.log(link)
-    axios.get(`${link}/api/find-business/?search=`, value, {
+    axios.get(`${process.env.REACT_API_URL}/api/find-business/?search=`, value, {
       headers:{
         'Content-Type':'application/json'
       }

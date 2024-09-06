@@ -26,7 +26,7 @@ const SignIn = () => {
   const signSubmit = (data) => {
     console.log(data)
     
-    axios.post('https://c9f4-102-89-84-164.ngrok-free.app/api/login/', data)
+    axios.post(`${process.env.REACT_API_URL}/api/login/`, data)
     
     .then((response)=>{
       console.log(response.data)

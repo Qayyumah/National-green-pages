@@ -35,7 +35,7 @@ const PostBusiness = () => {
 
     const SubmitForm = (data)=>{
         // console.log()
-        axios.post('https://c9f4-102-89-84-164.ngrok-free.app/api/add-business/', data, {
+        axios.post(`${process.env.REACT_API_URL}/api/add-business/`, data, {
             headers:{
                 Authorization: `Token ${localStorage.getItem('token')}`
             }
@@ -47,13 +47,6 @@ const PostBusiness = () => {
             console.log(error)
         })
     }
-    // useEffect(()=>{
-    //     (
-    //         async ()=> {
-    //             const response = await axios.get('')
-            
-    //         })()
-    // }, [])
 
     const handleImage = (e)=>{
         setImage(URL.createObjectURL(e.target.files[0]))
@@ -129,9 +122,10 @@ const PostBusiness = () => {
                         id='imgs' 
                         style={{display:'none'}} 
                         onChange={handleImage}
+                        {...register("ceoImg")}
                     />
                     <img src={image} for='imgs'  />
-                    <label htmlFor='imgs' {...register("ceoImg")}>Upload a photo</label>
+                    <label htmlFor='imgs'>Upload a photo</label>
                 </div>
 
                 <label for='name'>Product/Signboard's photo</label>
@@ -141,9 +135,10 @@ const PostBusiness = () => {
                         id='productImg' 
                         style={{display:'none'}} 
                         onChange={handleProduct}
+                        {...register("logo")}
                     />
                     <img src={productImage} for='imgs' />
-                    <label htmlFor='productImg' {...register("logo")}>Upload a photo</label>
+                    <label htmlFor='productImg'>Upload a photo</label>
                 </div>
 
                 <label>Address</label>
