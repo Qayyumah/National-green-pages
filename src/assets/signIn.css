@@ -23,7 +23,7 @@
     justify-content: center;
 
     @media (max-width: 500px){
-        width: 300px;
+        width: 250px;
     }
 
     @media (max-width: 377px){
@@ -92,12 +92,12 @@
         padding: 25px 5px;
     }
 
-    @media (max-width: 376px){
+    /* @media (max-width: 376px){
         padding: 25px 5px;
-    }
-    @media (max-width: 335px){
+    } */
+    /* @media (max-width: 335px){
         padding: 25px 5px;
-    }
+    } */
 }
 .inputs-signin input{
     /* width: 199px; */
@@ -110,6 +110,13 @@
     border: 1px solid #D0D0D0;
     color: #BCBCBC;
 
+    @media (max-width: 800px){
+        /* width: 215px; */
+        padding-left: 50px;
+        margin: 0 5px;
+        margin-top: 16px;
+    }
+
     @media (max-width: 500px){
         /* width: 215px; */
         padding-left: 60px;
@@ -119,15 +126,15 @@
 
     @media (max-width: 376px){
         /* width: 220px; */
-        padding-left: 65px;
+        /* padding-left: 65px;
         margin: 0 2px;
-        margin-top: 16px;
+        margin-top: 16px; */
     }
     @media (max-width: 325px){
         /* width: 215px; */
-        padding-left: 65px;
+        /* padding-left: 65px;
         margin: 0 2px;
-        margin-top: 16px;
+        margin-top: 16px; */
     }
 }
 .input-img-sign-in{
@@ -136,7 +143,7 @@
     align-items: center;
 }
 .input-img-sign-in img{
-    margin-left: -240px;
+    margin-left: -230px;
     margin-bottom: -17px;
 }
 .inputs-signin button{

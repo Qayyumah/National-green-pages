@@ -122,10 +122,10 @@ const PostBusiness = () => {
                         id='imgs' 
                         style={{display:'none'}} 
                         onChange={handleImage}
-                        {...register("ceoImg")}
+                        
                     />
                     <img src={image} for='imgs'  />
-                    <label htmlFor='imgs'>Upload a photo</label>
+                    <label htmlFor='imgs' {...register("ceoImg")}>Upload a photo</label>
                 </div>
 
                 <label for='name'>Product/Signboard's photo</label>
@@ -135,10 +135,10 @@ const PostBusiness = () => {
                         id='productImg' 
                         style={{display:'none'}} 
                         onChange={handleProduct}
-                        {...register("logo")}
+                        
                     />
                     <img src={productImage} for='imgs' />
-                    <label htmlFor='productImg'>Upload a photo</label>
+                    <label htmlFor='productImg' {...register("logo")}>Upload a photo</label>
                 </div>
 
                 <label>Address</label>
