@@ -35,8 +35,7 @@ const PostBusiness = () => {
     })
 
     const SubmitForm = (data)=>{
-        // console.log()
-        axios.post(`${process.env.REACT_API_URL}/api/add-business/`, data, {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`, data, {
             headers:{
                 Authorization: `Token ${localStorage.getItem('token')}`
             }

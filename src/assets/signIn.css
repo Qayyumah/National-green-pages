@@ -184,3 +184,7 @@
         font-size: 15px;
     }
 }
+.result{
+    min-height: 100vh;
+    color: #000;
+}

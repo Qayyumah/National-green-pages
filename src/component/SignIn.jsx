@@ -14,6 +14,7 @@ const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
   const [navigate, setNavigate] = useState(false)
   const[result, setResult]= useState('')
+  const [btn, setBtn] = useState(false)
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -27,7 +28,7 @@ const SignIn = () => {
   const signSubmit = (data) => {
     console.log(data)
     
-    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data, {withCredentials: true})
+    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
     
     .then((response)=>{
       console.log(response.data)
@@ -38,9 +39,8 @@ const SignIn = () => {
 
     setNavigate(true)
   }
-
-  if (navigate){
-    return <Navigate to='/PostBusiness'/>
+  if(navigate){
+    <Navigate to='/post'/>
   }
 
   const handleClick = ()=>{
@@ -80,7 +80,6 @@ const SignIn = () => {
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
               <button type='submit'>submit</button>
-              {result}
             </form>
             )}
           </div>
@@ -89,11 +88,19 @@ const SignIn = () => {
           <button><img src='/images/dashicons_facebook-alt.png'/>Sign in with Facebook</button>
 
           <div className='alreadylogged'>
-          <p>Don't have an account?<Link to='/signup'>Sign Up</Link></p>
-    </div>
+            <p>Don't have an account?<Link to='/signup'>Sign Up</Link></p>
+          </div>
         </div>
       </div>
     </div>
+
+    {
+        btn ? 
+        <div>
+          {result}
+          <Link to='/'>OK</Link>
+        </div>: null
+      }
     <Footer/>
     </div>
   )

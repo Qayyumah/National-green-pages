@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import '../assets/body.css'
 import Header from './Header'
 import Footer from './Footer'
@@ -15,6 +15,8 @@ const Body = () => {
   const [states, setStates]= useState([])
   const [searchResults, setSearchResults] = useState([])
 
+  const myref = useRef()
+
   const handleChange=(e)=>{
     setValue({...value, [e.target.name]: e.target.value})
   }
@@ -22,8 +24,10 @@ const Body = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
     setBtn(true)
-    console.log(`${process.env.REACT_APP_API_URL}/api/find-business/?search=`)
-    axios.get(`${process.env.REACT_APP_API_URL}/api/find-business/?search=`, value, {
+
+    console.log(myref)
+    // console.log(`${process.env.REACT_APP_API_URL}/api/find-business/?search=`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/find-business/?search=${myref.current.value}`, value, {
       headers:{
         'Content-Type':'application/json'
       }
@@ -32,7 +36,7 @@ const Body = () => {
       setSearchResults(response.data)
     })
     .catch((error)=>{
-      console.log(error.data)
+      setSearchResults(error.data)
     })
   }
   useEffect(()=>{
@@ -52,7 +56,7 @@ const Body = () => {
             <p>Find Great Businesses close to you.</p>
         </div>
         <form className='inputs' onSubmit={handleSubmit}>
-            <input placeholder='What are you looking for?' name='searchBusiness' onChange={handleChange}/>
+            <input placeholder='What are you looking for?' name='searchBusiness' ref={myref} onChange={handleChange}/>
             <select onChange={handleChange} name='select' value={value.select} >
               <option value="" >All Region</option>
               {states.map((state)=>(
@@ -75,6 +79,7 @@ const Body = () => {
           searchResults.map((searchResult)=>{
             return <div>
               <h3>Company Name: {searchResult.companyname}</h3>
+              <h3>Address: {searchResult.address}</h3>
             </div>
           })
         }

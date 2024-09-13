@@ -13,6 +13,8 @@ import { Navigate } from 'react-router-dom'
 const SignUp = () => {
   const [showMail, setShowMail] = useState(false);
   const [navigate, setNavigate] = useState(false)
+  const [result, setResult] = useState('')
+  const [btn, setBtn] = useState(false)
 
   const schema = yup.object().shape({
     fullname: yup.string().required('Name is required'),
@@ -25,32 +27,27 @@ const SignUp = () => {
     resolver: yupResolver(schema)
   })
 
-  const getCookie = (key)=>{
-    let b = document.cookie.match("(^|;)\\s*" + key + "\\s*([^;]+)");
-    return b ? b.pop() : ""
-  }
+  // const getCookie = (key)=>{
+  //   let b = document.cookie.match("(^|;)\\s*" + key + "\\s*([^;]+)");
+  //   return b ? b.pop() : ""
+  // }
 
   const signSubmit = (data)=>{
     console.log(data)
     axios.post(
-      `${process.env.REACT_APP_API_URL}/api/register/`, data,
-      {
-        headers:{
-          'X-CSRFToken': getCookie('csrftoken')
-        }
-      }
-    ).then((response)=>{
+      `${process.env.REACT_APP_API_URL}/api/register/`, data)
+      .then((response)=>{
       console.log(response.data)
     }).then((error)=>{
-      console.log(error)
+      console.log('An error occured', error)
     })
 
-    setNavigate(true)
+    // setNavigate(true)
   }
 
-  if (navigate){
-    return <Navigate to='/SignIn'/>
-  }
+  // if (navigate){
+  //   return <Navigate to='/SignIn'/>
+  // }
 
   const handleClick = ()=>{
     setShowMail(!showMail)
@@ -60,9 +57,8 @@ const SignUp = () => {
     <div>
     <Header/>
     <div className='sign'>
-     
       <div className='section-con'>
-      <h1>SignUp</h1>
+        <h1>SignUp</h1>
         <div className='sign-in'>
           <div className='gmail'>
             <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign up with Email{showMail? '':''}</button>
@@ -83,10 +79,10 @@ const SignUp = () => {
               <div className='input-img-sign-in'>
                 <input 
                   placeholder='Email'
-                   name='email' 
-                   type='email'  
-                   {...register("email")}
-                   />
+                  name='email' 
+                  type='email'  
+                  {...register("email")}
+                  />
                 <img src='/images/mdi_email-edit-outline.png'/>
               </div>
               <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.email?.message}</p>
@@ -127,6 +123,16 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+  
+    {
+      btn ?
+      <div className='result'>
+      {result}
+        <Link to='/'>ok</Link>
+      </div>
+      :null
+    }
+
     <Footer/>
     </div>
   )

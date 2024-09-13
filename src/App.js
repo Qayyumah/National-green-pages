@@ -16,6 +16,7 @@ import Loader from './component/Loader';
 
 
 
+
 function App() {
   const [loading, setLoading] = useState(false)
 
@@ -38,7 +39,7 @@ function App() {
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/signin' element={<SignIn/>}/>
         <Route exact path='/signup' element={<SignUp/>}/>
-        <Route exact path='/post' element={<PrivateRoute component={<PostBusiness/>}/>}/>
+        <Route exact path='/post' element={<PrivateRoute element={<PostBusiness/>}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<Dashboard/>}/>
         <Route exact path='/advert-rates' element={<Advert/>}/>
