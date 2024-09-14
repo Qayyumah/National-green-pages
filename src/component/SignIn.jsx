@@ -13,8 +13,8 @@ import { Navigate } from 'react-router-dom'
 const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
   const [navigate, setNavigate] = useState(false)
-  const[result, setResult]= useState('')
-  const [btn, setBtn] = useState(false)
+  const [success, setSuccess] = useState('')
+  const [error, setError] = useState('')
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -31,16 +31,15 @@ const SignIn = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
     
     .then((response)=>{
-      console.log(response.data)
+      setSuccess('You have sucessfully log in')
       localStorage.setItem('token', response.data['key'])
+      setNavigate(true)
     }).then((error)=>{
-      console.log(error)
+      setError(error)
     })
-
-    setNavigate(true)
   }
   if(navigate){
-    <Navigate to='/post'/>
+    <Navigate to='/PostBusiness'/>
   }
 
   const handleClick = ()=>{
@@ -55,6 +54,13 @@ const SignIn = () => {
       <h1>SignIn</h1>
         <div className='sign-in'>
           <div className='gmail'>
+            {success && (
+              <div style={{color:'green', marginLeft:'20px'}}>{success}</div>
+            )}
+            {error && (
+              <div style={{color:'red', marginLeft:'20px'}}>{error}</div>
+            )}
+
             <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
 
             {showMail && (
@@ -93,14 +99,6 @@ const SignIn = () => {
         </div>
       </div>
     </div>
-
-    {
-        btn ? 
-        <div>
-          {result}
-          <Link to='/'>OK</Link>
-        </div>: null
-      }
     <Footer/>
     </div>
   )

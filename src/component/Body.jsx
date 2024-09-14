@@ -4,6 +4,7 @@ import Header from './Header'
 import Footer from './Footer'
 import axios from 'axios'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Body = () => {
   const [btn, setBtn]= useState(false)
@@ -77,9 +78,10 @@ const Body = () => {
         </div>
         {
           searchResults.map((searchResult)=>{
-            return <div>
-              <h3>Company Name: {searchResult.companyname}</h3>
-              <h3>Address: {searchResult.address}</h3>
+            return <div className='search'>
+              <h3 style={{fontSize:'28px', color:'rgb(28, 104, 60)'}}>Company Name: <span style={{fontSize:'24px',letterSpacing:'1px', fontWeight:'400', color:'black'}}>{searchResult.companyname}</span></h3>
+              <h3 style={{fontSize:'28px', color:'rgb(28, 104, 60)'}}>Address: <span style={{fontSize:'24px',letterSpacing:'1px', fontWeight:'400', color:'black'}}>{searchResult.address}</span></h3>
+              <p>To get in touch with us: <Link to='/contact'>Contact us</Link></p>
             </div>
           })
         }

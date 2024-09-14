@@ -13,6 +13,7 @@ import Listing from './component/Listing';
 import PrivateRoute from './component/PrivateRoute';
 import SignUp from './component/SignUp';
 import Loader from './component/Loader';
+import Successfull from './component/Successfull';
 
 
 
@@ -44,6 +45,7 @@ function App() {
         <Route exact path='/dashboard' element={<Dashboard/>}/>
         <Route exact path='/advert-rates' element={<Advert/>}/>
         <Route exact path='/listing' element={<Listing/>}/>
+        <Route exact path='/successfull' element={<Successfull/>}/>
       </Routes>
     }
    </div>
