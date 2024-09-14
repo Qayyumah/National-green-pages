@@ -76,6 +76,7 @@ const Body = () => {
         <div className='back-img'>
           <img src='images/arow.png' onClick={()=> setBtn(false)}/>
         </div>
+        <h2 style={{textAlign:'center', color:'green',fontSize:'27px', fontWeight:'400'}}>Here is your search result:</h2>
         {
           searchResults.map((searchResult)=>{
             return <div className='search'>
