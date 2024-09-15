@@ -55,10 +55,10 @@ const SignIn = () => {
         <div className='sign-in'>
           <div className='gmail'>
             {success && (
-              <div style={{color:'green', marginLeft:'20px'}}>{success}</div>
+              <div style={{color:'green', marginLeft:'20px', fontSize:'17px'}}>{success}</div>
             )}
             {error && (
-              <div style={{color:'red', marginLeft:'20px'}}>{error}</div>
+              <div style={{color:'red', marginLeft:'20px', fontSize:'17px'}}>{error}</div>
             )}
 
             <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
