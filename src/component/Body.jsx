@@ -59,7 +59,7 @@ const Body = () => {
         <form className='inputs' onSubmit={handleSubmit}>
             <input placeholder='What are you looking for?' name='searchBusiness' ref={myref} onChange={handleChange}/>
             <select onChange={handleChange} name='select' value={value.select} >
-              <option value="" >All Region</option>
+              <option value="" >All States</option>
               {states.map((state)=>(
                 <option value={state.name} >{state.name}</option>
               ))}
@@ -68,6 +68,9 @@ const Body = () => {
             <select onChange={handleChange}><option value="option2">All Categories</option></select>
             <button type='submit' name='search'>Search</button>
         </form>
+          <div className='side-img'>
+           <img src='images/niger.png'/>
+        </div>
       </div>
     }
       {

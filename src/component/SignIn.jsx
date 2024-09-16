@@ -15,7 +15,7 @@ const SignIn = () => {
   const [navigate, setNavigate] = useState(false)
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
-  const [isLoggedIn, setIsLoggedIn]= useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -39,9 +39,8 @@ const SignIn = () => {
       setError(error)
     })
   }
-  
   if(isLoggedIn){
-    return <Navigate to='/post' replace={true}/>
+    <Navigate to='/post' replace={true}/>
   }
 
   const handleClick = ()=>{
@@ -56,13 +55,12 @@ const SignIn = () => {
       <h1>SignIn</h1>
         <div className='sign-in'>
           <div className='gmail'>
-            {success && (
-              <div style={{color:'green', marginLeft:'20px', fontSize:'17px'}}>{success}</div>
-            )}
-            {error && (
-              <div style={{color:'red', marginLeft:'20px', fontSize:'17px'}}>{error}</div>
-            )}
-
+              {success && (
+                <div style={{color:'white', fontSize:'17px'}} className='s-e'>{success}</div>
+              )}
+              {error && (
+                <div style={{color:'white', fontSize:'17px'}} className='s-e'>{error}</div>
+              )}
             <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
 
             {showMail && (

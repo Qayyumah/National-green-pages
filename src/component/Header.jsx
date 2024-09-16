@@ -19,7 +19,7 @@ const Header = () => {
             <div className='header-link2'>
                 <Link to='/'>Home</Link>
                 <Link to='/about'>About</Link>
-                <Link to='/advert-rates'>Advert Rates</Link>
+                <Link to='/advert-rates'>Subscription Rates</Link>
                 <Link to='/dashboard'>Directory Dashboard</Link>
                 <Link to='/listing'>Listings</Link>
                 <Link to='/post'>Post a Business</Link>
@@ -42,7 +42,7 @@ const Header = () => {
             </Head>
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
-            <Link to='/advert-rates'><a href='#'>Advert Rates</a></Link>
+            <Link to='/advert-rates'><a href='#'>Subscription Rates</a></Link>
             <Link to='/dashboard'><a href='#'>Directory Dashboard</a></Link>
             <Link to='/listing'><a href='#'>Listings</a></Link>
             <Link to='/post'><a href='#'>Post a Business</a></Link>

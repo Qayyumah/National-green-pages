@@ -189,3 +189,11 @@
     color: #000;
     background-color: pink;
 }
+.s-e{
+    background-color: green;
+    padding: 15px 0;
+    border-radius: 10px;
+    text-align: center;
+
+    margin-bottom: 20px;
+}
