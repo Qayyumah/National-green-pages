@@ -7,12 +7,15 @@ import Footer from './Footer'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
+import { Navigate } from 'react-router-dom'
 
 
 
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png')
     const [productImage, setProductImage] = useState('images/upload.png')
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState('')
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -41,11 +44,15 @@ const PostBusiness = () => {
             }
         })
         .then(response=>{
-            console.log(response.data)
+            alert('Business created sucessfully')
+            setSuccess(true)
         })
         .catch(error =>{
-            console.log(error)
+            alert('Error creating a new business')
         })
+    }
+    if(success){
+       return <Navigate to='/' replace={true}/>
     }
 
     const handleImage = (e)=>{
@@ -56,6 +63,12 @@ const PostBusiness = () => {
     const handleProduct = (e)=>{
         setProductImage(URL.createObjectURL(e.target.files[0]))
     }
+    // {success && (
+    //     <div style={{color:'green', marginLeft:'20px', fontSize:'17px'}}>{success}</div>
+    //   )}
+    //   {error && (
+    //     <div style={{color:'red', marginLeft:'20px', fontSize:'17px'}}>{error}</div>
+    //   )}
     
   return (
     <div className='post'>

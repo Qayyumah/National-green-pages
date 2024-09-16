@@ -15,6 +15,7 @@ const SignIn = () => {
   const [navigate, setNavigate] = useState(false)
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
+  const [isLoggedIn, setIsLoggedIn]= useState(false)
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -33,13 +34,14 @@ const SignIn = () => {
     .then((response)=>{
       setSuccess('You have sucessfully log in')
       localStorage.setItem('token', response.data['key'])
-      setNavigate(true)
+      setIsLoggedIn(true)
     }).then((error)=>{
       setError(error)
     })
   }
-  if(navigate){
-    <Navigate to='/PostBusiness'/>
+  
+  if(isLoggedIn){
+    return <Navigate to='/post' replace={true}/>
   }
 
   const handleClick = ()=>{

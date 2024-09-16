@@ -13,8 +13,8 @@ import { Navigate } from 'react-router-dom'
 const SignUp = () => {
   const [showMail, setShowMail] = useState(false);
   const [navigate, setNavigate] = useState(false)
-  const [success, setSuccess] = useState('')
-  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
 
   const schema = yup.object().shape({
     fullname: yup.string().required('Name is required'),
@@ -33,20 +33,18 @@ const SignUp = () => {
   // }
 
   const signSubmit = (data)=>{
-    console.log(data)
     axios.post(
       `${process.env.REACT_APP_API_URL}/api/register/`, data)
       .then((response)=>{
-        setSuccess('Account created successfully')
-        setError('')
+        alert('Account created successfully')
+        setSuccess(true)
     }).catch((error)=>{
-      setError('Error creating account')
-      setSuccess('')
+        alert('Error creating account')
     })
   }
 
-  if (navigate){
-    return <Navigate to='/Successfull'/>
+  if(success){
+    return <Navigate to='/signin' replace={true}/>
   }
 
   const handleClick = ()=>{
@@ -61,14 +59,6 @@ const SignUp = () => {
         <h1>SignUp</h1>
         <div className='sign-in'>
           <div className='gmail'>
-
-          {success && (
-            <div style={{color:'green', marginLeft:'20px', fontSize:'17px'}}>{success}</div>
-          )}
-          {error && (
-            <div style={{color:'red', marginLeft:'20px', fontSize:'17px'}}>{error}</div>
-          )}
-          
             <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign up with Email{showMail? '':''}</button>
 
             {showMail && (
