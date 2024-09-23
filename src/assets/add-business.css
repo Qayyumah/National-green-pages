@@ -83,7 +83,8 @@
   @media (max-width: 480px) {
     .form-container {
       padding: 15px;
-      margin: 30px;
+      /* margin: 30px; */
+      width: 600px;
 
       h2 {
         font-size: 24px; /* Adjust header size for smaller screens */

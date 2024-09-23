@@ -324,8 +324,8 @@
     color: white;
     font-size: 20px;
     position: fixed;
-    left: 250px;
-    top: 85px;
+    left: 450px;
+    /* top: 85px; */
     right: 0;
     z-index: 1100;
   }
