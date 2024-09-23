@@ -13,7 +13,7 @@ const Header = () => {
     <div className='head'>
         <div className='header1'>
             <div className='logo'>
-                <Link to='/'><img src='/images/logo.jpg'/></Link>
+                <Link to='/'><img src='/images/header-logo.jpg'/></Link>
             </div>   
             
             <div className='header-link2'>
@@ -43,7 +43,7 @@ const Header = () => {
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
             <Link to='/advert-rates'><a href='#'>Subscription Rates</a></Link>
-            <Link to='/dashboard'><a href='#'>Directory Dashboard</a></Link>
+            <Link to='/dashboard'>Directory Dashboard</Link>
             <Link to='/listing'><a href='#'>Listings</a></Link>
             <Link to='/post'><a href='#'>Post a Business</a></Link>
             <Link to='/contact'><a href='#'>Contact Us</a></Link>
@@ -136,3 +136,52 @@ const CloseWrapper = styled.div`
      padding: 18px 25px;
     
 `
+
+
+// <div className='dash'>
+// <div className='dash-content'>
+//   <div className='side-dash'>
+//     <div className='top'>
+//         <h1>Nationalgreenpages</h1>
+//     </div>
+
+//     <div className='nav-items'>
+//       <div className='nav-list'>
+//         <h4>Dashboard</h4>
+//         <img src='/images/home.png'/>
+//       </div>
+//       <div className='nav-list'>
+//         <h4>Admin</h4>
+//         <img src='/images/admin.png'/>
+//       </div>
+//       <div className='nav-list'>
+//         <select>
+//           <option>Users</option>
+//           <option>Users</option>
+//           <option>Users</option>
+//         </select>
+//       </div>
+
+//       <div className='nav-list'>
+//         <select>
+//           <option>Businessess</option>
+//           <option>Add Business</option>
+//           <option>Users</option>
+//         </select>
+//       </div>
+//     </div>
+//   </div>
+
+//   <div className='right-dash'>
+//     <body className='dashbody'>
+//       <header className='dash-header'>
+//         <h2>WELCOME!</h2>
+//         <div className='dash-header-right'>
+//           <img src='/images/home.png'/>
+//           <Link>login</Link>
+//         </div>
+//       </header>
+//     </body>
+//   </div>
+// </div>
+// </div>

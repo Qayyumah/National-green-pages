@@ -11,13 +11,15 @@ const About = () => {
             <div className='about-content'>
                 <div className='sub-content'>
                     <h1>About Us</h1>
-                    <p>Greenpages Inc. is an organization whose focus is on Africa's growth and development.
+                    <p>Greenpages Dynamic World Ltd the publisher of National Greenpages
+                    Business Directory is an organization whose focus is on Africa's growth and development.
                     Its special interest is on how Africans both home and in Diaspora will build and develop thier continent.
                     This company was established to encourage foreign investors to invest in the continent of Africa. </p>
                     
-                    <p>Established in the late 90s, to the glory of God, and has spread across the world with its agents in various
-                    countries, these include Ghana, United Kingdom, United States of America. With trusted and experienced hands
-                    working hard globally, we believe with even you, Africa will be a more comfortable continent for all of us to live</p>
+                    <p>Established in the late 90s, the company has spread its tentacles across the world with its agents in various
+                    countries, these include Ghana, United Kingdom, United States of America. With trusted and experienced hands.
+                    With trusted and experienced hands working hard globally, we believe with even you,
+                    Africa will be a more comfortable continent for all of us to live in and thrive.</p>
                 </div>
                 <div className='v-m'>
                     <div className='vision'>

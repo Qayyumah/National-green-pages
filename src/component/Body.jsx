@@ -46,13 +46,15 @@ const Body = () => {
     .then((data)=> setStates(data))
 
   }, [])
+  
+
   return (
     <div>
     <Header/>
     {
       btn?null:
-      <div className='container'>
-        <div className='content'>
+      <div className='body-container'>
+        <div className='body-content'>
             <h1>NationalGreenPages</h1>
             <p>Find Great Businesses close to you.</p>
         </div>

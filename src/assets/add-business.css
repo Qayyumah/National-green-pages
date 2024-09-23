@@ -1,0 +1,99 @@
+.add-business-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-top: 100px;
+  }
+  
+  /* .admin-header, .admin-sidebar {
+    flex-shrink: 0;
+  } */
+  
+  .form-container {
+    flex: 1;
+    padding: 30px;
+    width:800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c7a2a;
+      }
+
+      button {
+        background-color: #2c7a2a;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+      
+      button:hover {
+        background-color: #359133;
+        transform: translateY(-1px);
+      }
+      
+      button:active {
+        transform: translateY(0);
+      }
+  }
+  
+  .business-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, select, button {
+    margin-bottom: 15px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  input:focus, select:focus {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px #2c7a2a;
+    outline: none;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .add-business-container {
+      flex-direction: column;
+      margin-top: 180px;
+    }
+  
+    .form-container {
+      padding: 20px;
+      /* margin: 20px; */
+    }
+  
+    input, select, button {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form-container {
+      padding: 15px;
+      margin: 30px;
+
+      h2 {
+        font-size: 24px; /* Adjust header size for smaller screens */
+      }
+    }
+  
+    
+  
+    input, select, button {
+      font-size: 12px;
+    }
+  }
+  

@@ -39,6 +39,7 @@ const SignUp = () => {
       .then((response)=>{
         setSuccess('Account created successfully')
         setError('')
+        setNavigate(true)
     }).catch((error)=>{
       setError('Error creating account')
       setSuccess('')

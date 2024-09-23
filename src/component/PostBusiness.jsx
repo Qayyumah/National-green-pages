@@ -57,7 +57,6 @@ const PostBusiness = () => {
 
     const handleImage = (e)=>{
         setImage(URL.createObjectURL(e.target.files[0]))
-        console.log(image)
     }
 
     const handleProduct = (e)=>{

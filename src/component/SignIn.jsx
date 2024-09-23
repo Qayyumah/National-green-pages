@@ -12,7 +12,6 @@ import { Navigate } from 'react-router-dom'
 
 const SignIn = () => {
   const [showMail, setShowMail] = useState(false)
-  const [navigate, setNavigate] = useState(false)
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -30,13 +29,14 @@ const SignIn = () => {
     console.log(data)
     
     axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
-    
     .then((response)=>{
-      setSuccess('You have sucessfully log in')
       localStorage.setItem('token', response.data['key'])
+      setSuccess('You have sucessfully log in')
+      setError('')
       setIsLoggedIn(true)
     }).then((error)=>{
-      setError(error)
+      setError('Unable to log in')
+      setSuccess('')
     })
   }
   if(isLoggedIn){

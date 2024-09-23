@@ -13,7 +13,12 @@ import Listing from './component/Listing';
 import PrivateRoute from './component/PrivateRoute';
 import SignUp from './component/SignUp';
 import Loader from './component/Loader';
-import Successfull from './component/Successfull';
+import AdminLogin from './component/AdminLogin';
+import Businesses from './component/AllBusinesses';
+import AddBusiness from './component/AddBusiness';
+import UserManagement from './component/UserManagement';
+import AdminLogOut from './component/AdminLogOut';
+import { DataProvider } from './context/DataContext';
 
 
 
@@ -31,6 +36,7 @@ function App() {
   }, [])
 
   return (
+    <DataProvider>
     <Router>
     <div className="App">
     {
@@ -40,17 +46,21 @@ function App() {
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/signin' element={<SignIn/>}/>
         <Route exact path='/signup' element={<SignUp/>}/>
+        <Route exact path='/admin' element={<AdminLogin/>}/>
         <Route exact path='/post' element={<PrivateRoute element={<PostBusiness/>}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<Dashboard/>}/>
         <Route exact path='/advert-rates' element={<Advert/>}/>
         <Route exact path='/listing' element={<Listing/>}/>
-        <Route exact path='/successfull' element={<Successfull/>}/>
+        <Route exact path='/business' element={<Businesses/>}/>
+        <Route exact path='/users' element={<UserManagement/>}/>
+        <Route exact path='/logout' element={<AdminLogOut/>}/>
+        <Route exact path='/add' element={<AddBusiness/>}/>
       </Routes>
     }
    </div>
     </Router>
-   
+   </DataProvider>
   );
 }
 

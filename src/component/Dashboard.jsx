@@ -1,18 +1,19 @@
-import React from 'react'
-import '../assets/dashboard.css'
-import Header from './Header'
-import Footer from './Footer'
+import React from 'react';
+import AdminHeader from './AdminHeader';
+import AdminSidebar from './AdminSidebar';
+import DashboardCards from './DashboardCards'
 
 const Dashboard = () => {
   return (
     <div>
-    <Header/>
-        <div className='dash'>
-            
-        </div>
-        <Footer/>
+    <AdminHeader/>
+    <AdminSidebar/>
+      <div className='dashboard-container'>
+        <h1>Welcome to the admin dashboard!</h1>
+      </div>
+    <DashboardCards/>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
