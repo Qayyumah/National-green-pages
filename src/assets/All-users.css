@@ -1,0 +1,135 @@
+  .all-users, .add-user {
+    padding: 20px;
+    margin: 0 auto;
+    margin-left: 330px;
+    margin-right: 30px;
+    margin-top: 150px;
+    /* max-width: 800px; */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      th {
+        background-color: #28a745; /* Green */
+        color: white;
+        font-size: 1.1em;
+      }
+      
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      
+      input[type="text"], input[type="email"], input[type="password"], select {
+        width: 100%;
+        padding: 10px 5px;
+        margin: 5px 0 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+      }
+      
+      input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
+        border-color: #28a745; /* Green */
+        outline: none;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .add-user-button {
+        background-color: #28a745; /* Green */
+        color: white;
+        padding: 10px 15px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .remove-button{
+        background-color: red;
+        color: white;
+        padding: 10px 15px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+     .remove-button:hover {
+        background-color: red; 
+      }    
+  }
+
+  .add-user button{
+    cursor: pointer;
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    padding: 10px ;
+  }
+  
+  .all-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+        font-size: 2em;
+        color: #333;
+      }
+
+      a{
+        text-decoration-line: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .all-users, .add-user{
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-top: 180px;
+        h1 {
+            font-size: 1.5em;
+        }
+        
+            .add-user-button, .remove-button {
+            padding: 8px 12px;
+            font-size: 0.9em;
+        }
+    
+            th, td {
+            padding: 10px;
+        }
+        
+            input[type="text"], input[type="email"], input[type="password"], select {
+            font-size: 0.9em;
+        }
+    }
+    
+  }
+
+  @media (max-width: 480px){
+    .all-users, .add-user{
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 180px;
+    }
+  }
+  

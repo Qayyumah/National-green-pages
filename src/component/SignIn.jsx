@@ -1,107 +1,115 @@
-import React from 'react'
-import '../assets/signIn.css'
-import axios from 'axios'
-import { useState } from 'react'
-import Header from './Header'
-import Footer from './Footer'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import {yupResolver} from '@hookform/resolvers/yup'
-import { Link} from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import '../assets/signIn.css';
+import axios from 'axios';
+import Header from './Header';
+import Footer from './Footer';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, Navigate } from 'react-router-dom';
+import { DataContext } from '../context/DataContext';
 
 const SignIn = () => {
-  const [showMail, setShowMail] = useState(false)
-  const [success, setSuccess] = useState('')
-  const [error, setError] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showMail, setShowMail] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+  const { logInUser, loggedInUser } = useContext(DataContext);
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
-    password: yup.string().required('Password is required')
-  })
+    password: yup.string().required('Password is required'),
+  });
 
-  const {register, handleSubmit, formState: {errors}} = useForm({
-    resolver: yupResolver(schema)
-  })
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const signSubmit = (data) => {
-    console.log(data)
-    
-    axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data)
-    .then((response)=>{
-      localStorage.setItem('token', response.data['key'])
-      setSuccess('You have sucessfully log in')
-      setError('')
-      setIsLoggedIn(true)
-    }).then((error)=>{
-      setError('Unable to log in')
-      setSuccess('')
-    })
-  }
-  if(isLoggedIn){
-    <Navigate to='/post' replace={true}/>
+  const signSubmit = async (data) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
+      localStorage.setItem('token', response.data.key);
+      logInUser({ email: data.email });
+      setSuccess('You have successfully logged in');
+      setError('');
+    } catch (err) {
+      // Extract error message from response
+      if (err.response && err.response.data) {
+        setError(err.response.data.message || 'Unable to log in');
+      } else {
+        setError('Network error. Please try again.');
+      }
+      setSuccess('');
+    }
+  };
+
+  if (loggedInUser) {
+    return <Navigate to='/post' replace={true} />;
   }
 
-  const handleClick = ()=>{
-    setShowMail(!showMail)
-  }
+  const handleClick = () => {
+    setShowMail(!showMail);
+  };
 
   return (
     <div>
-    <Header/>
-    <div className='sign'>
-      <div className='section-con'>
-      <h1>SignIn</h1>
-        <div className='sign-in'>
-          <div className='gmail'>
-              {success && (
-                <div style={{color:'white', fontSize:'17px'}} className='s-e'>{success}</div>
-              )}
-              {error && (
-                <div style={{color:'white', fontSize:'17px'}} className='s-e'>{error}</div>
-              )}
-            <button onClick={handleClick}><img src='/images/mdi_email-edit-outline.png'/>Sign in with Email{showMail? '':''}</button>
+      <Header />
+      <div className='sign'>
+        <div className='section-con'>
+          <h1>Sign In</h1>
+          <div className='sign-in'>
+            <div className='gmail'>
+              {success && <div style={{ color: 'white', fontSize: '17px' }} className='s-e'>{success}</div>}
+              {error && <div style={{ color: 'white', fontSize: '17px' }} className='s-e'>{error}</div>}
+              <button onClick={handleClick}>
+                <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
+                Sign in with Email {showMail ? '' : ''}
+              </button>
 
-            {showMail && (
-            <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
-              <div className='input-img-sign-in'>
-                <input 
-                  placeholder='Email'
-                   name='email' 
-                   type='email'  
-                   {...register("email")}
-                   />
-                <img src='/images/mdi_email-edit-outline.png'/>
-              </div>
-              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.email?.message}</p>
-              <div className='input-img-sign-in'>
-                <input 
-                  placeholder='Password' 
-                  name='password' 
-                  type='password' 
-                  {...register("password")}
-                />
-                <img src='/images/carbon_password.png'/>
-              </div>
-              <p style={{color:'red', fontSize:'15px', textAlign:'left'}}>{errors.password?.message}</p>
-              <button type='submit'>submit</button>
-            </form>
-            )}
-          </div>
-          
-          <button><img src='/images/flat-color-icons_google.png'/>Sign in with Google</button>
-          <button><img src='/images/dashicons_facebook-alt.png'/>Sign in with Facebook</button>
+              {showMail && (
+                <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
+                  <div className='input-img-sign-in'>
+                    <input 
+                      placeholder='Email'
+                      name='email'
+                      type='email'
+                      {...register("email")}
+                    />
+                    <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
+                  </div>
+                  <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.email?.message}</p>
+                  <div className='input-img-sign-in'>
+                    <input 
+                      placeholder='Password'
+                      name='password'
+                      type='password'
+                      {...register("password")}
+                    />
+                    <img src='/images/carbon_password.png' alt='Password Icon' />
+                  </div>
+                  <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password?.message}</p>
+                  <button type='submit'>Submit</button>
+                </form>
+              )}
+            </div>
 
-          <div className='alreadylogged'>
-            <p>Don't have an account?<Link to='/signup'>Sign Up</Link></p>
+            <button>
+              <img src='/images/flat-color-icons_google.png' alt='Google Icon' />
+              Sign in with Google
+            </button>
+            <button>
+              <img src='/images/dashicons_facebook-alt.png' alt='Facebook Icon' />
+              Sign in with Facebook
+            </button>
+
+            <div className='alreadylogged'>
+              <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
-    <Footer/>
-    </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

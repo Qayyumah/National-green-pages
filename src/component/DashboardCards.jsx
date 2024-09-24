@@ -102,7 +102,7 @@ const DashboardCards = () => {
           title: 'Add New User',
           icon:'👪',
           bgColor: '#fff',
-          path:'/user',
+          path:'/add-users',
           line: 'none'
           
         },
@@ -117,7 +117,7 @@ const DashboardCards = () => {
           title: 'Add New Business',
           icon:'🏢',
           bgColor: '#fff',
-          path:'/business',
+          path:'/add',
           line: 'none'
         },
       

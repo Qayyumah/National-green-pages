@@ -1,6 +1,6 @@
 import React from 'react'
 import '../assets/signIn.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { useForm } from 'react-hook-form'
@@ -9,12 +9,15 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom'
+import { DataContext } from '../context/DataContext';
 
 const SignUp = () => {
   const [showMail, setShowMail] = useState(false);
   const [navigate, setNavigate] = useState(false)
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
+
+  const { addUser } = useContext(DataContext);
 
   const schema = yup.object().shape({
     fullname: yup.string().required('Name is required'),
@@ -27,11 +30,6 @@ const SignUp = () => {
     resolver: yupResolver(schema)
   })
 
-  // const getCookie = (key)=>{
-  //   let b = document.cookie.match("(^|;)\\s*" + key + "\\s*([^;]+)");
-  //   return b ? b.pop() : ""
-  // }
-
   const signSubmit = (data)=>{
     console.log(data)
     axios.post(
@@ -39,6 +37,7 @@ const SignUp = () => {
       .then((response)=>{
         setSuccess('Account created successfully')
         setError('')
+        addUser({ name: data.fullname, email: data.email, password: data.password1 });
         setNavigate(true)
     }).catch((error)=>{
       setError('Error creating account')

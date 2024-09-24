@@ -91,12 +91,17 @@ const AdminSidebar = () => {
             </div>
             <ul className={`dropdown-menu ${isUsersOpen ? 'open' : ''}`}>
               <li>
-                <Link to="/users">
+                <Link to="/all-users">
                   <FaList style={{marginRight:'10px'}}/> All Users
                 </Link>
               </li>
               <li>
-                <Link to="/add-user">
+                <Link to="/current">
+                  <FaList style={{marginRight:'10px'}}/> Current Users
+                </Link>
+              </li>
+              <li>
+                <Link to="/add-users">
                   <FaUserPlus style={{marginRight:'10px'}}/> Add User
                 </Link>
               </li>
@@ -108,7 +113,7 @@ const AdminSidebar = () => {
             </div>
             <ul className={`dropdown-menu ${isBusinessesOpen ? 'open' : ''}`}>
               <li>
-                <Link to="/business">
+                <Link to="/all-business">
                   <FaBriefcase style={{marginRight:'10px'}}/> All Businesses
                 </Link>
               </li>

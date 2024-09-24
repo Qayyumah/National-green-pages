@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
@@ -12,11 +12,16 @@ const AddBusiness = () => {
   const [town, setTown] = useState('');
   const [city, setCity] = useState('');
   const [status, setStatus] = useState('Pending');
-  const [dateCreated] = useState(new Date().toISOString().slice(0, 10)); 
+  const [dateCreated, setDateCreated] = useState(''); 
   const [state, setState] = useState('');
 
   const { addBusiness } = useContext(DataContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    setDateCreated(today);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,51 +50,51 @@ const AddBusiness = () => {
             placeholder="Company Name" 
             value={companyName} 
             onChange={(e) => setCompanyName(e.target.value)} 
-            required 
+           
           />
           <input 
             type="email" 
             placeholder="Email" 
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
-            required 
+         
           />
           <input 
             type="text" 
             placeholder="Phone Number" 
             value={phoneNumber} 
             onChange={(e) => setPhoneNumber(e.target.value)} 
-            required 
+     
           />
           <input 
             type="text" 
             placeholder="Town" 
             value={town} 
             onChange={(e) => setTown(e.target.value)} 
-            required 
+     
           />
           <input 
             type="text" 
             placeholder="City" 
             value={city} 
             onChange={(e) => setCity(e.target.value)} 
-            required 
+
           />
           <select value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="Pending">Pending</option>
             <option value="Verified">Verified</option>
           </select>
           <input 
-            type="text" 
+            type="date" 
             value={dateCreated} 
-            readOnly 
+            onChange={(e) => setDateCreated(e.target.value)} 
           />
           <input 
             type="text" 
             placeholder="State" 
             value={state} 
             onChange={(e) => setState(e.target.value)} 
-            required 
+            
           />
           <button type="submit">Add Business</button>
         </form>
