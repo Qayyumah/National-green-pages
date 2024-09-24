@@ -35,8 +35,12 @@ export const DataProvider = ({ children }) => {
   const logInUser = (user) => {
     setLoggedInUser(user);
   };
+  const logOutUser = () => {
+    setLoggedInUser(null);
+  };
+
   return (
-    <DataContext.Provider value={{ users, setUsers, businesses, setBusinesses, addUser, addBusiness, loggedInUser, logInUser }}>
+    <DataContext.Provider value={{ users, setUsers, businesses, setBusinesses, addUser, addBusiness, loggedInUser, logInUser, logOutUser }}>
       {children}
     </DataContext.Provider>
   );

@@ -199,8 +199,8 @@
 }
 
 
+
 /*current user*/
-/* CurrentUserPage.css */
 
 .page-container {
     display: flex;
@@ -242,5 +242,5 @@
       margin-left: 0;
       margin-top: 150px;
     }
-  }
+}
   

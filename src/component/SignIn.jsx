@@ -13,7 +13,7 @@ const SignIn = () => {
   const [showMail, setShowMail] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
-  const { logInUser, loggedInUser } = useContext(DataContext);
+  const { logInUser, loggedInUser, logOutUser } = useContext(DataContext);
 
   const schema = yup.object().shape({
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -32,7 +32,6 @@ const SignIn = () => {
       setSuccess('You have successfully logged in');
       setError('');
     } catch (err) {
-      // Extract error message from response
       if (err.response && err.response.data) {
         setError(err.response.data.message || 'Unable to log in');
       } else {
@@ -42,8 +41,22 @@ const SignIn = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    logOutUser(); // Make sure to define this in your DataContext
+  };
+
   if (loggedInUser) {
-    return <Navigate to='/post' replace={true} />;
+    return (
+      <div>
+        <Header />
+        <div className='logged-in' style={{minHeight:'100vh', padding:'300px 0', textAlign:'center', backgroundColor:'green'}}>
+          <h2>Welcome, {loggedInUser.email}</h2>
+          <button onClick={handleLogout} style={{border:'none', backgroundColor:'lightGreen', padding:'15px 55px', borderRadius:'10px', fontSize:'18px', color:'#fff', cursor:'pointer'}}>Logout</button>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   const handleClick = () => {
