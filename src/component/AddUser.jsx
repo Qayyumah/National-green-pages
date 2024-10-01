@@ -6,7 +6,7 @@ import AdminSidebar from './AdminSidebar';
 import '../assets/All-users.css';
 
 const AddUser = () => {
-  const { users, setUsers } = useContext(DataContext);
+  const { addUser } = useContext(DataContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +19,8 @@ const AddUser = () => {
       email,
       password,
     };
-    setUsers([...users, newUser]);
-    navigate('/all-users');// Redirect to All Users page
+    addUser(newUser);
+    navigate('/all-users');
   };
 
   return (
@@ -36,7 +36,7 @@ const AddUser = () => {
               type="text" 
               value={name} 
               onChange={(e) => setName(e.target.value)} 
-              required 
+             
             />
           </div>
           <div>
@@ -45,7 +45,7 @@ const AddUser = () => {
               type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
-              required 
+              
             />
           </div>
           <div>
@@ -54,7 +54,7 @@ const AddUser = () => {
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
-              required 
+              
             />
           </div>
           <button type="submit">Add User</button>

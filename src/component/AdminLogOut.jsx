@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/dashboard.css';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
+import { DataContext } from '../context/DataContext';
 
 const AdminLogOut = () => {
   const navigate = useNavigate();
+  const {logOutUser} = useContext(DataContext)
 
   const handleLogout = () => {
-    // Add your logout logic here (e.g., clearing tokens, etc.)
-    console.log("User logged out");
-    navigate('/admin'); // Redirect to home or login page
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    logOutUser(); 
+    
+    navigate('/admin'); 
   };
 
   return (

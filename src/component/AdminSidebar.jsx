@@ -65,9 +65,11 @@ const AdminSidebar = () => {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBusinessesOpen, setIsBusinessesOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false)
 
   const toggleUsers = () => setIsUsersOpen(prev => !prev);
   const toggleBusinesses = () => setIsBusinessesOpen(prev => !prev);
+  const toggleAdmin = () => setIsAdminOpen(prev => !prev)
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
 
   return (
@@ -86,40 +88,62 @@ const AdminSidebar = () => {
             </Link>
           </li>
           <li>
-            <div onClick={toggleUsers} className="dropdown-toggle">
-              <FaUsers style={{marginRight:'10px'}}/> Users <FaCaretDown style={{ marginLeft: '8px' }} />
-            </div>
-            <ul className={`dropdown-menu ${isUsersOpen ? 'open' : ''}`}>
-              <li>
-                <Link to="/all-users">
-                  <FaList style={{marginRight:'10px'}}/> All Users
-                </Link>
-              </li>
-              <li>
-                <Link to="/current">
-                  <FaList style={{marginRight:'10px'}}/> Current Users
-                </Link>
-              </li>
-              <li>
-                <Link to="/add-users">
-                  <FaUserPlus style={{marginRight:'10px'}}/> Add User
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li>
             <div onClick={toggleBusinesses} className="dropdown-toggle">
               <FaBuilding style={{marginRight:'10px'}}/> Businesses <FaCaretDown style={{ marginLeft: '8px' }} />
             </div>
             <ul className={`dropdown-menu ${isBusinessesOpen ? 'open' : ''}`}>
               <li>
                 <Link to="/all-business">
-                  <FaBriefcase style={{marginRight:'10px'}}/> All Businesses
+                  <FaBriefcase style={{marginRight:'10px'}}/> Manage Businesses
+                </Link>
+              </li>
+              <li>
+                <Link to="/pending">
+                  <FaBriefcase style={{marginRight:'10px'}}/> Business Pending Approval
                 </Link>
               </li>
               <li>
                 <Link to="/add">
                   <FaPlusCircle style={{marginRight:'10px'}}/> Add Business
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li>
+
+          <div onClick={toggleAdmin} className="dropdown-toggle">
+              <FaUsers style={{marginRight:'10px'}}/> Admin <FaCaretDown style={{ marginLeft: '8px' }} />
+            </div>
+            <ul className={`dropdown-menu ${isAdminOpen ? 'open' : ''}`}>
+              <li>
+                <Link to="/manage-admin">
+                  <FaList style={{marginRight:'10px'}}/> Manage Admin
+                </Link>
+              </li>
+              <li>
+              </li>
+              <li>
+                <Link to="/add-admin">
+                  <FaUserPlus style={{marginRight:'10px'}}/> Add Admin
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div onClick={toggleUsers} className="dropdown-toggle">
+              <FaUsers style={{marginRight:'10px'}}/> Users <FaCaretDown style={{ marginLeft: '8px' }} />
+            </div>
+            <ul className={`dropdown-menu ${isUsersOpen ? 'open' : ''}`}>
+              <li>
+                <Link to="/all-users">
+                  <FaList style={{marginRight:'10px'}}/> Manage User
+                </Link>
+              </li>
+              <li>
+              </li>
+              <li>
+                <Link to="/add-users">
+                  <FaUserPlus style={{marginRight:'10px'}}/> Add User
                 </Link>
               </li>
             </ul>

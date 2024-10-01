@@ -8,8 +8,6 @@ import SignIn from './component/SignIn';
 import PostBusiness from './component/PostBusiness';
 import Contact from './component/Contact';
 import Dashboard from './component/Dashboard';
-import Advert from './component/Advert';
-import Listing from './component/Listing';
 import PrivateRoute from './component/PrivateRoute';
 import SignUp from './component/SignUp';
 import Loader from './component/Loader';
@@ -20,7 +18,16 @@ import AllUser from './component/AllUser';
 import AdminLogOut from './component/AdminLogOut';
 import { DataProvider } from './context/DataContext';
 import AddUser from './component/AddUser';
-import CurrentUserPage from './component/CurrentUserPage';
+import PendingApproval from './component/PendingApproval';
+import ManageAdmin from './component/ManageAdmin';
+import AddAdmin from './component/AddAdmin';
+import UserDashboard from './component/UserDashboard';
+import UserManagePage from './component/UserManagePage';
+import UserPendingBusiness from './component/UserPendingBusiness';
+import AdminPrivateRoute from './component/AdminPrivateRoute';
+import UserLogout from './component/UserLogout';
+import SubscriptionRates from './component/SubscriptionRates';
+import UserMessage from './component/UserMessage';
 
 
 
@@ -49,17 +56,23 @@ function App() {
         <Route exact path='/signin' element={<SignIn/>}/>
         <Route exact path='/signup' element={<SignUp/>}/>
         <Route exact path='/admin' element={<AdminLogin/>}/>
+        <Route exact path='/subscription-rates' element={<SubscriptionRates/>}/>
         <Route exact path='/post' element={<PrivateRoute element={<PostBusiness/>}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<Dashboard/>}/>
-        <Route exact path='/advert-rates' element={<Advert/>}/>
-        <Route exact path='/listing' element={<Listing/>}/>
         <Route exact path='/all-users' element={<AllUser/>}/>
         <Route exact path='/all-business' element={<AllBusinesses/>}/>
         <Route exact path='/add-users' element={<AddUser/>}/>
-        <Route exact path='/current' element={<CurrentUserPage/>}/>
         <Route exact path='/logout' element={<AdminLogOut/>}/>
         <Route exact path='/add' element={<AddBusiness/>}/>
+        <Route exact path='/pending' element={<PendingApproval/>}/>
+        <Route exact path='manage-admin' element={<ManageAdmin/>}/>
+        <Route exact path='add-admin' element={<AddAdmin/>}/>
+        <Route exact path='/user-dashboard' element={<UserDashboard/>}/>
+        <Route exact path='/user-all' element={<UserManagePage/>}/>
+        <Route exact path='/user-pending' element={<UserPendingBusiness/>}/>
+        <Route exact path='/user-logout' element={<UserLogout/>}/>
+        <Route exact path='/user-message' element={<UserMessage/>}/>
       </Routes>
     }
    </div>

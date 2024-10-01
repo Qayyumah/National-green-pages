@@ -7,22 +7,40 @@
     min-height: 100vh;
     text-align: center;
     color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 200px;
+
+        @media(max-width: 1024px){
+            padding-left: 100px;
+        }
+
+        @media(max-width: 768px){
+            order: 2;
+            padding-left: 0;
+            margin-top: 0;
+            padding-bottom: 20px;
+        }
+        @media(max-width:330px){
+            padding: 0 20px;
+        }
+
+    }
+
+    @media(max-width: 768px){
+        display: flex;
+        flex-direction: column;
+    }
     
-    @media (max-width: 560px){
-        margin-top: 70px;
-    }
-}
-
-.body-content {
-    padding-top: 235px;
-
-    @media(max-width: 1024px){
-        padding-top: 170px;
-    }
-
-    @media (max-width: 560px){
-        padding-top: 85px;
-    }
 }
 
 .body-content h1{
@@ -48,15 +66,13 @@
     padding: 12px;
     font-size: 18px;
     border-radius: 3px;
-    width: 15%;
+    width: 100%;
 
     @media (max-width: 1024px){
         margin: 10px 50px;
-        width: auto;
     }
 
     @media(max-width: 768px){
-        /* width: none; */
         padding: 12px 10px;
         /* margin: 10px 50px; */
     }
@@ -78,6 +94,7 @@
     font-size: 18px;
     padding: 12px;
     border-radius: 3px;
+    width: 95%;
 
     /*mobile*/
     @media (max-width: 1024px){
@@ -95,12 +112,10 @@
     font-size: 17px;
     padding: 13px 10px;
     border-radius: 3px;
-    width: 15%;
-    margin-left: 20px;
+    width: 100%;
     cursor: pointer;
 
     @media(max-width: 1024px){
-        width: 0;
         padding: 10px 50px;
         display: flex;
         justify-content: center;
@@ -111,8 +126,6 @@
 
 .search-result{
     min-height: 100vh;
-    /* margin-top: 150px; */
-    /* padding: 0 120px; */
     background-color: rgb(145, 203, 145);
     padding: 150px 20px;
 
@@ -171,14 +184,15 @@
 .side-img {
     text-align: center;
     margin-bottom: 0;
-    margin-top: 50px;
-    /* margin-right: 20px; */
+    margin-top: 100px;
 
     img{
-        width: 13%;
+        width: 70%;
     }
 
-    @media(max-width:1024px){
-        display: none;
+    @media(max-width:768px){
+        margin-bottom: 0;
+        width: 80%;
     }
 }
+

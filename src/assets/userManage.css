@@ -1,0 +1,208 @@
+/* .user-manage-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+} */
+
+.user-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-left: 330px;
+    margin-right: 30px;
+    margin-top: 120px;
+
+    h1, h2 {
+        color: #333;
+    }
+    
+    .business-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .business-item {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .business-item h3 {
+        margin: 0 0 10px;
+    }
+    
+    .business-item p {
+        margin: 0 0 10px;
+        color: #555;
+    }
+    
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: green;
+    }
+    
+    .edit-form-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        margin-bottom: 20px;
+    }
+    
+    .edit-form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .edit-form input,
+    .edit-form textarea {
+        width: 100%;
+        padding: 8px 2px;
+        margin-top: 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    .edit-form button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: green;
+        color: white;
+        cursor: pointer;
+        margin: 10px 20px;
+    }
+    
+    .edit-form button[type="button"] {
+        background-color: #dc3545;
+    }
+    
+    .edit-form button:hover {
+        opacity: 0.8;
+    }
+    
+}
+
+
+
+
+@media (max-width: 768px) {
+    .user-content {
+        padding: 15px;
+
+        .business-item {
+            padding: 10px;
+        }
+    
+        button {
+            padding: 8px 12px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .user-content{
+        h1 {
+            font-size: 1.5em;
+        }
+    
+        h2 {
+            font-size: 1.2em;
+        }
+    
+        button {
+            width: 100%;
+            margin: 5px 0;
+        }
+    }
+    
+}
+
+.pending-business-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pending-business-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+.pending-business-item:hover {
+    background-color: #eaeaea;
+}
+
+.pending-business-item h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.pending-business-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.pending-business-item p strong {
+    color: #333;
+}
+
+.pending-business-item p:contains('Pending Approval') {
+    color: orange;
+}
+
+.pending-business-item p:contains('Approved') {
+    color: green;
+}
+
+@media (max-width: 768px) {
+    .pending-business-item {
+        padding: 10px;
+    }
+
+    .pending-business-item h3 {
+        font-size: 1.25rem;
+    }
+
+    .pending-business-item p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pending-business-item {
+        padding: 8px;
+    }
+
+    .pending-business-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .pending-business-item p {
+        font-size: 0.85rem;
+    }
+}

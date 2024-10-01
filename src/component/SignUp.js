@@ -17,8 +17,6 @@ const SignUp = () => {
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-  const { addUser } = useContext(DataContext);
-
   const schema = yup.object().shape({
     fullname: yup.string().required('Name is required'),
     email: yup.string().email('Email is not valid').required('Email is required'),
@@ -37,7 +35,6 @@ const SignUp = () => {
       .then((response)=>{
         setSuccess('Account created successfully')
         setError('')
-        addUser({ name: data.fullname, email: data.email, password: data.password1 });
         setNavigate(true)
     }).catch((error)=>{
       setError('Error creating account')

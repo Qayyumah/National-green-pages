@@ -24,15 +24,17 @@ const About = () => {
                 <div className='v-m'>
                     <div className='vision'>
                         <h1>OUR VISION</h1>
-                        <p>To create global business Consortium, that will serve as a gateway for investors to Nigeria and Africa as a whole.
-                        To foster e-business and networking business services in Africa than ever before, by creating a good business
-                        links that stands on the pillars of trust, honesty and efficiency.</p>
+                        <p>We are committed to creating a global business consortium, that will serve as a gateway to facilitating 
+                        investments both in Nigeria and the Africa Continent as a whole. In line with this perspective
+                        our company provides a platform that will foster networking and e-business services in Africa 
+                        than ever before, by creating a robust business links that stands on the pillars of trust,
+                        honesty and efficiency.</p>
                     </div>
 
                     <div className='mission'>
                         <h1>OUR MISSION</h1>
-                        <p>Delivering excellent services at all cost is part of us, we take the risk while our customers take 
-                        the pleasure. Meanwhile, we exist to provide, <b style={{color:'rgb(11, 106, 11)'}}>State by States Business Directory to the people of
+                        <p>To Deliver excellent and invaluable business services at all times is our mantra,
+                        we take the risk while our customer take the pleasure. We exist to provide,  <b style={{color:'rgb(11, 106, 11)'}}>State by States Business Directory to the people of
                         Federal Republic of Nigeria</b></p>
                     </div>
                  </div>

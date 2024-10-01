@@ -3,12 +3,12 @@ import { DataContext } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
-import '../assets/add-business.css'; // Import the CSS file
+import '../assets/add-business.css';
 
 const AddBusiness = () => {
-  const [companyName, setCompanyName] = useState('');
+  const [companyname, setCompanyname] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
   const [town, setTown] = useState('');
   const [city, setCity] = useState('');
   const [status, setStatus] = useState('Pending');
@@ -26,16 +26,16 @@ const AddBusiness = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addBusiness({
-      companyName,
+      companyname,
       email,
-      phoneNumber,
+      phonenumber,
       town,
       city,
       status,
       dateCreated,
       state,
     });
-    navigate('/business');
+    navigate('/all-business');
   };
 
   return (
@@ -48,8 +48,8 @@ const AddBusiness = () => {
           <input 
             type="text" 
             placeholder="Company Name" 
-            value={companyName} 
-            onChange={(e) => setCompanyName(e.target.value)} 
+            value={companyname} 
+            onChange={(e) => setCompanyname(e.target.value)} 
            
           />
           <input 
@@ -62,8 +62,8 @@ const AddBusiness = () => {
           <input 
             type="text" 
             placeholder="Phone Number" 
-            value={phoneNumber} 
-            onChange={(e) => setPhoneNumber(e.target.value)} 
+            value={phonenumber} 
+            onChange={(e) => setPhonenumber(e.target.value)} 
      
           />
           <input 

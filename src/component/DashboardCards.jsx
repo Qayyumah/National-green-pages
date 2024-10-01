@@ -99,18 +99,26 @@ const DashboardCards = () => {
     
       const otherData = [
         {
-          title: 'Add New User',
-          icon:'👪',
+          title: 'Business Pending Approval',
+          icon:'📰',
           bgColor: '#fff',
-          path:'/add-users',
+          path:'/pending',
           line: 'none'
           
         },
         {
-          title: 'Add New Admin',
-          icon:'🙍🏼‍♂️',
+          title: 'Manage User',
+          icon:'🔗',
           bgColor: '#fff',
-          path:'/admin',
+          path:'/all-users',
+          line: 'none'
+          
+        },
+        {
+          title: 'Manage Business',
+          icon:'📄',
+          bgColor: '#fff',
+          path:'/all-business',
           line: 'none'
         },
         {

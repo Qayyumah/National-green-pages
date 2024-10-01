@@ -1,0 +1,89 @@
+.manage-admins {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    margin-left: 330px;
+    margin-right: 30px;
+
+    @media (max-width: 768px){
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+  }
+  
+  .manage-header h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 120px;
+    text-align: center;
+
+    @media(max-width: 768px){
+        margin-top: 230px;
+    }
+  }
+
+  
+  .manage-admins h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .admin-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .admin-item:last-child {
+    border-bottom: none;
+  }
+  
+  .admin-status {
+    font-weight: bold;
+  }
+  
+  .delete-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: red;
+    font-size: 18px;
+    transition: color 0.2s;
+  }
+  
+  .delete-button:hover {
+    color: darkred;
+  }
+  
+  @media (max-width: 600px) {
+    .manage-admins {
+      padding: 15px;
+    }
+  
+    .manage-admins h2 {
+      font-size: 20px;
+    }
+  
+    .manage-admins h3 {
+      font-size: 18px;
+    }
+  
+    .admin-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .admin-item span {
+      margin-bottom: 5px;
+    }
+  }
+  
