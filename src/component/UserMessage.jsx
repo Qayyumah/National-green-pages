@@ -18,7 +18,9 @@ const UserMessage = () => {
 
   return (
     <div>
-        <h1>Hello world !</h1>
+    <UserHeader/>
+    <UserSidebar/>
+        <h1>Hello</h1>
         {message}
     </div>
   );

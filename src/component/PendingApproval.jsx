@@ -9,7 +9,6 @@ import axios from 'axios';
 import '../assets/pending.css';
 
 const PendingApproval = () => {
-  const { businesses, setBusinesses } = useContext(DataContext);
   const [pendingBusinesses, setPendingBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBusiness, setSelectedBusiness] = useState(null);

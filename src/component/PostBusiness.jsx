@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 
 const PostBusiness = () => {
-    const { loggedInUser } = useContext(DataContext);
+    const { addBusiness, loggedInUser } = useContext(DataContext);
     const [image, setImage] = useState('images/upload.png');
     const [productImage, setProductImage] = useState('images/upload.png');
     const [message, setMessage] = useState('');
@@ -58,7 +58,7 @@ const PostBusiness = () => {
             setMessage('Business Submitted For Approval');
             setIsSuccess(true);
         } catch (err) {
-            console.log(err.message);
+            setMessage(err.message);
             setIsSuccess(false);
         } finally {
             setLoading(false);
