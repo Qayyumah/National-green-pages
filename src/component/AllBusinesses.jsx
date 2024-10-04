@@ -1,262 +1,10 @@
-// import React, { useEffect, useState, useContext } from 'react';
-// import { DataContext } from '../context/DataContext';
-// import { Link } from 'react-router-dom';
-// import AdminHeader from './AdminHeader';
-// import AdminSidebar from './AdminSidebar';
-// import '../assets/business-management.css';
-// import { FaEdit, FaTrash, FaCheckCircle, FaBan,  FaPause, FaPlay } from 'react-icons/fa';
-// import axios from 'axios';
-
-// const AllBusinesses = () => {
-//   const { businesses, setBusinesses } = useContext(DataContext);
-//   const [apiBusinesses, setApiBusinesses] = useState([]);
-//   const [editIndex, setEditIndex] = useState(null);
-//   const [editedBusiness, setEditedBusiness] = useState({});
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/businesses-in-admin/`);
-//         setApiBusinesses(response.data);
-//       } catch (error) {
-//         console.error("Error fetching businesses:", error);
-//       } finally {
-//         setLoading(false); // Set loading to false after data fetching
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   const removeBusiness = (index) => {
-//     const updatedBusinesses = businesses.filter((_, i) => i !== index);
-//     setBusinesses(updatedBusinesses);
-//   };
-
-//   const handleStatusChange = (index, newStatus, isApiBusiness = false) => {
-//     if (isApiBusiness) {
-//       setApiBusinesses((prevBusinesses) =>
-//         prevBusinesses.map((business, i) =>
-//           i === index ? { ...business, status: newStatus } : business
-//         )
-//       );
-//     } else {
-//       setBusinesses((prevBusinesses) =>
-//         prevBusinesses.map((business, i) =>
-//           i === index ? { ...business, status: newStatus } : business
-//         )
-//       );
-//     }
-//   };
-
-//   const handleEditChange = (e) => {
-//     const { name, value } = e.target;
-//     setEditedBusiness((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const saveEdit = (index) => {
-//     setBusinesses((prevBusinesses) =>
-//       prevBusinesses.map((business, i) =>
-//         i === index ? { ...business, ...editedBusiness } : business
-//       )
-//     );
-//     setEditIndex(null);
-//     setEditedBusiness({});
-//   };
-
-//   const removeApiBusiness = (index) => {
-//     const updatedApiBusiness = apiBusinesses.filter((_, i) => i !== index);
-//     setApiBusinesses(updatedApiBusiness);
-//   };
-
-//   const handleApiEdit = (index) => {
-//     setEditIndex(index + businesses.length); // Adjust index for API businesses
-//     setEditedBusiness(apiBusinesses[index]);
-//   };
-
-//   const saveApiEdit = (index) => {
-//     setApiBusinesses((prevBusinesses) =>
-//       prevBusinesses.map((business, i) =>
-//         i === index ? { ...business, ...editedBusiness } : business
-//       )
-//     );
-//     setEditIndex(null);
-//     setEditedBusiness({});
-//   };
-
-//   return (
-//     <div>
-//       <AdminHeader />
-//       <AdminSidebar />
-//       <div className="all-businesses">
-//         <div className='all-header'>
-//           <h1>Business List</h1>
-//           <Link to="/add" className="add-business-button">Add Business</Link>
-//         </div>
-        
-//         {loading ? ( 
-//           <p>Loading...</p>
-//         ) : (
-//           businesses.length === 0 && apiBusinesses.length === 0 ? (
-//             <p>No businesses available.</p>
-//           ) : (
-//             <table>
-//               <thead>
-//                 <tr>
-//                   <th>Company Name</th>
-//                   <th>Email</th>
-//                   <th>Phone Number</th>
-//                   <th>Status</th>
-//                   <th>Date Created</th>
-//                   <th>Actions</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {businesses.map((business, index) => (
-//                   <tr key={index}>
-//                     <td>
-//                       {editIndex === index ? (
-//                         <input
-//                           type="text"
-//                           name="companyName"
-//                           value={editedBusiness.companyName || business.companyName}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         business.companyname
-//                       )}
-//                     </td>
-//                     <td>
-//                       {editIndex === index ? (
-//                         <input
-//                           type="email"
-//                           name="email"
-//                           value={editedBusiness.email || business.email}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         business.email
-//                       )}
-//                     </td>
-//                     <td>
-//                       {editIndex === index ? (
-//                         <input
-//                           type="tel"
-//                           name="phoneNumber"
-//                           value={editedBusiness.phoneNumber || business.phoneNumber}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         business.phonenumber
-//                       )}
-//                     </td>
-//                     <td>
-//                       <select
-//                         value={business.status}
-//                         onChange={(e) => handleStatusChange(index, e.target.value)}
-//                       >
-//                         <option value="Pending">Pending</option>
-//                         <option value="Verified">Verified</option>
-//                       </select>
-//                     </td>
-//                     <td>{business.dateCreated}</td>
-//                     <td>
-//                       {editIndex === index ? (
-//                         <button onClick={() => saveEdit(index)} style={{ border: 'none', color: 'white', backgroundColor: 'gray' }}>Save</button>
-//                       ) : (
-//                         <FaEdit className={`action-icon edit-icon`} onClick={() => {
-//                           setEditIndex(index);
-//                           setEditedBusiness({});
-//                         }} />
-//                       )}
-//                       <FaTrash className={`action-icon delete-icon`} onClick={() => removeBusiness(index)} />
-//                       {business.status === "Pending" ? (
-//                         <FaCheckCircle className={`action-icon approve-icon`} onClick={() => handleStatusChange(index, "Verified")} />
-//                       ) : (
-//                         <FaBan className={`action-icon suspend-icon`} onClick={() => handleStatusChange(index, "Pending")} />
-//                       )}
-//                     </td>
-//                   </tr>
-//                 ))}
-                
-//                 {apiBusinesses.map((state, index) => (
-//                   <tr key={index + businesses.length}>
-//                     <td>
-//                       {editIndex === index + businesses.length ? (
-//                         <input
-//                           type="text"
-//                           name="companyName"
-//                           value={editedBusiness.companyName || state.companyName}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         state.companyname
-//                       )}
-//                     </td>
-//                     <td>
-//                       {editIndex === index + businesses.length ? (
-//                         <input
-//                           type="email"
-//                           name="email"
-//                           value={editedBusiness.email || state.email}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         state.email
-//                       )}
-//                     </td>
-//                     <td>
-//                       {editIndex === index + businesses.length ? (
-//                         <input
-//                           type="tel"
-//                           name="phoneNumber"
-//                           value={editedBusiness.phoneNumber || state.phoneNumber}
-//                           onChange={handleEditChange}
-//                         />
-//                       ) : (
-//                         state.phonenumber
-//                       )}
-//                     </td>
-//                     <td>{state.status}</td>
-//                     <td>{state.dateCreated}</td>
-//                     <td>
-//                       {editIndex === index + businesses.length ? (
-//                         <button onClick={() => saveApiEdit(index)} style={{ border: 'none', color: 'white', backgroundColor: 'gray' }}>Save</button>
-//                       ) : (
-//                         <FaEdit className={`action-icon edit-icon`} onClick={() => handleApiEdit(index)} />
-//                       )}
-//                        <FaTrash className={`action-icon delete-icon`} onClick={() => removeApiBusiness(index)} />
-//                        {state.status === "Verified" ? (
-//                         <>
-//                           <FaPause title="Suspend" onClick={() => handleStatusChange(index, "Suspended", true)} />
-//                         </>
-//                       ) : (
-//                         <>
-//                           <FaPlay title="Reactivate" onClick={() => handleStatusChange(index, "Verified", true)} />
-//                         </>
-//                       )}
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           )
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AllBusinesses;
-
 import React, { useEffect, useState, useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 import { Link } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 import '../assets/business-management.css';
-import { FaEdit, FaTrash, FaCheckCircle, FaBan, FaPause, FaPlay, FaSave } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPause, FaPlay } from 'react-icons/fa';
 import axios from 'axios';
 
 const AllBusinesses = () => {
@@ -265,12 +13,15 @@ const AllBusinesses = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editedBusiness, setEditedBusiness] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/businesses-in-admin/`);
-        setApiBusinesses(response.data);
+        const verifiedBusinesses = response.data.filter(business => business.status.toLowerCase() === "verified");
+        setApiBusinesses(verifiedBusinesses);
       } catch (error) {
         console.error("Error fetching businesses:", error);
       } finally {
@@ -281,25 +32,25 @@ const AllBusinesses = () => {
     fetchData();
   }, []);
 
-  const removeBusiness = (index) => {
-    const updatedBusinesses = businesses.filter((_, i) => i !== index);
-    setBusinesses(updatedBusinesses);
+  const removeApiBusiness = (index) => {
+    const updatedApiBusinesses = apiBusinesses.filter((_, i) => i !== index);
+    setApiBusinesses(updatedApiBusinesses);
+    setIsModalOpen(false);
   };
 
-  const handleStatusChange = (index, newStatus, isApiBusiness = false) => {
-    if (isApiBusiness) {
-      setApiBusinesses((prevBusinesses) =>
-        prevBusinesses.map((business, i) =>
-          i === index ? { ...business, status: newStatus } : business
-        )
-      );
-    } else {
-      setBusinesses((prevBusinesses) =>
-        prevBusinesses.map((business, i) =>
-          i === index ? { ...business, status: newStatus } : business
-        )
-      );
-    }
+  const confirmDelete = (index) => {
+    setDeleteIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const handleStatusChange = (index) => {
+    setApiBusinesses((prevBusinesses) =>
+      prevBusinesses.map((business, i) =>
+        i === index 
+          ? { ...business, status: business.status === "verified" ? "suspended" : "verified" } 
+          : business
+      )
+    );
   };
 
   const handleEditChange = (e) => {
@@ -307,41 +58,29 @@ const AllBusinesses = () => {
     setEditedBusiness((prev) => ({ ...prev, [name]: value }));
   };
 
-  const saveEdit = (index) => {
-    setBusinesses((prevBusinesses) =>
-      prevBusinesses.map((business, i) =>
-        i === index ? { ...business, ...editedBusiness } : business
-      )
-    );
-    setEditIndex(null);
-    setEditedBusiness({});
-  };
-
-  const removeApiBusiness = (index) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this business?");
-    if (confirmDelete) {
-      const updatedApiBusiness = apiBusinesses.filter((_, i) => i !== index);
-      setApiBusinesses(updatedApiBusiness);
-    }
-  };
-
-  const handleApiEdit = (index) => {
-    setEditIndex(index + businesses.length);
-    setEditedBusiness(apiBusinesses[index]);
+  const startEditing = (index) => {
+    setEditIndex(index);
+    setEditedBusiness({
+      companyName: apiBusinesses[index].companyname,
+      email: apiBusinesses[index].email,
+      phoneNumber: apiBusinesses[index].phonenumber,
+    });
   };
 
   const saveApiEdit = (index) => {
     setApiBusinesses((prevBusinesses) =>
       prevBusinesses.map((business, i) =>
-        i === index ? { ...business, ...editedBusiness } : business
+        i === index ? { 
+          ...business, 
+          companyname: editedBusiness.companyName, 
+          email: editedBusiness.email, 
+          phonenumber: editedBusiness.phoneNumber 
+        } : business
       )
     );
     setEditIndex(null);
     setEditedBusiness({});
   };
-
-  // Filter out rejected businesses
-  const filteredBusinesses = businesses.filter(business => business.status !== 'rejected');
 
   return (
     <div>
@@ -349,19 +88,19 @@ const AllBusinesses = () => {
       <AdminSidebar />
       <div className="all-businesses">
         <div className='all-header'>
-          <h1>Business List</h1>
+          <h1>Verified Business List</h1>
           <Link to="/add" className="add-business-button">Add Business</Link>
         </div>
         
         {loading ? ( 
           <p>Loading...</p>
         ) : (
-          filteredBusinesses.length === 0 && apiBusinesses.length === 0 ? (
-            <p>No businesses available.</p>
+          apiBusinesses.length === 0 ? (
+            <p>No verified businesses available.</p>
           ) : (
             <table>
               <thead>
-                <tr>
+                <tr style={{ color: '#fff' }}>
                   <th>Company Name</th>
                   <th>Email</th>
                   <th>Phone Number</th>
@@ -371,14 +110,14 @@ const AllBusinesses = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredBusinesses.map((business, index) => (
+                {apiBusinesses.map((business, index) => (
                   <tr key={index}>
                     <td>
                       {editIndex === index ? (
                         <input
                           type="text"
                           name="companyName"
-                          value={editedBusiness.companyName || business.companyName}
+                          value={editedBusiness.companyName}
                           onChange={handleEditChange}
                         />
                       ) : (
@@ -390,7 +129,7 @@ const AllBusinesses = () => {
                         <input
                           type="email"
                           name="email"
-                          value={editedBusiness.email || business.email}
+                          value={editedBusiness.email}
                           onChange={handleEditChange}
                         />
                       ) : (
@@ -402,7 +141,7 @@ const AllBusinesses = () => {
                         <input
                           type="tel"
                           name="phoneNumber"
-                          value={editedBusiness.phoneNumber || business.phoneNumber}
+                          value={editedBusiness.phoneNumber}
                           onChange={handleEditChange}
                         />
                       ) : (
@@ -413,78 +152,15 @@ const AllBusinesses = () => {
                     <td>{business.created_at}</td>
                     <td>
                       {editIndex === index ? (
-                        <FaSave className={`action-icon edit-icon`} onClick={() => saveEdit(index)}/>
+                        <button onClick={() => saveApiEdit(index)} style={{ border: 'none', color: 'white', backgroundColor: 'gray' }}>Save</button>
                       ) : (
-                        <FaEdit className={`action-icon edit-icon`} onClick={() => {
-                          setEditIndex(index);
-                          setEditedBusiness({});
-                        }} />
+                        <FaEdit title='edit' className={`action-icon edit-icon`} onClick={() => startEditing(index)} />
                       )}
-                      <FaTrash className={`action-icon delete-icon`} onClick={() => removeBusiness(index)} />
-                      {business.status === "Pending" ? (
-                        <FaCheckCircle className={`action-icon approve-icon`} onClick={() => handleStatusChange(index, "Verified")} />
+                      <FaTrash title='delete' className={`action-icon delete-icon`} onClick={() => confirmDelete(index)} />
+                      {business.status === "verified" ? (
+                        <FaPause title="Suspend" className={`action-icon edit-icon`} onClick={() => handleStatusChange(index)} />
                       ) : (
-                        <FaBan className={`action-icon suspend-icon`} onClick={() => handleStatusChange(index, "Pending")} />
-                      )}
-                    </td>
-                  </tr>
-                ))}
-                
-                {apiBusinesses.map((state, index) => (
-                  <tr key={index + filteredBusinesses.length}>
-                    <td>
-                      {editIndex === index + filteredBusinesses.length ? (
-                        <input
-                          type="text"
-                          name="companyName"
-                          value={editedBusiness.companyName || state.companyName}
-                          onChange={handleEditChange}
-                        />
-                      ) : (
-                        state.companyname
-                      )}
-                    </td>
-                    <td>
-                      {editIndex === index + filteredBusinesses.length ? (
-                        <input
-                          type="email"
-                          name="email"
-                          value={editedBusiness.email || state.email}
-                          onChange={handleEditChange}
-                        />
-                      ) : (
-                        state.email
-                      )}
-                    </td>
-                    <td>
-                      {editIndex === index + filteredBusinesses.length ? (
-                        <input
-                          type="tel"
-                          name="phoneNumber"
-                          value={editedBusiness.phoneNumber || state.phoneNumber}
-                          onChange={handleEditChange}
-                        />
-                      ) : (
-                        state.phonenumber
-                      )}
-                    </td>
-                    <td>{state.status}</td>
-                    <td>{state.created_at}</td>
-                    <td>
-                      {editIndex === index + filteredBusinesses.length ? (
-                        <FaSave className={`action-icon edit-icon`} title="Save" onClick={() => saveApiEdit(index)} />
-                      ) : (
-                        <FaEdit className={`action-icon edit-icon`} title="Edit" onClick={() => handleApiEdit(index)} />
-                      )}
-                       <FaTrash className={`action-icon delete-icon`} title="Remove" onClick={() => removeApiBusiness(index)} />
-                       {state.status === "Verified" ? (
-                        <>
-                          <FaPause className={`action-icon suspend-icon`} title="Suspend" onClick={() => handleStatusChange(index, "Suspended", true)} />
-                        </>
-                      ) : (
-                        <>
-                          <FaPlay className={`action-icon reactivate-icon`} title="Reactivate" onClick={() => handleStatusChange(index, "Verified", true)} />
-                        </>
+                        <FaPlay title="Reactivate" className={`action-icon edit-icon`} onClick={() => handleStatusChange(index)} />
                       )}
                     </td>
                   </tr>
@@ -493,9 +169,23 @@ const AllBusinesses = () => {
             </table>
           )
         )}
+
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2>Confirm Deletion</h2>
+              <p>Are you sure you want to delete this business?</p>
+              <div className="modal-actions">
+                <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                <button onClick={() => removeApiBusiness(deleteIndex)}>Delete</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default AllBusinesses;
+

@@ -58,7 +58,7 @@
 .dropdown-toggle i,
 .dropdown-menu li a i {
   margin-right: 10px; 
-  margin-left: 10px; /* Add space to the left of each icon */
+  margin-left: 10px; 
 }
 
 .dropdown-toggle {

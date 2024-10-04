@@ -6,7 +6,7 @@
 }
 
 .form-container {
-  /* max-width: 800px; */
+  width: 50%;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -15,7 +15,7 @@
 
   h2 {
     font-size: 2em;
-    color: #333;
+    color: green;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -30,19 +30,33 @@
   input[type="text"], input[type="email"], select {
     width: 100%;
     padding: 10px 2px;
-    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1em;
   }
+
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
   
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0px;
+  }
   input[type="text"]:focus, input[type="email"]:focus, select:focus {
-    border-color: #28a745; /* Green */
+    border-color: #28a745; 
     outline: none;
   }
   
   button {
-    background-color: #28a745; /* Green */
+    background-color: #28a745; 
     color: white;
     padding: 10px;
     border: none;
@@ -53,13 +67,12 @@
   }
   
   button:hover {
-    background-color: #218838; /* Darker Green */
+    background-color: #218838; 
   }
   
 }
 
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .add-business-container{
     margin-top: 180px;
@@ -76,7 +89,6 @@
   
     input[type="text"], input[type="email"], select {
       font-size: 0.9em;
-      /* padding: 8px; */
     }
 
     input[type="text"], input[type="email"], select {
@@ -87,6 +99,7 @@
   
   .form-container {
     padding: 15px;
+    width: 80%;
   }
 }
 
@@ -106,12 +119,11 @@
   
     input[type="text"], input[type="email"], select {
       font-size: 0.85em;
-      /* padding: 6px; */
     }
   
   }
   
   .form-container {
-    /* padding: 10px 0; */
+    width: 90%;
   }
 }

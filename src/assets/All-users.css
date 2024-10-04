@@ -1,4 +1,4 @@
-  .all-users, .add-user {
+  .all-users {
     padding: 20px;
     font-family: Arial, sans-serif;
     min-height: 100vh;
@@ -10,8 +10,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
-    }
-      
+
       th, td {
         padding: 10px;
         text-align: left;
@@ -26,25 +25,9 @@
       tr:hover {
         background-color: #e5e3e3;
       }
-      input[type="text"], input[type="email"], input[type="password"], select {
-        width: 100%;
-        padding: 10px 5px;
-        margin: 5px 0 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1em;
-      }
+    }
       
-      input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
-        border-color: #28a745; 
-        outline: none;
-      }
       
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-
       .add-user-button {
         background-color: #28a745; 
         color: white;
@@ -58,9 +41,9 @@
       
       .icon {
         cursor: pointer;
-        margin: 0 5px;
-        font-size: 1.5rem; 
+        font-size: 1rem; 
         transition: color 0.3s ease;
+        padding: 0px;
       }
       
       .edit-icon {
@@ -82,6 +65,36 @@
       
   }
 
+  .add-user{
+    padding: 20px;
+    width: 30%;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    padding-top: 170px;
+    padding-left: 330px;
+    padding-right: 30px;
+    margin: 0 auto;
+
+    input[type="text"], input[type="email"], input[type="password"], select {
+      width: 100%;
+      padding: 10px 5px;
+      margin: 5px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus {
+      border-color: #28a745; 
+      outline: none;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+  }
   .add-user button{
     cursor: pointer;
     background-color: #28a745;
@@ -112,11 +125,6 @@
         padding-right: 30px;
         padding-top: 230px;
 
-        .add-user{
-          margin-left: 0px;
-          margin-right: 30px;
-          margin-top: 180px;
-        }
         h1 {
             font-size: 1.5em;
         }
@@ -129,19 +137,76 @@
             th, td {
             padding: 10px;
         }
-        
-            input[type="text"], input[type="email"], input[type="password"], select {
-            font-size: 0.9em;
-        }
+    }
+    .add-user{
+      padding-left: 0px;
+      padding-right: 30px;
+      padding-top: 180px;
+      margin: 0 0;
+
+      
+      input[type="text"], input[type="email"], input[type="password"], select {
+        font-size: 0.9em;
+    }
     }
     
   }
 
   @media (max-width: 480px){
-    .all-users, .add-user{
+    .all-users{
         padding-left: 10px;
         padding-right: 10px;
         padding-top: 190px;
     }
+
+    .add-user{
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 190px;
+  }
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-actions button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .modal-actions button:first-child {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .modal-actions button:last-child {
+    background-color: #e63946;
+    color: #fff;
   }
   

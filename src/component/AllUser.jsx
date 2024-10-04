@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { DataContext } from '../context/DataContext';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
@@ -8,71 +7,49 @@ import '../assets/All-users.css';
 import axios from 'axios';
 
 const AllUser = () => {
-  const { users, setUsers } = useContext(DataContext);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedUser, setEditedUser] = useState({});
-  const [editingApiIndex, setEditingApiIndex]= useState(null)
-  const [editedApiUser, setEditedApiUser] = useState({})
-  const [apiUser, setApiUser] = useState([])
-
+  const [apiUser, setApiUser] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/list-users/`)
-        .then(response => {
-            setApiUser(response.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-}, []);
-
-
-  const removeUser = (index) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-    if (confirmDelete) {
-      const updatedUsers = users.filter((_, i) => i !== index);
-      setUsers(updatedUsers);
-    }
-  };
-
-  const handleEditClick = (index) => {
-    setEditingIndex(index);
-    setEditedUser(users[index]);
-  };
-
-  const handleSaveClick = (index) => {
-    const updatedUsers = users.map((user, i) =>
-      i === index ? { ...user, ...editedUser } : user
-    );
-    setUsers(updatedUsers);
-    setEditingIndex(null);
-  };
+      .then(response => {
+        setApiUser(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   const removeApiUser = (index) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-    if (confirmDelete) {
-      const updatedApiUser = apiUser.filter((_, i) => i !== index);
-      setApiUser(updatedApiUser);
-    }
+    const updatedApiUser = apiUser.filter((_, i) => i !== index);
+    setApiUser(updatedApiUser);
+      setIsModalOpen(false);
+  };
+
+  const confirmDelete = (index) => {
+    setDeleteIndex(index);
+    setIsModalOpen(true);
   };
 
   const handleApiEditClick = (index) => {
-    setEditingApiIndex(index + apiUser.length);
-    setEditedApiUser(apiUser[index]);
+    setEditingIndex(index);
+    setEditedUser(apiUser[index]); 
   };
 
   const handleApiSaveClick = (index) => {
     const updatedApiUser = apiUser.map((user, i) =>
-      i === index ? { ...user, ...editedApiUser } : user
+      i === index ? { ...user, ...editedUser } : user
     );
     setApiUser(updatedApiUser);
-    setEditingApiIndex(null);
+    setEditingIndex(null);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedUser((prev) => ({ ...prev, [name]: value }));
-    setEditedApiUser((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -94,18 +71,18 @@ const AllUser = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {apiUser.map((value, index) => (
               <tr key={index}>
                 <td>
                   {editingIndex === index ? (
                     <input
                       type="text"
-                      name="name"
-                      value={editedUser.name || ''}
+                      name="fullname"
+                      value={editedUser.fullname || ''}
                       onChange={handleChange}
                     />
                   ) : (
-                    user.name
+                    value.fullname
                   )}
                 </td>
                 <td>
@@ -117,64 +94,35 @@ const AllUser = () => {
                       onChange={handleChange}
                     />
                   ) : (
-                    user.email
+                    value.email
                   )}
                 </td>
-                <td>{user.dateJoined}</td>
+                <td>{value.date}</td>
                 <td>
                   {editingIndex === index ? (
-                    <FaSave onClick={() => handleSaveClick(index)} className="icon save-icon" />
+                    <FaSave title='save' onClick={() => handleApiSaveClick(index)} className="icon save-icon" style={{height:'20px'}} />
                   ) : (
                     <>
-                      <FaEdit onClick={() => handleEditClick(index)} className="icon edit-icon" />
-                      <FaTrash onClick={() => removeUser(index)} className="icon remove-icon" />
+                      <FaEdit title='edit' onClick={() => handleApiEditClick(index)} className="icon edit-icon" style={{height:'20px'}} />
+                      <FaTrash title='delete' onClick={() => confirmDelete(index)} className="icon remove-icon" style={{height:'20px'}} />
                     </>
                   )}
                 </td>
               </tr>
             ))}
 
-            {apiUser.map((value, index)=>{
-                return (
-                  <tr key={index + apiUser.length}>
-                    <td>
-                      {editingApiIndex === index + apiUser.length ? (
-                        <input
-                          type="text"
-                          name="name"
-                          value={editedApiUser.fullname || ''}
-                          onChange={handleChange}
-                        />
-                      ) : (
-                        value.fullname
-                      )}
-                    </td>
-                    <td>
-                      {editingApiIndex === index ? (
-                        <input
-                          type="email"
-                          name="email"
-                          value={editedApiUser.email || ''}
-                          onChange={handleChange}
-                        />
-                      ) : (
-                        value.email
-                      )}
-                    </td>
-                    <td>{value.date}</td>
-                    <td>
-                      {editingApiIndex === index ? (
-                        <FaSave onClick={() => handleApiSaveClick(index)} className="icon save-icon" />
-                      ) : (
-                        <>
-                          <FaEdit onClick={() => handleApiEditClick(index)} className="icon edit-icon" />
-                          <FaTrash onClick={() => removeApiUser(index)} className="icon remove-icon" />
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                )
-              })}
+            {isModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <h2>Confirm Deletion</h2>
+                <p>Are you sure you want to delete this business?</p>
+                <div className="modal-actions">
+                  <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                  <button onClick={() => removeApiUser(deleteIndex)}>Delete</button>
+                </div>
+              </div>
+            </div>
+          )}
           </tbody>
         </table>
       </div>
@@ -183,4 +131,3 @@ const AllUser = () => {
 };
 
 export default AllUser;
-

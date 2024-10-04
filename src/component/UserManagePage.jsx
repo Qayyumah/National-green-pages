@@ -190,4 +190,4 @@ const UserManagePage = () => {
     );
 };
 
-export default UserManagePage;
+export default UserManagePage
