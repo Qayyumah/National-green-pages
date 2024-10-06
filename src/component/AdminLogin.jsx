@@ -27,13 +27,13 @@ const AdminLogin = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/api/admin/`, data)
       .then((response) => {
         console.log(response)
-        // localStorage.setItem('token', response.data['key']);
-        // const admin = { id: Date.now(), username: data.email, status: 'active' }; 
-        // logInUser(admin);
-        // addAdmin(admin);
-        // setModalMessage('You have successfully logged in');
-        // setModalType('success');
-        // setIsLoggedIn(true);
+        localStorage.setItem('token', response.data['key']);
+        const admin = { id: Date.now(), username: data.email, status: 'active' }; 
+        logInUser(admin);
+        addAdmin(admin);
+        setModalMessage('You have successfully logged in');
+        setModalType('success');
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         setModalMessage(error.message);
@@ -44,9 +44,9 @@ const AdminLogin = () => {
       });
   };
 
-  if (isLoggedIn) {
-    return <Navigate to='/dashboard' replace={true} />;
-  }
+  // if (isLoggedIn) {
+  //   return <Navigate to='/dashboard' replace={true} />;
+  // }
 
   const closeModal = () => {
     setIsModalOpen(false);
