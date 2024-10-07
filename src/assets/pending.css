@@ -47,6 +47,11 @@
     padding: 12px;
     text-align: left;
     border: 1px solid #ddd;
+
+    form{
+      display: flex;
+      flex-direction: row;
+    }
   }
   
   .business-table th {

@@ -213,7 +213,7 @@
   }
   
   .main-content {
-    margin-left: 300px; /* Space for the sidebar */
+    margin-left: 300px;
     padding: 20px;
     margin-top: 110px;
     flex: 1;

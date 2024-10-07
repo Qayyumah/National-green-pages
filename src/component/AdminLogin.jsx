@@ -44,9 +44,9 @@ const AdminLogin = () => {
       });
   };
 
-  // if (isLoggedIn) {
-  //   return <Navigate to='/dashboard' replace={true} />;
-  // }
+  if (isLoggedIn) {
+    return <Navigate to='/dashboard' replace={true} />;
+  }
 
   const closeModal = () => {
     setIsModalOpen(false);

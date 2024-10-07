@@ -8,7 +8,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 
 const Contact = () => {
   const schema = yup.object().shape({
-    yourname: yup.string().required('Name is required!'),
+    name: yup.string().required('Name is required!'),
     email: yup.string().email('Email is not valid').required('Email is required!'),
     message: yup.string().required('Required!')
   })
@@ -68,9 +68,9 @@ const Contact = () => {
                   <h2>Send Message</h2>
                   <div className='input'>
                     <input type='text' 
-                      name='yourname' 
+                      name='name' 
                       placeholder='Name' 
-                      {...register("yourname")}
+                      {...register("name")}
                     />
                     <p>{errors.yourname?.message}</p>
                   </div>

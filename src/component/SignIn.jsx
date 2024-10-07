@@ -93,7 +93,6 @@ const SignIn = () => {
 
     const handleForgotPassword = async (email) => {
         try {
-            // Send a request to the password recovery API
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/password-reset/`, { email });
             setSuccess('Password reset email sent. Please check your inbox.');
             setError('');
@@ -112,55 +111,62 @@ const SignIn = () => {
             <div className='sign'>
                 <div className='section-con'>
                     <h1>Sign In</h1>
-                    <div className='sign-in'>
-                        <div className='gmail'>
-                            {success && <div style={{ color: 'white', fontSize: '17px' }} className='s-e'>{success}</div>}
-                            <button onClick={handleClick}>
-                                <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
-                                Sign in with Email {showMail ? '' : ''}
+                    {loggedInUser ? (
+                        <div style={{textAlign:'center', paddingTop:'50px'}}>
+                            <h2>Welcome, {loggedInUser.email}!</h2>
+                            <button style={{border:'none', backgroundColor:'green', padding:'10px 20px', color:'#fff', fontSize:'18px', cursor:'pointer'}} onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <div className='sign-in'>
+                            <div className='gmail'>
+                                {success && <div style={{ color: 'white', fontSize: '17px' }} className='s-e'>{success}</div>}
+                                <button onClick={handleClick}>
+                                    <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
+                                    Sign in with Email
+                                </button>
+
+                                {showMail && (
+                                    <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
+                                        <div className='input-img-sign-in'>
+                                            <input 
+                                                placeholder='Email'
+                                                name='email'
+                                                type='email'
+                                                {...register("email")}
+                                            />
+                                            <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
+                                        </div>
+                                        <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.email?.message}</p>
+                                        <div className='input-img-sign-in'>
+                                            <input 
+                                                placeholder='Password'
+                                                name='password'
+                                                type='password'
+                                                {...register("password")}
+                                            />
+                                            <img src='/images/carbon_password.png' alt='Password Icon' />
+                                        </div>
+                                        <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password?.message}</p>
+                                        <button type='submit'>Submit</button>
+                                        <p onClick={() => setShowForgotPassword(true)} style={{ cursor: 'pointer', color: 'green', marginTop:'10px', marginLeft:'10px' }}>Forgot Password?</p>
+                                    </form>
+                                )}
+                            </div>
+
+                            <button>
+                                <img src='/images/flat-color-icons_google.png' alt='Google Icon' />
+                                Sign in with Google
+                            </button>
+                            <button>
+                                <img src='/images/dashicons_facebook-alt.png' alt='Facebook Icon' />
+                                Sign in with Facebook
                             </button>
 
-                            {showMail && (
-                                <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
-                                    <div className='input-img-sign-in'>
-                                        <input 
-                                            placeholder='Email'
-                                            name='email'
-                                            type='email'
-                                            {...register("email")}
-                                        />
-                                        <img src='/images/mdi_email-edit-outline.png' alt='Email Icon' />
-                                    </div>
-                                    <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.email?.message}</p>
-                                    <div className='input-img-sign-in'>
-                                        <input 
-                                            placeholder='Password'
-                                            name='password'
-                                            type='password'
-                                            {...register("password")}
-                                        />
-                                        <img src='/images/carbon_password.png' alt='Password Icon' />
-                                    </div>
-                                    <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password?.message}</p>
-                                    <button type='submit'>Submit</button>
-                                    <p onClick={() => setShowForgotPassword(true)} style={{ cursor: 'pointer', color: 'green', marginTop:'10px', marginLeft:'10px' }}>Forgot Password?</p>
-                                </form>
-                            )}
+                            <div className='alreadylogged'>
+                                <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
+                            </div>
                         </div>
-
-                        <button>
-                            <img src='/images/flat-color-icons_google.png' alt='Google Icon' />
-                            Sign in with Google
-                        </button>
-                        <button>
-                            <img src='/images/dashicons_facebook-alt.png' alt='Facebook Icon' />
-                            Sign in with Facebook
-                        </button>
-
-                        <div className='alreadylogged'>
-                            <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
@@ -197,3 +203,4 @@ const SignIn = () => {
 };
 
 export default SignIn;
+

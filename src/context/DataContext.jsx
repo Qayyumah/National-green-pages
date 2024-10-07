@@ -19,6 +19,7 @@ export const DataProvider = ({ children }) => {
     });
 
     const [loggedInUser, setLoggedInUser] = useState(null);
+    
     const [message, setMessage] = useState(''); 
 
     useEffect(() => {

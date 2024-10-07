@@ -1,24 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 import '../assets/add-business.css';
 import { DataContext } from '../context/DataContext';
+import { useNavigate } from 'react-router-dom';
 
-const validationSchema = Yup.object().shape({
-  companyname: Yup.string().required('Company name is required'),
-  email: Yup.string().email('Email is invalid').required('Email is required'),
-  phonenumber: Yup.string()
-    .matches(/^[0-9]+$/, 'Phone number must be numeric')
-    .required('Phone number is required'),
-  town: Yup.string().required('Town is required'),
-  city: Yup.string().required('City is required'),
-  state: Yup.string().required('State is required'),
-  dateCreated: Yup.date().required('Date is required').nullable(),
+const validationSchema = yup.object().shape({
+  companyname: yup.string().required('Company name is required'),
+  email: yup.string().email('Email is invalid').required('Email is required'),
+  phonenumber: yup.string().required('Phone number is required').matches(/^\d{11}$/, "Phone number is not valid"),
+  town: yup.string().required('Town is required'),
+  city: yup.string().required('City is required'),
+  state: yup.string().required('State is required'),
+  dateCreated: yup.date().required('Date is required').nullable(),
 });
 
 const AddBusiness = () => {

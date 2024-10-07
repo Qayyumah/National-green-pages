@@ -29,11 +29,14 @@ const SignUp = () => {
   const signSubmit = async (data) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/register/`, data);
-      setSuccessMessage('Account created successfully');
-      setErrorMessage('');
+      if (response.data.is_active === false) {
+        setErrorMessage('Please verify your email before logging in.');
+      } else {
+        setSuccessMessage('Account created successfully');
+        setNavigate(true);
+      }
       setShowModal(true);
-      setNavigate(true);
-    }catch (error) {
+    } catch (error) {
       if (!error.response) {
         setErrorMessage('Network error. Please try again later.');
       } else if (error.response.status === 400 && error.response.data.email) {
@@ -45,10 +48,6 @@ const SignUp = () => {
       setShowModal(true);
     }
   };
-
-  if (navigate) {
-    return <Navigate to='/signin' replace={true} />;
-  }
 
   const handleClick = () => {
     setShowMail(!showMail);
@@ -69,7 +68,7 @@ const SignUp = () => {
           <div className='sign-in'>
             <div className='gmail'>
               <button onClick={handleClick}>
-                <img src='/images/mdi_email-edit-outline.png' /> Sign up with Email{showMail ? '' : ''}
+                <img src='/images/mdi_email-edit-outline.png' /> Sign up with Email
               </button>
 
               {showMail && (

@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 
 const PostBusiness = () => {
-    const { addBusiness, loggedInUser } = useContext(DataContext);
+    const { loggedInUser } = useContext(DataContext);
     const [image, setImage] = useState('images/upload.png');
     const [productImage, setProductImage] = useState('images/upload.png');
     const [message, setMessage] = useState('');
@@ -38,7 +38,7 @@ const PostBusiness = () => {
     });
 
     if (!loggedInUser) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/signin" replace />;
     }
 
     const submitForm = async (data) => {
