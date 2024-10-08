@@ -27,7 +27,6 @@ import UserPendingBusiness from './component/UserPendingBusiness';
 import AdminPrivateRoute from './component/AdminPrivateRoute';
 import UserLogout from './component/UserLogout';
 import SubscriptionRates from './component/SubscriptionRates';
-import UserMessage from './component/UserMessage';
 
 
 
@@ -72,7 +71,6 @@ function App() {
         <Route exact path='/user-all' element={<UserManagePage/>}/>
         <Route exact path='/user-pending' element={<UserPendingBusiness/>}/>
         <Route exact path='/user-logout' element={<UserLogout/>}/>
-        <Route exact path='/user-message' element={<UserMessage/>}/>
       </Routes>
     }
    </div>

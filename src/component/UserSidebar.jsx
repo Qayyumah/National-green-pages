@@ -16,21 +16,21 @@ const UserSidebar = () => {
 
     return (
         <div>
-            <button className="toggle-button" onClick={toggleSidebar}>
+            <button className="user-toggle-button" onClick={toggleSidebar}>
                 <FaBars />
             </button>
             <nav className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-                <div className="sidebar-header">
+                <div className="user-sidebar-header">
                     <h2>NationalGreenPages</h2>
                 </div>
-                <ul className="sidebar-menu">
+                <ul className="user-sidebar-menu">
                     <li>
                         <Link to="/user-dashboard">
                             <FaTachometerAlt style={{ marginRight: '10px' }} /> User Dashboard
                         </Link>
                     </li>
                     <li>
-                        <div onClick={toggleBusinesses} className="dropdown-toggle">
+                        <div onClick={toggleBusinesses} className="user-dropdown-toggle">
                             <FaBuilding style={{ marginRight: '10px' }} /> Businesses <FaCaretDown style={{ marginLeft: '8px' }} />
                         </div>
                         <ul className={`dropdown-menu ${isBusinessesOpen ? 'open' : ''}`}>
@@ -45,12 +45,6 @@ const UserSidebar = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <Link to="/user-message">
-                            <FaSignOutAlt style={{ marginRight: '10px' }} /> Notification
-                            {messageCount > 0 && <span className="notification-count">{messageCount}</span>}
-                        </Link>
                     </li>
                     <li>
                         <Link to="/user-logout">

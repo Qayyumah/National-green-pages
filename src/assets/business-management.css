@@ -4,7 +4,7 @@
   min-height: 100vh;
   padding-top: 170px;
   padding-left: 330px;
-  padding-right: 30px;
+  padding-right: 40px;
 
   h1 {
     text-align: center;
@@ -81,7 +81,6 @@
   color: white;
   text-decoration: none;
   border-radius: 4px;
-  /* width: 20px; */
 }
 
 @media (max-width: 768px) {
@@ -91,6 +90,15 @@
     padding-top: 230px;
   }
 
+  .all-header{
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+    /* align-items: flex-start; */
+  }
+  .add-business-button {
+    width: 20px;
+  }
   table {
     font-size: 0.9em;
   }
@@ -124,7 +132,7 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
-    color: #fff;
+    color: #000;
   }
 
   tr {
