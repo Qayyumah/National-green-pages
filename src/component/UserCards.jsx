@@ -23,7 +23,7 @@ const UserCards = () => {
             title: 'Add New Business',
             icon:'🏢',
             bgColor: '#fff',
-            path:'/user-add',
+            path:'/post',
             line: 'none'
         },
     
