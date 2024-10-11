@@ -5,12 +5,11 @@ import Footer from './Footer';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const SignUp = () => {
   const [showMail, setShowMail] = useState(false);
-  const [navigate, setNavigate] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -30,12 +29,10 @@ const SignUp = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/register/`, data);
       if (response.data.is_active === false) {
-        setErrorMessage('Please verify your email before logging in.');
+        setSuccessMessage('Please check your mail to verify your account.');
       } else {
-        setSuccessMessage('Account created successfully');
-        setNavigate(true);
+        setSuccessMessage('Account created successfully! Please check your mail to verify.');
       }
-      setShowModal(true);
     } catch (error) {
       if (!error.response) {
         setErrorMessage('Network error. Please try again later.');
@@ -44,7 +41,7 @@ const SignUp = () => {
       } else {
         setErrorMessage('Error creating account. Please try again.');
       }
-      setSuccessMessage('');
+    } finally {
       setShowModal(true);
     }
   };
@@ -68,19 +65,19 @@ const SignUp = () => {
           <div className='sign-in'>
             <div className='gmail'>
               <button onClick={handleClick}>
-                <img src='/images/mdi_email-edit-outline.png' /> Sign up with Email
+                <img src='/images/mdi_email-edit-outline.png' alt="Email" /> Sign up with Email
               </button>
 
               {showMail && (
                 <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
                   <div className='input-img-sign-in'>
                     <input
-                      placeholder='Full-Name'
+                      placeholder='Full Name'
                       name='fullname'
-                      type='name'
+                      type='text'
                       {...register("fullname")}
                     />
-                    <img src='images/name.png' />
+                    <img src='images/name.png' alt="Name" />
                   </div>
                   <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.fullname?.message}</p>
 
@@ -91,7 +88,7 @@ const SignUp = () => {
                       type='email'
                       {...register("email")}
                     />
-                    <img src='/images/mdi_email-edit-outline.png' />
+                    <img src='/images/mdi_email-edit-outline.png' alt="Email" />
                   </div>
                   <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.email?.message}</p>
 
@@ -102,7 +99,7 @@ const SignUp = () => {
                       type='password'
                       {...register("password1")}
                     />
-                    <img src='/images/carbon_password.png' />
+                    <img src='/images/carbon_password.png' alt="Password" />
                   </div>
                   <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password1?.message}</p>
 
@@ -113,7 +110,7 @@ const SignUp = () => {
                       type='password'
                       {...register("password2")}
                     />
-                    <img src='/images/carbon_password.png' />
+                    <img src='/images/carbon_password.png' alt="Confirm Password" />
                   </div>
                   <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password2?.message}</p>
 
@@ -122,8 +119,8 @@ const SignUp = () => {
               )}
             </div>
 
-            <button><img src='/images/flat-color-icons_google.png' /> Sign up with Google</button>
-            <button><img src='/images/dashicons_facebook-alt.png' /> Sign up with Facebook</button>
+            <button><img src='/images/flat-color-icons_google.png' alt="Google" /> Sign up with Google</button>
+            <button><img src='/images/dashicons_facebook-alt.png' alt="Facebook" /> Sign up with Facebook</button>
 
             <div className='alreadylogged'>
               <p>Already have an account?<Link to='/signin'> Log in</Link></p>
