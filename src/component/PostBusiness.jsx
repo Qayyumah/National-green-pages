@@ -23,7 +23,7 @@ const PostBusiness = () => {
         phonenumber: yup.string().required('Phone number is required').matches(/^\d{11}$/, "Phone number is not valid"),
         whatsappnumber: yup.string().required('Enter your WhatsApp number').matches(/^\d{11}$/, 'Number is not valid'),
         categoryofbusiness: yup.string().required('Input a Business Category'),
-        website: yup.string().required('Website is required'),
+        website: yup.string(),
         staffstrength: yup.string().required('Required!'),
         address: yup.string().required('Required!'),
     });
