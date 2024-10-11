@@ -1,47 +1,76 @@
-import React, { useContext } from 'react';
-import { DataContext } from '../context/DataContext';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import UserHeader from '../component/UserHeader';
 import UserSidebar from '../component/UserSidebar';
 import '../assets/userManage.css';
 
 const UserPendingBusiness = () => {
-    const { businesses, loggedInUser } = useContext(DataContext);
+    const [pendingBusinesses, setPendingBusinesses] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-    const userBusinesses = loggedInUser
-    ? businesses.filter(business => business.userId === loggedInUser.email)
-    : businesses;
+    useEffect(() => {
+        const fetchBusinesses = async () => {
+            setLoading(true);
+            setError('');
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user-businesses/`, {
+                    headers: {
+                        Authorization: `Token ${localStorage.getItem('token')}`,
+                    },
+                });
+                const userPendingBusinesses = response.data.filter(business => 
+                    business.status === 'pending'
+                );
+                setPendingBusinesses(userPendingBusinesses);
+            } catch (error) {
+                setError('Error fetching businesses. Please check your network connection.');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  
+        fetchBusinesses();
+    }, []);
+
     return (
         <div>
             <UserHeader />
             <UserSidebar />
             <div className="user-content">
-                <h1>Your Business Status</h1>
-                {userBusinesses.length > 0 ? (
-                    <ul className="pending-business-list">
-                        {userBusinesses.map(business => (
-                            <li key={business.id} className="pending-business-item">
-                                <h3>{business.companyname}</h3>
-                                <p>
-                                    <strong>Status:</strong> 
-                                    {business.status === 'pending' ? ' Pending Approval' : ' Approved'}
-                                </p>
-                                <p><strong>Email:</strong> {business.email}</p>
-                                <p><strong>State:</strong> {business.state}</p>
-                                <p><strong>Local Government:</strong> {business.localgovernment}</p>
-                                <p><strong>Town/City:</strong> {business.town}</p>
-                                <p><strong>Phone Number:</strong> {business.phonenumber}</p>
-                                <p><strong>WhatsApp Number:</strong> {business.whatsappnumber}</p>
-                                <p><strong>Category of Business:</strong> {business.categoryofbusiness}</p>
-                                <p><strong>Website:</strong> {business.website}</p>
-                                <p><strong>Staff Strength:</strong> {business.staffstrength}</p>
-                                <p><strong>Address:</strong> {business.address}</p>
-                            </li>
-                        ))}
-                    </ul>
+                <h1>Your Pending Businesses</h1>
+                
+                {loading ? (
+                    <p>Loading pending businesses...</p>
+                ) : error ? (
+                    <p style={{ color: 'red' }}>{error}</p>
+                ) : pendingBusinesses.length > 0 ? (
+                    <div className="table-responsive">
+                        <table className="pending-business-table">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Status</th>
+                                    <th>Date Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {pendingBusinesses.map(business => (
+                                    <tr key={business.id}>
+                                        <td>{business.companyname}</td>
+                                        <td>{business.email}</td>
+                                        <td>{business.phonenumber}</td>
+                                        <td>Pending Approval</td>
+                                        <td>{new Date(business.dateCreated).toLocaleDateString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 ) : (
-                    <p>No businesses found.</p>
+                    <p>No pending businesses found.</p>
                 )}
             </div>
         </div>

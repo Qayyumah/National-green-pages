@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/signIn.css';
 import axios from 'axios';
 import Header from './Header';
@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataContext } from '../context/DataContext';
 
 const SignIn = () => {
     const [showMail, setShowMail] = useState(false);
@@ -15,18 +14,15 @@ const SignIn = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const { logInUser, loggedInUser, logOutUser } = useContext(DataContext);
+    const [loggedInUser, setLoggedInUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const email = localStorage.getItem('email'); 
-            if (email) {
-                logInUser({ email });
-            }
+        const email = localStorage.getItem('email');
+        if (email) {
+            setLoggedInUser({ email });
         }
-    }, [logInUser]);
+    }, []);
 
     const schema = yup.object().shape({
         email: yup.string().email('Email is not valid').required('Email is required'),
@@ -42,10 +38,10 @@ const SignIn = () => {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
             localStorage.setItem('token', response.data.key);
             localStorage.setItem('email', data.email);
-            logInUser({ email: data.email });
+            setLoggedInUser({ email: data.email });
             setSuccess('You have successfully logged in');
             setError('');
-            navigate('/post');
+            navigate('/user-dashboard');
         } catch (err) {
             if (err.response) {
                 switch (err.response.status) {
@@ -77,7 +73,8 @@ const SignIn = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
-        logOutUser(); 
+        setLoggedInUser(null);
+        navigate('/signin');
     };
 
     const handleClick = () => {
@@ -112,9 +109,21 @@ const SignIn = () => {
                 <div className='section-con'>
                     <h1>Sign In</h1>
                     {loggedInUser ? (
-                        <div style={{textAlign:'center', paddingTop:'50px'}}>
+                        <div style={{ textAlign: 'center', paddingTop: '50px' }}>
                             <h2>Welcome, {loggedInUser.email}!</h2>
-                            <button style={{border:'none', backgroundColor:'green', padding:'10px 20px', color:'#fff', fontSize:'18px', cursor:'pointer'}} onClick={handleLogout}>Logout</button>
+                            <button
+                                style={{
+                                    border: 'none',
+                                    backgroundColor: 'green',
+                                    padding: '10px 20px',
+                                    color: '#fff',
+                                    fontSize: '18px',
+                                    cursor: 'pointer'
+                                }}
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
                         </div>
                     ) : (
                         <div className='sign-in'>
@@ -148,7 +157,7 @@ const SignIn = () => {
                                         </div>
                                         <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>{errors.password?.message}</p>
                                         <button type='submit'>Submit</button>
-                                        <p onClick={() => setShowForgotPassword(true)} style={{ cursor: 'pointer', color: 'green', marginTop:'10px', marginLeft:'10px' }}>Forgot Password?</p>
+                                        <p onClick={() => setShowForgotPassword(true)} style={{ cursor: 'pointer', color: 'green', marginTop: '10px', marginLeft: '10px' }}>Forgot Password?</p>
                                     </form>
                                 )}
                             </div>
@@ -203,4 +212,5 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
 

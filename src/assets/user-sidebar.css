@@ -11,25 +11,25 @@
     transition: width 0.2s ease, transform 0.2s ease;
   }
   
-  .sidebar-header {
+  .user-sidebar-header {
     padding: 20px 0;
     text-align: center;
     background-color:  rgb(38, 129, 24);
     color: #fff;
   }
   
-  .sidebar-menu {
+  .user-sidebar-menu {
     list-style: none;
     padding: 0;
   }
   
-  .sidebar-menu li {
+  .user-sidebar-menu li {
     position: relative;
     font-size: 22px;
   }
   
-  .sidebar-menu li a,
-  .dropdown-toggle {
+  .user-sidebar-menu li a,
+  .user-dropdown-toggle {
     display: flex;
     align-items: center;
     padding: 20px 30px;
@@ -38,7 +38,7 @@
     transition: background 0.3s;
   }
   
-  .sidebar-menu li a:hover, .dropdown-toggle:hover {
+  .user-sidebar-menu li a:hover, .dropdown-toggle:hover {
     background-color: rgb(7, 82, 40);
   }
   
@@ -55,13 +55,13 @@
     font-size: 16px;
   }
   
-  .dropdown-toggle i,
+  .userdropdown-toggle i,
   .dropdown-menu li a i {
     margin-right: 10px; 
     margin-left: 10px; 
   }
   
-  .dropdown-toggle {
+  .user-dropdown-toggle {
     cursor: pointer;
   }
   
@@ -70,28 +70,28 @@
   }
   
   @media (max-width: 768px) {
-    .sidebar {
+    .user-sidebar {
       padding-top: 180px;
       width: 100%;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
     }
   
-    .sidebar.open {
+    .user-sidebar.open {
       transform: translateX(0);
     }
   
-    .sidebar-header {
+    .user-sidebar-header {
       padding: 15px;
-      margin-top: -23px;
+      margin-top: 23px;
     }
   
-    .sidebar-menu li a,
-    .dropdown-toggle {
+    .user-sidebar-menu li a,
+    .user-dropdown-toggle {
       padding: 10px 15px;
     }
   
-    .toggle-button {
+    .user-toggle-button {
       display: block;
       background: none;
       border: none;
@@ -107,7 +107,7 @@
   }
   
   @media (max-width: 480px){
-    .toggle-button {
+    .user-toggle-button {
       display: block;
       background: none;
       border: none;
@@ -115,14 +115,13 @@
       font-size: 20px;
       position: fixed;
       left: 280px;
-      /* top: 85px; */
       right: 0;
       z-index: 1100;
     }
   }
   
   @media (min-width: 769px) {
-    .toggle-button {
+    .user-toggle-button {
       display: none;
     }
   }

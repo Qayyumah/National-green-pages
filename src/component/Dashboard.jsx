@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 import DashboardCards from './DashboardCards';
 import axios from 'axios';
 
 const Dashboard = () => {
-  const [token, setToken] = useState(null);
   const [isValidToken, setIsValidToken] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-      setToken(storedToken);
       verifyToken(storedToken);
+    } else {
+      navigate('/admin');
     }
-  }, []);
+  }, [navigate]);
 
   const verifyToken = async (token) => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/verify-admin-token/${token}`);
       if (response.status === 200) {
         setIsValidToken(true);
+      } else {
+        navigate('/admin');
       }
     } catch (error) {
       console.error('Token verification failed:', error);
+      navigate('/admin');
     }
   };
 
   if (!isValidToken) {
-    return <div>Please log in to access the dashboard.</div>;
+    return null; // Prevent rendering until the token verification is complete
   }
 
   return (
@@ -44,4 +49,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
  

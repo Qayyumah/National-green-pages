@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../assets/Contact.css'
 import Header from './Header'
 import Footer from './Footer'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
+import axios from 'axios'
 
 const Contact = () => {
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalError, setModalError] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const schema = yup.object().shape({
     name: yup.string().required('Name is required!'),
     email: yup.string().email('Email is not valid').required('Email is required!'),
@@ -17,17 +22,21 @@ const Contact = () => {
     resolver: yupResolver(schema)
 })
 
-  const contactForm = (data) => {
-    fetch('',{
-      method:'POST',
-      headers:{'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    }).then(()=>{
-        console.log('new')
-    })
-    console.log(data)
+  const contactForm = async (data) => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/contact-us/`, data, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      setModalMessage('Message sent successfully!');
 
-  }
+    } catch (error) {
+      setModalMessage('An error occurred while sending your message.');
+    }
+  };
+
+  const closeModal = () => {
+    setModalMessage('')
+  };
 
   return (
     <div>
@@ -88,14 +97,24 @@ const Contact = () => {
                     placeholder='Enter your message'  
                     {...register("message")}/>
                   </div>
-                  <p>{errors.message?.message}</p>
+                 <p>{errors.message?.message}</p>
+
                   <div className='input'>
                     <input type='submit' value='submit'/>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>
+          {modalMessage && (
+            <div className="modal-overlay">
+                <div className="modal-content">
+                    <p>{modalMessage}</p>
+                    <button onClick={closeModal}>Close</button>
+                </div>
+            </div>
+        )}
         <Footer/>
     </div>
   )

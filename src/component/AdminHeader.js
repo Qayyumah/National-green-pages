@@ -1,23 +1,45 @@
-// src/components/Header.js
-import React, { useContext } from 'react';
-import '../assets/dashboard.css'
+import React, { useContext, useRef } from 'react';
+import '../assets/dashboard.css';
 import { Link } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
+import axios from 'axios';
 
 const AdminHeader = () => {
-  const {loggedInUser} = useContext(DataContext)
+  const { loggedInUser } = useContext(DataContext);
+  const myref = useRef();
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const searchTerm = myref.current.value;
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/find-business/?search=${searchTerm}/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Token ${localStorage.getItem('token')}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
 
   return (
     <header className="header">
-    <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
       <div className='header-search-input'>
-      <form className='search-menu'>
-        <input type="text" className="search-input" placeholder="search-businesses"/>
-      </form>
+        <form className='search-menu' onSubmit={handleSearch}>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search Businesses"
+            ref={myref}
+          />
+        </form>
       </div>
       <div className="header-right">
         <h3>WELCOME! {loggedInUser ? loggedInUser.email : null}</h3>
-        <Link to='/'>view site</Link>
+        <Link to='/'>View Site</Link>
       </div>
     </header>
   );

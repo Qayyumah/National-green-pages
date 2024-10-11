@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import '../assets/post.css';
 import Header from './Header';
@@ -6,18 +6,13 @@ import Footer from './Footer';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Navigate } from 'react-router-dom';
-import { DataContext } from '../context/DataContext';
 
 const PostBusiness = () => {
-    const { loggedInUser } = useContext(DataContext);
     const [image, setImage] = useState('images/upload.png');
     const [productImage, setProductImage] = useState('images/upload.png');
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -26,37 +21,31 @@ const PostBusiness = () => {
         localgovernment: yup.string().required('This field is required!'),
         town: yup.string().required('Please enter your town'),
         phonenumber: yup.string().required('Phone number is required').matches(/^\d{11}$/, "Phone number is not valid"),
-        whatsappnumber: yup.string().required('Enter your whatsapp number').matches(/^\d{11}$/, 'Number is not valid'),
+        whatsappnumber: yup.string().required('Enter your WhatsApp number').matches(/^\d{11}$/, 'Number is not valid'),
         categoryofbusiness: yup.string().required('Input a Business Category'),
         website: yup.string().required('Website is required'),
         staffstrength: yup.string().required('Required!'),
         address: yup.string().required('Required!'),
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
-
-    if (!loggedInUser) {
-        return <Navigate to="/signin" replace />;
-    }
 
     const submitForm = async (data) => {
         setLoading(true);
         
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`, {
-                ...data,
-                id: loggedInUser.id,
-                ceoImg: image,
-                logo: productImage,
-            }, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`,data, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
             });
             setMessage('Business Submitted For Approval');
             setIsSuccess(true);
+            reset();
+            setImage('images/upload.png');
+            setProductImage('images/upload.png'); 
         } catch (err) {
             setMessage(err.message);
             setIsSuccess(false);
@@ -68,10 +57,6 @@ const PostBusiness = () => {
     const closeModal = () => {
         setMessage('');
     };
-
-    if (isSuccess && message) {
-        return <Navigate to="/user-dashboard" replace />;
-    }
 
     const handleImage = (e) => {
         setImage(URL.createObjectURL(e.target.files[0]));
