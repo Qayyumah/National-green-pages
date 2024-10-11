@@ -34,10 +34,26 @@ const PostBusiness = () => {
 
     const submitForm = async (data) => {
         setLoading(true);
+        const formData = new FormData();
         
+        Object.keys(data).forEach(key => {
+            formData.append(key, data[key]);
+        });
+
+        const ceoImageFile = document.getElementById('imgs').files[0];
+        const productImageFile = document.getElementById('productImg').files[0];
+        
+        if (ceoImageFile) {
+            formData.append('ceoImg', ceoImageFile);
+        }
+        if (productImageFile) {
+            formData.append('logo', productImageFile);
+        }
+
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`,data, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`, formData, {
                 headers: {
+                    'Content-Type': 'multipart/form-data',
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
             });
