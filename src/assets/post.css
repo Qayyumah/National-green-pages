@@ -124,7 +124,23 @@ textarea{
     font-size: 13px;
     text-align: left;
 }
-
+.checkbox-container{
+    display: flex;
+    align-items: center;
+    margin-left: -220px;
+    
+    input{
+        cursor: pointer;
+    }
+    label{
+        margin-left: -210px;
+        font-weight: 500;
+    }
+    strong{
+        font-size: 20px;
+        color: green;
+    }
+}
 .modal-overlay {
     position: fixed;
     top: 0;

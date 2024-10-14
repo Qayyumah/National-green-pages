@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserHeader from '../component/UserHeader';
 import UserSidebar from '../component/UserSidebar';
 import '../assets/userManage.css';
+import Cookies from 'js-cookie';
 
 const UserPendingBusiness = () => {
     const [pendingBusinesses, setPendingBusinesses] = useState([]);
@@ -16,7 +17,7 @@ const UserPendingBusiness = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user-businesses/`, {
                     headers: {
-                        Authorization: `Token ${localStorage.getItem('token')}`,
+                        Authorization: `Token ${Cookies.get('token')}`,
                     },
                 });
                 const userPendingBusinesses = response.data.filter(business => 
@@ -62,8 +63,8 @@ const UserPendingBusiness = () => {
                                         <td>{business.companyname}</td>
                                         <td>{business.email}</td>
                                         <td>{business.phonenumber}</td>
-                                        <td>Pending Approval</td>
-                                        <td>{new Date(business.dateCreated).toLocaleDateString()}</td>
+                                        <td>{business.status}</td>
+                                        <td>{business.created_at}</td>
                                     </tr>
                                 ))}
                             </tbody>

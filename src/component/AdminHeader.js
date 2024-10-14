@@ -3,6 +3,7 @@ import '../assets/dashboard.css';
 import { Link } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 
 const AdminHeader = () => {
   const { loggedInUser } = useContext(DataContext);
@@ -15,7 +16,7 @@ const AdminHeader = () => {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/find-business/?search=${searchTerm}/`, {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Token ${localStorage.getItem('token')}`,
+          Authorization: `Token ${Cookies.get('token')}`,
         },
       });
       console.log(response.data);

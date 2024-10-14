@@ -6,6 +6,7 @@ import Footer from './Footer';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Cookies from 'js-cookie';
 
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png');
@@ -13,6 +14,7 @@ const PostBusiness = () => {
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -21,28 +23,31 @@ const PostBusiness = () => {
         localgovernment: yup.string().required('This field is required!'),
         town: yup.string().required('Please enter your town'),
         phonenumber: yup.string().required('Phone number is required').matches(/^\d{11}$/, "Phone number is not valid"),
-        whatsappnumber: yup.string().required('Enter your WhatsApp number').matches(/^\d{11}$/, 'Number is not valid'),
+        whatsappnumber: yup.string().matches(/^\d{11}$/, 'Number is not valid'),
         categoryofbusiness: yup.string().required('Input a Business Category'),
         website: yup.string(),
+        ceoImg: yup.string(),
+        productImage: yup.string(),
         staffstrength: yup.string().required('Required!'),
         address: yup.string().required('Required!'),
+        isAuthorized: yup.boolean().oneOf([true], 'You must authorize to proceed'),
     });
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
     const submitForm = async (data) => {
         setLoading(true);
         const formData = new FormData();
-        
+
         Object.keys(data).forEach(key => {
             formData.append(key, data[key]);
         });
 
         const ceoImageFile = document.getElementById('imgs').files[0];
         const productImageFile = document.getElementById('productImg').files[0];
-        
+
         if (ceoImageFile) {
             formData.append('ceoImg', ceoImageFile);
         }
@@ -54,12 +59,12 @@ const PostBusiness = () => {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-business/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Token ${localStorage.getItem('token')}`,
+                    Authorization: `Token ${Cookies.get('token')}`,
                 },
             });
-            setMessage('Business Submitted For Approval');
+            setMessage('Business Submitted For Approval')
             setIsSuccess(true);
-            reset();
+            reset()
             setImage('images/upload.png');
             setProductImage('images/upload.png'); 
         } catch (err) {
@@ -155,6 +160,18 @@ const PostBusiness = () => {
                     <label htmlFor='address'>Address</label>
                     <textarea name='address' {...register("address")}></textarea>
                     <p>{errors.address?.message}</p>
+
+                    <div className="checkbox-container">
+                        <input 
+                            type="checkbox" 
+                            name="isAuthorized" 
+                            {...register("isAuthorized")} 
+                            checked={isAuthorized}
+                            onChange={() => setIsAuthorized(!isAuthorized)} 
+                        />
+                        <label>I, the CEO of <strong>{watch("companyname")}</strong>, authorize National Greenpages business directory to publish my business on their page and website.</label>
+                    </div>
+                    <p>{errors.isAuthorized?.message}</p>
 
                     <button type='submit'>Submit</button>
                 </form>

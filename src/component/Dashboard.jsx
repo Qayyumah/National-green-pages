@@ -1,39 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 import DashboardCards from './DashboardCards';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const Dashboard = () => {
-  const [isValidToken, setIsValidToken] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      verifyToken(storedToken);
-    } else {
-      navigate('/admin');
-    }
-  }, [navigate]);
 
-  const verifyToken = async (token) => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/verify-admin-token/${token}`);
-      if (response.status === 200) {
-        setIsValidToken(true);
-      } else {
-        navigate('/admin');
-      }
-    } catch (error) {
-      console.error('Token verification failed:', error);
-      navigate('/admin');
-    }
+  const isAuthenticated = () => {
+    return Cookies.get('token') && Cookies.get('is_staff')
   };
 
-  if (!isValidToken) {
-    return null; // Prevent rendering until the token verification is complete
+  if (!isAuthenticated()) {
+    navigate('/admin'); 
+    return null;
   }
 
   return (
@@ -50,4 +33,3 @@ const Dashboard = () => {
 
 export default Dashboard;
 
- 

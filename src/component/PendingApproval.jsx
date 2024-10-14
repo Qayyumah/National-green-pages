@@ -5,6 +5,7 @@ import '../assets/business-management.css';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import '../assets/pending.css';
+import Cookies from 'js-cookie'
 
 const PendingApproval = () => {
   const [pendingBusinesses, setPendingBusinesses] = useState([]);
@@ -24,7 +25,11 @@ const PendingApproval = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/businesses-in-admin`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/businesses-in-admin`, {
+          headers: {
+            Authorization: `Token ${Cookies.get('token')}`,
+          },
+        });
         const pendingBusinesses = response.data.filter(business => business.status.toLowerCase() === "pending");
         setPendingBusinesses(pendingBusinesses);
       } catch (error) {
@@ -40,7 +45,11 @@ const PendingApproval = () => {
   const handleApproval = async (index, email, e) => {
     e.stopPropagation();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/approve-business/`, { email });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/approve-business/`, { email },{
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+        },
+      });
       if (response.status === 200) {
         const updatedBusinesses = pendingBusinesses.map((business, i) => 
           i === index ? { ...business, status: "approved" } : business
@@ -71,7 +80,11 @@ const PendingApproval = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/reject-business/`, {
         email: business.email,
-        reason: rejectionReason
+        reason: rejectionReason,
+
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+        },
       });
 
       if (response.status === 200) {

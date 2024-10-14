@@ -56,9 +56,9 @@ function App() {
         <Route exact path='/signup' element={<SignUp/>}/>
         <Route exact path='/admin' element={<AdminLogin/>}/>
         <Route exact path='/subscription-rates' element={<SubscriptionRates/>}/>
-        <Route exact path='/post' element={<PrivateRoute element={<PostBusiness/>}/>}/>
+        <Route exact path='/post' element={<PrivateRoute />}/>
         <Route exact path='/contact' element={<Contact/>}/>
-        <Route exact path='/dashboard' element={<AdminPrivateRoute element={<Dashboard/>}/>}/>
+        <Route exact path='/dashboard' element={<AdminPrivateRoute />} />
         <Route exact path='/all-users' element={<AllUser/>}/>
         <Route exact path='/all-business' element={<AllBusinesses/>}/>
         <Route exact path='/add-users' element={<AddUser/>}/>

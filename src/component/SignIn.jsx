@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import { useForm } from 'react-hook-form';
+import Cookies from 'js-cookie';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,7 +19,7 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const email = localStorage.getItem('email');
+        const email = Cookies.get('email');
         if (email) {
             setLoggedInUser({ email });
         }
@@ -36,8 +37,9 @@ const SignIn = () => {
     const signSubmit = async (data) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
-            localStorage.setItem('token', response.data.key);
-            localStorage.setItem('email', data.email);
+            Cookies.set('token', response.data.key);
+            Cookies.set('email', data.email);
+            Cookies.set('is_staff', response.data.is_staff)
             setLoggedInUser({ email: data.email });
             setSuccess('You have successfully logged in');
             setError('');
@@ -71,8 +73,8 @@ const SignIn = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
+        Cookies.remove('token');
+        Cookies.remove('email');
         setLoggedInUser(null);
         navigate('/signin');
     };
@@ -212,5 +214,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
-

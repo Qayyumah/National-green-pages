@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
-import { DataContext } from '../context/DataContext';
+import Cookies from 'js-cookie';
+
 
 const AdminLogin = () => {
-  const { logInUser, addAdmin } = useContext(DataContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalType, setModalType] = useState(''); 
@@ -27,10 +27,8 @@ const AdminLogin = () => {
     axios.post(`${process.env.REACT_APP_API_URL}/api/admin/`, data)
       .then((response) => {
         console.log(response)
-        localStorage.setItem('token', response.data['key']);
-        const admin = { id: Date.now(), username: data.email, status: 'active' }; 
-        logInUser(admin);
-        addAdmin(admin);
+        Cookies.set('token', response.data['key']);
+        Cookies.set('is_staff', response.data.is_staff)
         setModalMessage('You have successfully logged in');
         setModalType('success');
         setIsLoggedIn(true);

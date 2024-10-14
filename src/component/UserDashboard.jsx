@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
-import { DataContext } from '../context/DataContext';
+import React from 'react';
 import UserHeader from './UserHeader';
 import UserSidebar from './UserSidebar';
 import UserCards from './UserCards';
-import '../assets/user-dashboard.css'
+import '../assets/user-dashboard.css';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 const UserDashboard = () => {
-    const { loggedInUser } = useContext(DataContext);
-    const userName = loggedInUser ? loggedInUser.name || loggedInUser.email : '';
+    const navigate = useNavigate();
+    
+  const isAuthenticated = () => {
+    return Cookies.get('token') 
+  };
 
+  if (!isAuthenticated()) {
+    navigate('/signin'); 
+    return null;
+  }
     return (
         <div>
             <UserHeader />
             <UserSidebar />
             <div className='user-dashboard-container'>
-                <h1>Welcome to your dashboard! {userName}</h1>
+                <h1>Welcome to your dashboard!</h1>
             </div>
             <UserCards />
         </div>

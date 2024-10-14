@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTachometerAlt, FaBuilding, FaBriefcase, FaSignOutAlt, FaBars, FaCaretDown } from 'react-icons/fa';
 import { DataContext } from '../context/DataContext';
 import '../assets/user-sidebar.css'
@@ -8,6 +8,7 @@ import '../assets/user-sidebar.css'
 const UserSidebar = () => {
     const [isBusinessesOpen, setIsBusinessesOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleBusinesses = () => setIsBusinessesOpen(prev => !prev);
     const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
@@ -46,7 +47,7 @@ const UserSidebar = () => {
                     </li>
                     <li>
                         <Link to="/user-logout">
-                            <FaSignOutAlt style={{ marginRight: '10px' }} /> Logout
+                            <FaSignOutAlt style={{ marginRight: '10px' }}/> Logout
                         </Link>
                     </li>
                 </ul>

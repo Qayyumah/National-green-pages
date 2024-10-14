@@ -3,16 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/dashboard.css';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
-import { DataContext } from '../context/DataContext';
+import Cookies from 'js-cookie'
 
 const AdminLogOut = () => {
   const navigate = useNavigate();
-  const {logOutUser} = useContext(DataContext)
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    logOutUser(); 
+  Cookies.remove('token');
+    Cookies.remove('email');
     
     navigate('/admin'); 
   };

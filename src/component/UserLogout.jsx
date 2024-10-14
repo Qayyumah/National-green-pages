@@ -2,19 +2,16 @@ import React from 'react'
 import UserHeader from './UserHeader'
 import UserSidebar from './UserSidebar'
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { DataContext } from '../context/DataContext'
 import '../assets/user-dashboard.css'
+import Cookies from 'js-cookie'
 
 const UserLogout = () => {
     const navigate = useNavigate();
-    const {logOutUser} = useContext(DataContext)
+
   
     const handleLogout = () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      logOutUser(); 
-      
+      Cookies.remove('token');
+      Cookies.remove('email');
       navigate('/signin'); 
     };
   return (
@@ -25,7 +22,7 @@ const UserLogout = () => {
             <h1>Logout</h1>
             <p>Are you sure you want to logout?</p>
             <div className="user-button-container">
-                <button onClick={handleLogout} className="user-logout-button">Yes, Logout</button>
+                <button onClick={handleLogout} className="user-logout-button">Logout</button>
                 <button onClick={() => navigate(-1)} className="user-cancel-button">Cancel</button>
             </div>
         </div>

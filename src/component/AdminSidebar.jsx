@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTachometerAlt, FaUsers, FaList, FaUserPlus, FaBuilding, FaBriefcase, FaPlusCircle, FaSignOutAlt, FaBars, FaCaretDown } from 'react-icons/fa';
 import '../assets/sidebar.css';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
 
 const AdminSidebar = () => {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isBusinessesOpen, setIsBusinessesOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false)
+  const navigate = useNavigate();
 
   const toggleUsers = () => setIsUsersOpen(prev => !prev);
   const toggleBusinesses = () => setIsBusinessesOpen(prev => !prev);
   const toggleAdmin = () => setIsAdminOpen(prev => !prev)
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+
+
+  const handleAdminCick = () => {
+    Cookies.remove('token');
+    navigate('/admin');
+};
 
   return (
     <div>
@@ -92,7 +101,7 @@ const AdminSidebar = () => {
           </li>
           <li>
             <Link to="/logout">
-              <FaSignOutAlt style={{marginRight:'10px'}}/> Logout
+              <FaSignOutAlt style={{marginRight:'10px'}} onClick={handleAdminCick}/> Logout
             </Link>
           </li>
         </ul>

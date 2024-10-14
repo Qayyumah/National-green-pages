@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import UserHeader from '../component/UserHeader';
 import UserSidebar from '../component/UserSidebar';
 import '../assets/userManage.css';
+import Cookies from 'js-cookie';
 
 const UserManagePage = () => {
     const [businesses, setBusinesses] = useState([]);
     const [editingBusiness, setEditingBusiness] = useState(null);
-    const [modalBusiness, setModalBusiness] = useState(null);
+    const [image, setImage] = useState(); 
+    const [productImage, setProductImage] = useState(); 
     const [confirmDelete, setConfirmDelete] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [viewBusiness, setViewBusiness] = useState(null);
 
     useEffect(() => {
         const fetchBusinesses = async () => {
@@ -20,12 +23,12 @@ const UserManagePage = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user-businesses/`, {
                     headers: {
-                        Authorization: `Token ${localStorage.getItem('token')}`,
+                        Authorization: `Token ${Cookies.get('token')}`,
                     },
                 });
                 setBusinesses(response.data);
             } catch (error) {
-                setError('Error fetching businesses. Please check your network connection.');
+                setError('Error fetching businesses.');
             } finally {
                 setLoading(false);
             }
@@ -36,6 +39,8 @@ const UserManagePage = () => {
 
     const handleEdit = (business) => {
         setEditingBusiness(business);
+        setImage(business.ceoImg); 
+        setProductImage(business.logo);
     };
 
     const handleChange = (e) => {
@@ -43,18 +48,47 @@ const UserManagePage = () => {
         setEditingBusiness(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleImage = (e) => {
+        setImage(URL.createObjectURL(e.target.files[0]));
+    };
+
+    const handleProductImage = (e) => {
+        setProductImage(URL.createObjectURL(e.target.files[0]));
+    };
+
     const handleSubmit = async (e) => {
+        const businessEmail = businesses[editingBusiness].email;
         e.preventDefault();
+        const formData = new FormData();
+        
+        Object.keys(editingBusiness).forEach(key => {
+            formData.append(key, editingBusiness[key]);
+        });
+
+        if (document.getElementById('imgs').files[0]) {
+            formData.append('ceoImg', document.getElementById('imgs').files[0]);
+        }
+        if (document.getElementById('productImg').files[0]) {
+            formData.append('logo', document.getElementById('productImg').files[0]);
+        }
+
         try {
-            const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/user-businesses/${editingBusiness.email}`, editingBusiness);
-            if (response.status === 200) {
-                setBusinesses(prevBusinesses =>
-                    prevBusinesses.map(business =>
-                        business.email === editingBusiness.email ? { ...editingBusiness } : business
-                    )
-                );
-                setEditingBusiness(null);
-            }
+
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/edit-business`,  {email: businessEmail, ...editingBusiness }, {
+                headers: {
+                    Authorization: `Token ${Cookies.get('token')}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            setBusinesses(prevBusinesses =>
+                prevBusinesses.map(business =>
+                    business.email === editingBusiness.email ? { ...editingBusiness } : business
+                )
+            );
+            setEditingBusiness(null);
+            setImage(null);
+            setProductImage(null);
         } catch (error) {
             setError('Error updating business. Please try again.');
         }
@@ -66,11 +100,14 @@ const UserManagePage = () => {
 
     const handleConfirmDelete = async () => {
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/user-businesses/${confirmDelete}`);
-            if (response.status === 200) {
-                setBusinesses(prevBusinesses => prevBusinesses.filter(business => business.email !== confirmDelete));
-                setConfirmDelete(null);
-            }
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/delete-business/`, { email: confirmDelete }, {
+                headers: {
+                    Authorization: `Token ${Cookies.get('token')}`,
+                },
+            });
+
+            setBusinesses(prevBusinesses => prevBusinesses.filter(business => business.email !== confirmDelete));
+            setConfirmDelete(null);
         } catch (error) {
             setError('Error deleting business. Please try again.');
         }
@@ -80,12 +117,12 @@ const UserManagePage = () => {
         setConfirmDelete(null);
     };
 
-    const handleModalOpen = (business) => {
-        setModalBusiness(business);
+    const handleViewBusiness = (business) => {
+        setViewBusiness(business);
     };
 
-    const handleModalClose = () => {
-        setModalBusiness(null);
+    const handleCloseModal = () => {
+        setViewBusiness(null);
     };
 
     return (
@@ -119,6 +156,7 @@ const UserManagePage = () => {
                                     name="email"
                                     value={editingBusiness.email}
                                     onChange={handleChange}
+                                    readOnly
                                 />
                             </label>
                             <label>
@@ -201,6 +239,24 @@ const UserManagePage = () => {
                                     onChange={handleChange}
                                 />
                             </label>
+                            <label>
+                                CEO Image:
+                                <input
+                                    type="file"
+                                    id="imgs"
+                                    onChange={handleImage}
+                                />
+                                {image && <img src={image} alt="CEO" />}
+                            </label>
+                            <label>
+                                Product Image:
+                                <input
+                                    type="file"
+                                    id="productImg"
+                                    onChange={handleProductImage}
+                                />
+                                {productImage && <img src={productImage} alt="Product" />}
+                            </label>
                             <button type="submit">Save Changes</button>
                             <button type="button" onClick={() => setEditingBusiness(null)}>Cancel</button>
                         </form>
@@ -222,15 +278,16 @@ const UserManagePage = () => {
                                 </thead>
                                 <tbody>
                                     {businesses.map(business => (
-                                        <tr key={business.email} onClick={() => handleModalOpen(business)} style={{ cursor: 'pointer' }}>
+                                        <tr key={business.email}>
                                             <td>{business.companyname}</td>
                                             <td>{business.email}</td>
                                             <td>{business.phonenumber}</td>
                                             <td>{business.status}</td>
-                                            <td>{new Date(business.dateCreated).toLocaleDateString()}</td>
+                                            <td>{business.created_at}</td>
                                             <td>
-                                                <FaEdit onClick={(e) => { e.stopPropagation(); handleEdit(business); }} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                                                <FaTrash onClick={(e) => { e.stopPropagation(); handleDeleteClick(business.email); }} style={{ cursor: 'pointer', color: 'red' }} />
+                                                <FaEye onClick={() => handleViewBusiness(business)} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                                                <FaEdit onClick={() => handleEdit(business)} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                                                <FaTrash onClick={() => handleDeleteClick(business.email)} style={{ cursor: 'pointer', color: 'red' }} />
                                             </td>
                                         </tr>
                                     ))}
@@ -242,32 +299,36 @@ const UserManagePage = () => {
                     </div>
                 )}
 
-                {modalBusiness && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <span className="close" onClick={handleModalClose}>&times;</span>
-                            <h3>{modalBusiness.companyname}</h3>
-                            <p>Email: {modalBusiness.email}</p>
-                            <p>Phone Number: {modalBusiness.phonenumber}</p>
-                            <p>WhatsApp Number: {modalBusiness.whatsappnumber}</p>
-                            <p>State: {modalBusiness.state}</p>
-                            <p>Local Government: {modalBusiness.localgovernment}</p>
-                            <p>Town/City: {modalBusiness.town}</p>
-                            <p>Category of Business: {modalBusiness.categoryofbusiness}</p>
-                            <p>Website: {modalBusiness.website}</p>
-                            <p>Staff Strength: {modalBusiness.staffstrength}</p>
-                            <p>Address: {modalBusiness.address}</p>
-                        </div>
-                    </div>
-                )}
-
                 {confirmDelete && (
                     <div className="modal">
                         <div className="modal-content">
                             <h3>Confirm Deletion</h3>
                             <p>Are you sure you want to delete this business?</p>
-                            <button onClick={handleConfirmDelete}>Yes, delete</button>
+                            <button onClick={handleConfirmDelete} style={{ marginRight: '20px' }}>Yes, delete</button>
                             <button onClick={handleCancelDelete}>Cancel</button>
+                        </div>
+                    </div>
+                )}
+
+                {viewBusiness && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <h3>Business Details</h3>
+                            <p><strong>Status: </strong>{viewBusiness.status}</p>
+                            <p><strong>Company Name:</strong> {viewBusiness.companyname}</p>
+                            <p><strong>Email:</strong> {viewBusiness.email}</p>
+                            <p><strong>Phone Number:</strong> {viewBusiness.phonenumber}</p>
+                            <p><strong>WhatsApp Number:</strong> {viewBusiness.whatsappnumber}</p>
+                            <p><strong>State:</strong> {viewBusiness.state}</p>
+                            <p><strong>Local Government:</strong> {viewBusiness.localgovernment}</p>
+                            <p><strong>Town/City:</strong> {viewBusiness.town}</p>
+                            <p><strong>Category of Business:</strong> {viewBusiness.categoryofbusiness}</p>
+                            <p><strong>Website:</strong> {viewBusiness.website}</p>
+                            <p><strong>CeoImage:</strong>{viewBusiness.ceoImg}</p>
+                            <p><strong>productImage:</strong>{viewBusiness.productImage}</p>
+                            <p><strong>Staff Strength:</strong> {viewBusiness.staffstrength}</p>
+                            <p><strong>Address:</strong> {viewBusiness.address}</p>
+                            <button onClick={handleCloseModal}>Close</button>
                         </div>
                     </div>
                 )}
@@ -277,4 +338,3 @@ const UserManagePage = () => {
 };
 
 export default UserManagePage;
-

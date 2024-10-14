@@ -4,35 +4,36 @@ import { Link } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
 import axios from 'axios';
 import '../assets/user-dashboard.css';
+import Cookies from 'js-cookie';
 
 const UserHeader = () => {
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
   const [modalNotification, setModalNotification] = useState(false);
 
+  const loggedInEmail = Cookies.get('email');
+
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/notifications/`, {
         headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`,
+          Authorization: `Token ${Cookies.get('token')}`,
         },
       });
       setNotifications(response.data);
       setNotificationCount(response.data.length);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
   };
 
   useEffect(() => {
-    // Fetch notifications on component mount
     fetchNotifications();
   }, []);
 
   const openNotification = () => {
     if (modalNotification) {
-      setNotificationCount(0); // Clear badge count when modal is opened
+      setNotificationCount(0);
     }
     setModalNotification(!modalNotification);
   };
@@ -40,6 +41,8 @@ const UserHeader = () => {
   return (
     <header className="header">
       <h1>User Dashboard</h1>
+      {loggedInEmail && <h2>Welcome, {loggedInEmail}!</h2>} 
+
       <div className="header-right">
         <Link to="/">View Site</Link>
         <div className="notification-container">
@@ -74,4 +77,3 @@ const UserHeader = () => {
 };
 
 export default UserHeader;
-

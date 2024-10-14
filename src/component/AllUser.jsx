@@ -5,6 +5,7 @@ import AdminSidebar from './AdminSidebar';
 import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
 import '../assets/All-users.css';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const AllUser = () => {
   const [editingIndex, setEditingIndex] = useState(null);
@@ -14,19 +15,36 @@ const AllUser = () => {
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/list-users/`)
-      .then(response => {
-        setApiUser(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    axios.get(`${process.env.REACT_APP_API_URL}/api/list-users/`, {
+      headers: {
+        Authorization: `Token ${Cookies.get('token')}`,
+      },
+    })
+    .then(response => {
+      setApiUser(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }, []);
 
-  const removeApiUser = (index) => {
-    const updatedApiUser = apiUser.filter((_, i) => i !== index);
-    setApiUser(updatedApiUser);
+  const removeApiUser = async (index) => {
+    const userEmail = apiUser[deleteIndex].email;
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/delete/`, {
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+        },
+        data: { email: userEmail },
+      });
+      
+      const updatedApiUser = apiUser.filter((_, i) => i !== deleteIndex);
+      setApiUser(updatedApiUser);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    } finally {
       setIsModalOpen(false);
+    }
   };
 
   const confirmDelete = (index) => {
@@ -36,15 +54,29 @@ const AllUser = () => {
 
   const handleApiEditClick = (index) => {
     setEditingIndex(index);
-    setEditedUser(apiUser[index]); 
+    setEditedUser(apiUser[index]);
   };
 
-  const handleApiSaveClick = (index) => {
-    const updatedApiUser = apiUser.map((user, i) =>
-      i === index ? { ...user, ...editedUser } : user
-    );
-    setApiUser(updatedApiUser);
-    setEditingIndex(null);
+  const handleApiSaveClick = async (index) => {
+    const userEmail = apiUser[index].email;
+    try {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/edit-user/`, {
+        email: userEmail,
+        ...editedUser,
+      }, {
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+        },
+      });
+
+      const updatedApiUser = apiUser.map((user, i) =>
+        i === index ? { ...user, ...editedUser } : user
+      );
+      setApiUser(updatedApiUser);
+      setEditingIndex(null);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
 
   const handleChange = (e) => {
@@ -100,11 +132,11 @@ const AllUser = () => {
                 <td>{value.date}</td>
                 <td>
                   {editingIndex === index ? (
-                    <FaSave title='save' onClick={() => handleApiSaveClick(index)} className="icon save-icon" style={{height:'20px'}} />
+                    <FaSave title='save' onClick={() => handleApiSaveClick(index)} className="icon save-icon" style={{ height: '20px' }} />
                   ) : (
                     <>
-                      <FaEdit title='edit' onClick={() => handleApiEditClick(index)} className="icon edit-icon" style={{height:'20px'}} />
-                      <FaTrash title='delete' onClick={() => confirmDelete(index)} className="icon remove-icon" style={{height:'20px'}} />
+                      <FaEdit title='edit' onClick={() => handleApiEditClick(index)} className="icon edit-icon" style={{ height: '20px' }} />
+                      <FaTrash title='delete' onClick={() => confirmDelete(index)} className="icon remove-icon" style={{ height: '20px' }} />
                     </>
                   )}
                 </td>
@@ -112,17 +144,17 @@ const AllUser = () => {
             ))}
 
             {isModalOpen && (
-            <div className="modal-overlay">
-              <div className="modal-content">
-                <h2>Confirm Deletion</h2>
-                <p>Are you sure you want to delete this business?</p>
-                <div className="modal-actions">
-                  <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-                  <button onClick={() => removeApiUser(deleteIndex)}>Delete</button>
+              <div className="modal-overlay">
+                <div className="modal-content">
+                  <h2>Confirm Deletion</h2>
+                  <p>Are you sure you want to delete this user?</p>
+                  <div className="modal-actions">
+                    <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                    <button onClick={() => removeApiUser(deleteIndex)}>Delete</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </tbody>
         </table>
       </div>

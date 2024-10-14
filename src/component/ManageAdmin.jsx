@@ -4,6 +4,8 @@ import { FaTrash } from 'react-icons/fa';
 import '../assets/manage-admin.css'; 
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
+import Cookies from 'js-cookie';
+
 
 const ManageAdmin = () => {
   const [admins, setAdmins] = useState([]);
@@ -12,10 +14,11 @@ const ManageAdmin = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/manage-admins/`, {
         headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`,
+          Authorization: `Token ${Cookies.get('token')}`,
         },
       });
       setAdmins(response.data); 
+      console.log(response.data)
     } catch (error) {
       console.error("Error fetching admins:", error);
       setAdmins([]);
@@ -26,7 +29,7 @@ const ManageAdmin = () => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/admins/${adminId}/`, {
         headers: {
-          Authorization: `Token ${localStorage.getItem('token')}`,
+          Authorization: `Token ${Cookies.set('token')}`,
         },
       });
       fetchAdmins(); 
@@ -54,16 +57,16 @@ const ManageAdmin = () => {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Status</th>
+                <th>Date Created</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {admins.map((admin) => (
                 <tr key={admin.id} className="admin-item">
-                  <td>{admin.name}</td>
+                  <td>{admin.fullname}</td>
                   <td>{admin.email}</td>
-                  <td className="admin-status">{admin.status}</td>
+                  <td className="admin-status">{admin.date}</td>
                   <td>
                     <button 
                       onClick={() => deleteAdmin(admin.id)} 
