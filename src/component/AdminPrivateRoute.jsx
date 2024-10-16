@@ -15,7 +15,7 @@ const AdminPrivateRoute = () => {
     if (!isAuthenticated()) {
         return <Navigate to="/admin"/>;
       }
-      if(!is_staff()){
+      if(is_staff()){
         return <Navigate to='/admin'/>
       }
       return <Dashboard />;

@@ -1,88 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import AdminHeader from './AdminHeader';
-import AdminSidebar from './AdminSidebar';
-import { FaEdit, FaTrash, FaSave } from 'react-icons/fa';
-import '../assets/All-users.css';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import AdminHeader from './AdminHeader'
+import AdminSidebar from './AdminSidebar'
+import { FaEdit, FaTrash, FaSave } from 'react-icons/fa'
+import '../assets/All-users.css'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const AllUser = () => {
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [editedUser, setEditedUser] = useState({});
-  const [apiUser, setApiUser] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [editingIndex, setEditingIndex] = useState(null)
+  const [editedUser, setEditedUser] = useState({})
+  const [apiUser, setApiUser] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [deleteIndex, setDeleteIndex] = useState(null)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/list-users/`, {
       headers: {
-        Authorization: `Token ${Cookies.get('token')}`,
-      },
+        Authorization: `Token ${Cookies.get('token')}`
+      }
     })
     .then(response => {
-      setApiUser(response.data);
+      setApiUser(response.data)
     })
     .catch(error => {
-      console.error(error);
-    });
-  }, []);
+      console.error(error)
+    })
+  }, [])
 
   const removeApiUser = async (index) => {
-    const userEmail = apiUser[deleteIndex].email;
+    const userEmail = apiUser[deleteIndex].email
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/delete/`, {
         headers: {
-          Authorization: `Token ${Cookies.get('token')}`,
+          Authorization: `Token ${Cookies.get('token')}`
         },
-        data: { email: userEmail },
-      });
+        data: { email: userEmail }
+      })
       
-      const updatedApiUser = apiUser.filter((_, i) => i !== deleteIndex);
-      setApiUser(updatedApiUser);
+      const updatedApiUser = apiUser.filter((_, i) => i !== deleteIndex)
+      setApiUser(updatedApiUser)
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting user:", error)
     } finally {
-      setIsModalOpen(false);
+      setIsModalOpen(false)
     }
-  };
+  }
 
   const confirmDelete = (index) => {
-    setDeleteIndex(index);
-    setIsModalOpen(true);
-  };
+    setDeleteIndex(index)
+    setIsModalOpen(true)
+  }
 
   const handleApiEditClick = (index) => {
-    setEditingIndex(index);
-    setEditedUser(apiUser[index]);
-  };
+    setEditingIndex(index)
+    setEditedUser(apiUser[index])
+  }
 
   const handleApiSaveClick = async (index) => {
-    const userEmail = apiUser[index].email;
+    const userEmail = apiUser[index].email
     try {
       await axios.put(`${process.env.REACT_APP_API_URL}/api/edit-user/`, {
         email: userEmail,
-        ...editedUser,
+        ...editedUser
       }, {
         headers: {
-          Authorization: `Token ${Cookies.get('token')}`,
-        },
-      });
+          Authorization: `Token ${Cookies.get('token')}`
+        }
+      })
 
       const updatedApiUser = apiUser.map((user, i) =>
         i === index ? { ...user, ...editedUser } : user
-      );
-      setApiUser(updatedApiUser);
-      setEditingIndex(null);
+      )
+      setApiUser(updatedApiUser)
+      setEditingIndex(null)
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error updating user:", error)
     }
-  };
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedUser((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setEditedUser((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <div>
@@ -159,7 +159,7 @@ const AllUser = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AllUser;
+export default AllUser

@@ -6,8 +6,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie'
 
 const AdminHeader = () => {
-  const { loggedInUser } = useContext(DataContext);
-  const myref = useRef();
+  const { loggedInUser } = useContext(DataContext)
+  const myref = useRef()
 
   const handleSearch = async (e) => {
     e.preventDefault();

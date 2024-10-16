@@ -1,102 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
-import UserHeader from '../component/UserHeader';
-import UserSidebar from '../component/UserSidebar';
-import '../assets/userManage.css';
-import Cookies from 'js-cookie';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { FaEdit, FaTrash, FaEye } from 'react-icons/fa'
+import UserHeader from '../component/UserHeader'
+import UserSidebar from '../component/UserSidebar'
+import '../assets/userManage.css'
+import Cookies from 'js-cookie'
 
 const UserManagePage = () => {
-    const [businesses, setBusinesses] = useState([]);
-    const [editingBusiness, setEditingBusiness] = useState(null);
-    const [image, setImage] = useState(); 
-    const [productImage, setProductImage] = useState(); 
-    const [confirmDelete, setConfirmDelete] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [viewBusiness, setViewBusiness] = useState(null);
+    const [businesses, setBusinesses] = useState([])
+    const [editingBusiness, setEditingBusiness] = useState(null)
+    const [image, setImage] = useState() 
+    const [productImage, setProductImage] = useState() 
+    const [confirmDelete, setConfirmDelete] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+    const [viewBusiness, setViewBusiness] = useState(null)
 
     useEffect(() => {
         const fetchBusinesses = async () => {
-            setLoading(true);
-            setError('');
+            setLoading(true)
+            setError('')
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user-businesses/`, {
                     headers: {
                         Authorization: `Token ${Cookies.get('token')}`,
                     },
-                });
-                setBusinesses(response.data);
+                })
+                setBusinesses(response.data)
             } catch (error) {
-                setError('Error fetching businesses.');
+                setError('Error fetching businesses.')
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchBusinesses();
-    }, []);
+        fetchBusinesses()
+    }, [])
 
     const handleEdit = (business) => {
-        setEditingBusiness(business);
-        setImage(business.ceoImg); 
-        setProductImage(business.logo);
-    };
+        setEditingBusiness(business)
+        setImage(business.ceoImg) 
+        setProductImage(business.logo)
+    }
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEditingBusiness(prev => ({ ...prev, [name]: value }));
-    };
+        const { name, value } = e.target
+        setEditingBusiness(prev => ({ ...prev, [name]: value }))
+    }
 
     const handleImage = (e) => {
-        setImage(URL.createObjectURL(e.target.files[0]));
-    };
+        setImage(URL.createObjectURL(e.target.files[0]))
+    }
 
     const handleProductImage = (e) => {
-        setProductImage(URL.createObjectURL(e.target.files[0]));
-    };
+        setProductImage(URL.createObjectURL(e.target.files[0]))
+    }
 
     const handleSubmit = async (e) => {
-        const businessEmail = businesses[editingBusiness].email;
-        e.preventDefault();
-        const formData = new FormData();
+        const businessId = editingBusiness.id 
+        e.preventDefault()
+        const formData = new FormData()
         
         Object.keys(editingBusiness).forEach(key => {
-            formData.append(key, editingBusiness[key]);
-        });
+            formData.append(key, editingBusiness[key])
+        })
 
         if (document.getElementById('imgs').files[0]) {
-            formData.append('ceoImg', document.getElementById('imgs').files[0]);
+            formData.append('ceoImg', document.getElementById('imgs').files[0])
         }
         if (document.getElementById('productImg').files[0]) {
-            formData.append('logo', document.getElementById('productImg').files[0]);
+            formData.append('logo', document.getElementById('productImg').files[0])
         }
 
         try {
-
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/edit-business`,  {email: businessEmail, ...editingBusiness }, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/edit-business/${businessId}/`, {  ...editingBusiness }, {
                 headers: {
                     Authorization: `Token ${Cookies.get('token')}`,
                     'Content-Type': 'multipart/form-data',
                 },
-            });
+            })
 
             setBusinesses(prevBusinesses =>
                 prevBusinesses.map(business =>
-                    business.email === editingBusiness.email ? { ...editingBusiness } : business
+                    business.id === editingBusiness.id ? { ...editingBusiness } : business
                 )
-            );
-            setEditingBusiness(null);
-            setImage(null);
-            setProductImage(null);
+            )
+            setEditingBusiness(null)
+            setImage(null)
+            setProductImage(null)
         } catch (error) {
-            setError('Error updating business. Please try again.');
+            setError('Error updating business. Please try again.')
         }
-    };
+    }
 
     const handleDeleteClick = (email) => {
-        setConfirmDelete(email);
-    };
+        setConfirmDelete(email)
+    }
 
     const handleConfirmDelete = async () => {
         try {
@@ -104,26 +103,26 @@ const UserManagePage = () => {
                 headers: {
                     Authorization: `Token ${Cookies.get('token')}`,
                 },
-            });
+            })
 
-            setBusinesses(prevBusinesses => prevBusinesses.filter(business => business.email !== confirmDelete));
-            setConfirmDelete(null);
+            setBusinesses(prevBusinesses => prevBusinesses.filter(business => business.email !== confirmDelete))
+            setConfirmDelete(null)
         } catch (error) {
-            setError('Error deleting business. Please try again.');
+            setError('Error deleting business. Please try again.')
         }
-    };
+    }
 
     const handleCancelDelete = () => {
-        setConfirmDelete(null);
-    };
+        setConfirmDelete(null)
+    }
 
     const handleViewBusiness = (business) => {
-        setViewBusiness(business);
-    };
+        setViewBusiness(business)
+    }
 
     const handleCloseModal = () => {
-        setViewBusiness(null);
-    };
+        setViewBusiness(null)
+    }
 
     return (
         <div>
@@ -324,8 +323,8 @@ const UserManagePage = () => {
                             <p><strong>Town/City:</strong> {viewBusiness.town}</p>
                             <p><strong>Category of Business:</strong> {viewBusiness.categoryofbusiness}</p>
                             <p><strong>Website:</strong> {viewBusiness.website}</p>
-                            <p><strong>CeoImage:</strong>{viewBusiness.ceoImg}</p>
-                            <p><strong>productImage:</strong>{viewBusiness.productImage}</p>
+                            <p><strong>CEO Image:</strong>{viewBusiness.ceoImg}</p>
+                            <p><strong>Product Image:</strong>{viewBusiness.productImage}</p>
                             <p><strong>Staff Strength:</strong> {viewBusiness.staffstrength}</p>
                             <p><strong>Address:</strong> {viewBusiness.address}</p>
                             <button onClick={handleCloseModal}>Close</button>
@@ -334,7 +333,7 @@ const UserManagePage = () => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default UserManagePage;
+export default UserManagePage
