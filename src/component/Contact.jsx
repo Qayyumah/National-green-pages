@@ -15,6 +15,7 @@ const Contact = () => {
   const schema = yup.object().shape({
     name: yup.string().required('Name is required!'),
     email: yup.string().email('Email is not valid').required('Email is required!'),
+    phonenumber: yup.string().required('Phone number is required').matches(/^\d{11}$/, "Phone number is not valid"),
     message: yup.string().required('Required!')
   })
 
@@ -81,7 +82,7 @@ const Contact = () => {
                       placeholder='Name' 
                       {...register("name")}
                     />
-                    <p>{errors.yourname?.message}</p>
+                    <p>{errors.name?.message}</p>
                   </div>
                   <div className='input'>
                     <input type='text' 
@@ -92,12 +93,19 @@ const Contact = () => {
                   </div>
                   <p>{errors.email?.message}</p>
                   <div className='input'>
+                    <input type='text' 
+                      name='phonenumber' 
+                      placeholder='Phone number' 
+                      {...register("phonenumber")}
+                    />
+                  </div>
+                  <p>{errors.phonenumber?.message}</p>
+                  <div className='input'>
                     <textarea type='text' 
                     name='text'
                     placeholder='Enter your message'  
                     {...register("message")}/>
                   </div>
-                 <p>{errors.message?.message}</p>
 
                   <div className='input'>
                     <input type='submit' value='submit'/>

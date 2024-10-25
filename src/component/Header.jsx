@@ -19,8 +19,7 @@ const Header = () => {
             <div className='header-link2'>
                 <Link to='/'>Home</Link>
                 <Link to='/about'>About</Link>
-                <Link to='/subscription-rates'>Subscription Rates</Link>
-                <Link to='/post'>Post a Business</Link>
+                <Link to='/post'>Post your business for free</Link>
                 <Link to='/contact'>Contact Us</Link>
             </div>
             <div className='link'>
@@ -45,8 +44,7 @@ const Header = () => {
             </Head>
             <Link to='/'><a href='#'>Home</a></Link>
             <Link to='/about'><a href='#'>About Us</a></Link>
-            <Link to='/subscription-rates'><a href='#'>Subscription Rates</a></Link>
-            <Link to='/post'><a href='#'>Post a Business</a></Link>
+            <Link to='/post'><a href='#'>Post your business for free</a></Link>
             <Link to='/contact'><a href='#'>Contact Us</a></Link>
         </BurgerNav>
     </div> 

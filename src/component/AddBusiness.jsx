@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../assets/post.css';
 import { useForm } from 'react-hook-form';
@@ -15,6 +15,7 @@ const AddBusiness = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isAuthorized, setIsAuthorized] = useState(false);
+    const [states, setStates] = useState([]);
 
     const schema = yup.object().shape({
         companyname: yup.string().required('Name is required!'),
@@ -88,6 +89,20 @@ const AddBusiness = () => {
         setProductImage(URL.createObjectURL(e.target.files[0]));
     };
 
+    useEffect(() => {
+        fetch('https://nigerian-states-and-lga.vercel.app/')
+          .then((response) => response.json())
+          .then((data) => setStates(data));
+      }, []);
+
+      const handleChange = (e) => {
+        setValue({ ...value, [e.target.name]: e.target.value });
+      };
+
+      const [value, setValue] = useState({
+        select: ''
+      });
+
   return (
     <div className="post">
       <AdminHeader/>
@@ -103,8 +118,14 @@ const AddBusiness = () => {
               <input type='text' name='email' {...register("email")} />
               <p>{errors.email?.message}</p>
 
+
               <label htmlFor='state'>State</label>
-              <input type='text' name='state' {...register("state")} />
+              <select onChange={handleChange} name='select'>
+                <option value="">State</option>
+                {states.map((state) => (
+                    <option key={state.name} name='state' {...register('state')}>{state.name}</option>
+                ))}
+              </select>
               <p>{errors.state?.message}</p>
 
               <label htmlFor='localgovernment'>Local Government</label>

@@ -16,7 +16,6 @@ import AllBusinesses from './component/AllBusinesses';
 import AddBusiness from './component/AddBusiness';
 import AllUser from './component/AllUser';
 import AdminLogOut from './component/AdminLogOut';
-import { DataProvider } from './context/DataContext';
 import AddUser from './component/AddUser';
 import PendingApproval from './component/PendingApproval';
 import ManageAdmin from './component/ManageAdmin';
@@ -26,7 +25,6 @@ import UserManagePage from './component/UserManagePage';
 import UserPendingBusiness from './component/UserPendingBusiness';
 import AdminPrivateRoute from './component/AdminPrivateRoute';
 import UserLogout from './component/UserLogout';
-import SubscriptionRates from './component/SubscriptionRates';
 
 
 
@@ -44,7 +42,6 @@ function App() {
   }, [])
 
   return (
-    <DataProvider>
     <Router>
     <div className="App">
     {
@@ -55,7 +52,6 @@ function App() {
         <Route exact path='/signin' element={<SignIn/>}/>
         <Route exact path='/signup' element={<SignUp/>}/>
         <Route exact path='/admin' element={<AdminLogin/>}/>
-        <Route exact path='/subscription-rates' element={<SubscriptionRates/>}/>
         <Route exact path='/post' element={<PrivateRoute />}/>
         <Route exact path='/contact' element={<Contact/>}/>
         <Route exact path='/dashboard' element={<AdminPrivateRoute />} />
@@ -75,7 +71,6 @@ function App() {
     }
    </div>
     </Router>
-   </DataProvider>
   );
 }
 

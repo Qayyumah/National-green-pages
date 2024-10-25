@@ -40,7 +40,7 @@ const About = () => {
                  </div>
             </div>
             <div className='about-image'>
-                <img src='/images/niger.png'/>
+                <img src='/images/logo.png'/>
             </div>
         </div>
         <Footer/>

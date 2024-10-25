@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <div className='footer'>
-      <p>Copyright National Green Pages©2018. All Rights Reserved</p>
+      <p>Copyright Greenpages Dynamic World Ltd; the publisher of National GreenPages Business Directory. All Rights Reserved</p>
     </div>
   )
 }

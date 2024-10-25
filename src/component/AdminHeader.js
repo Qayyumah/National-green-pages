@@ -1,12 +1,10 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import '../assets/dashboard.css';
 import { Link } from 'react-router-dom';
-import { DataContext } from '../context/DataContext';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 
 const AdminHeader = () => {
-  const { loggedInUser } = useContext(DataContext)
   const myref = useRef()
 
   const handleSearch = async (e) => {
@@ -39,7 +37,7 @@ const AdminHeader = () => {
         </form>
       </div>
       <div className="header-right">
-        <h3>WELCOME! {loggedInUser ? loggedInUser.email : null}</h3>
+        <h3>WELCOME! ADMIN</h3>
         <Link to='/'>View Site</Link>
       </div>
     </header>

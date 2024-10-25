@@ -44,16 +44,23 @@
 }
 
 .body-content h1{
-    font-size: 45px;
+    font-size: 35px;
     margin-bottom: 0px;
 
-    @media (max-width: 560px){
+    @media (max-width: 1024px){
+        font-size: 25px;
+    }
+    @media (max-width: 600px){
         font-size: 23px;
-        /* letter-spacing: .2em; */
     }
 }
+
+.body-content h3{
+    font-size: 25px;
+    margin-top: 0;
+}
 .body-content p{
-    letter-spacing: .2em;
+    letter-spacing: .1em;
     font-size: 18px;
 
     @media (max-width: 768px){
@@ -75,6 +82,9 @@
     @media(max-width: 768px){
         padding: 12px 10px;
     }
+    @media (max-width: 480px){
+        width: 95%;
+    }
 }
 .inputs{
     display: flex;
@@ -95,13 +105,16 @@
     border-radius: 3px;
     width: 95%;
 
-    /*mobile*/
     @media (max-width: 1024px){
         margin: 0 50px;
     }
     @media(max-width: 768px){
         padding: 12px 10px;
         margin: 10px 50px;
+    }
+
+    @media (max-width: 480px){
+        width: 90%;
     }
 }
 .inputs button{
@@ -119,6 +132,10 @@
         display: flex;
         justify-content: center;
         margin: auto;
+    }
+
+    @media (max-width: 480px){
+        width: 95%;
     }
 
 }
