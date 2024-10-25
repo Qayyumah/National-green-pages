@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Cookies from 'js-cookie';
+import FooterCarousel from './FooterCarousel';
 
 const PostBusiness = () => {
     const [image, setImage] = useState('images/upload.png');
@@ -176,6 +177,7 @@ const PostBusiness = () => {
                     <button type='submit'>Submit</button>
                 </form>
             </div>
+            <FooterCarousel/>
             <Footer />
 
             {message && (

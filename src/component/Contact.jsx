@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import axios from 'axios'
+import FooterCarousel from './FooterCarousel'
 
 const Contact = () => {
   const [modalMessage, setModalMessage] = useState('');
@@ -114,6 +115,7 @@ const Contact = () => {
                 
               </div>
             </div>
+            <FooterCarousel/>
           </div>
           {modalMessage && (
             <div className="modal-overlay">

@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
+import FooterCarousel from './FooterCarousel';
 
 const SignIn = () => {
     const [showMail, setShowMail] = useState(false);
@@ -179,6 +180,7 @@ const SignIn = () => {
                         </div>
                     )}
                 </div>
+                <FooterCarousel/>
             </div>
 
             {showModal && (

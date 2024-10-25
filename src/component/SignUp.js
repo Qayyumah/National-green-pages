@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import FooterCarousel from './FooterCarousel';
 
 const SignUp = () => {
   const [showMail, setShowMail] = useState(false);
@@ -127,6 +128,7 @@ const SignUp = () => {
             </div>
           </div>
         </div>
+        <FooterCarousel/>
       </div>
 
       {showModal && (

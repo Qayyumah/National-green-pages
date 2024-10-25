@@ -2,10 +2,11 @@ import React from 'react'
 import '../assets/about.css'
 import Header from './Header'
 import Footer from './Footer'
+import FooterCarousel from './FooterCarousel'
 
 const About = () => {
   return (
-    <div>
+    <div className='about-container'>
     <Header/>
         <div className='about'>
             <div className='about-content'>
@@ -43,6 +44,7 @@ const About = () => {
                 <img src='/images/logo.png'/>
             </div>
         </div>
+        <FooterCarousel/>
         <Footer/>
     </div>
   )

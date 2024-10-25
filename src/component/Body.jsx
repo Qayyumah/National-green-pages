@@ -4,10 +4,8 @@ import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Slider from 'react-slick'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css"; 
+import FooterCarousel from './FooterCarousel';
+
 
 const Body = () => {
   const [btn, setBtn] = useState(false);
@@ -55,36 +53,12 @@ const Body = () => {
       .then((data) => setStates(data));
   }, []);
 
-    let settings = {
-      dots: true,
-      infinite: true,
-      speed: 600,
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      autoplay: true,
-
-      responsive:[
-        {
-          breakpoint: 1024,
-          settings:{
-            slidesToShow: 4
-          },
-        },
-        {
-          breakpoint: 600,
-          settings:{
-            slidesToShow: 3
-          }
-        }
-      ]
-    }
-
   return (
     <div>
       <Header />
       {
         btn ? null :
-          <div>
+          <div className='body-section'>
             <div className='body-container'>
               <form className='inputs' onSubmit={handleSubmit}>
                 <div className='body-content'>
@@ -110,19 +84,7 @@ const Body = () => {
                 <img src='images/logo.png' alt="Niger" />
               </div>
             </div>
-
-            <Carousel {...settings}>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-                <p>your Advert</p>
-            </Carousel>
+            <FooterCarousel/>
           </div>
       }
       {
@@ -151,54 +113,3 @@ const Body = () => {
 }
 
 export default Body;
-
-const Carousel = styled(Slider)`
-    padding: 20px 0px;
-    margin-right: 0;
-    cursor: pointer;
-
-    p{
-      padding: 0 40px;
-
-      @media(max-width:600px){
-        padding: 0 20px;
-      }
-    }
-    ul li button{
-        &:before{
-            display: none;
-        }
-        display: none;
-    }
-
-    li.slick-active button:before{
-        color: white;
-        display: none;
-    }
-
-    .slick-list{
-        overflow: hidden;
-    }
-
-    .slick-prev{
-      display: none;
-    }
-    .slick-next{
-      display: none;
-      right: 0;
-    }
-    .slick-prev::before{
-        display: none;
-    }
-    .slick-prev::after {
-      display: none;
-  }
-    .slick-next::before{
-        display: none;
-    }
-
-    .slick-next::after {
-      display: none;
-    }
-
-`
