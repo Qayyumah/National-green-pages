@@ -1,7 +1,7 @@
 .con-body{
     background-color:  rgb(145, 203, 145);
     min-height: 100vh;
-    padding: 100px 0px;
+    
 }
 .contact{
     display: flex;
@@ -9,6 +9,7 @@
     align-items: center;
     flex-direction: row;
     color: #fff;
+    padding-top: 100px;
 
     @media (max-width:991px){
         padding: 40px;

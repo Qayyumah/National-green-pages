@@ -9,6 +9,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
 import FooterCarousel from './FooterCarousel';
+import styled from 'styled-components';
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"; 
 
 const SignIn = () => {
     const [showMail, setShowMail] = useState(false);
@@ -40,6 +44,7 @@ const SignIn = () => {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
             Cookies.set('token', response.data.key);
             Cookies.set('email', data.email);
+            console.log(response.status)
             Cookies.set('is_staff', response.data.is_staff)
             setLoggedInUser({ email: data.email });
             setSuccess('You have successfully logged in');
@@ -105,6 +110,29 @@ const SignIn = () => {
         }
     };
 
+    let settings = {
+        dots: true,
+        infinite: true,
+        speed: 600,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+  
+        responsive:[
+          {
+            breakpoint: 1024,
+            settings:{
+              slidesToShow: 4
+            },
+          },
+          {
+            breakpoint: 600,
+            settings:{
+              slidesToShow: 3
+            }
+          }
+        ]
+      }
     return (
         <div>
             <Header />
@@ -137,7 +165,6 @@ const SignIn = () => {
                                     Sign in with Email
                                 </button>
 
-                                {showMail && (
                                     <form className='inputs-signin' onSubmit={handleSubmit(signSubmit)}>
                                         <div className='input-img-sign-in'>
                                             <input 
@@ -162,17 +189,7 @@ const SignIn = () => {
                                         <button type='submit'>Submit</button>
                                         <p onClick={() => setShowForgotPassword(true)} style={{ cursor: 'pointer', color: 'green', marginTop: '10px', marginLeft: '10px' }}>Forgot Password?</p>
                                     </form>
-                                )}
                             </div>
-
-                            <button>
-                                <img src='/images/flat-color-icons_google.png' alt='Google Icon' />
-                                Sign in with Google
-                            </button>
-                            <button>
-                                <img src='/images/dashicons_facebook-alt.png' alt='Facebook Icon' />
-                                Sign in with Facebook
-                            </button>
 
                             <div className='alreadylogged'>
                                 <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
@@ -180,7 +197,18 @@ const SignIn = () => {
                         </div>
                     )}
                 </div>
-                <FooterCarousel/>
+                <Carousel {...settings}>
+                    <img src='/images/header-logo.jpg'/>
+                    <img src='/images/logo.png'/>
+                    <img src='/images/header-logo.jpg'/>
+                    <img src='/images/logo.png'/>
+                    <img src='/images/header-logo.jpg'/>
+                    <img src='/images/logo.png'/>
+                    <img src='/images/header-logo.jpg'/>
+                    <img src='/images/logo.png'/>
+                    <img src='/images/header-logo.jpg'/>
+                    <img src='/images/logo.png'/>
+                </Carousel>
             </div>
 
             {showModal && (
@@ -216,3 +244,60 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+const Carousel = styled(Slider)`
+    padding-top: 160px;
+    padding-bottom: 20px;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+
+    img{
+        width: 70% !important;
+        height: 40px;
+        padding: 0 50px;
+
+        @media(max-width:600px){
+            width: 20%;
+            padding: 0 20px;
+      }
+    }
+
+    ul li button{
+        &:before{
+            display: none;
+        }
+        display: none;
+    }
+
+    li.slick-active button:before{
+        color: white;
+        display: none;
+    }
+
+    .slick-list{
+        overflow: hidden;
+    }
+
+    .slick-prev{
+      display: none;
+    }
+    .slick-next{
+      display: none;
+      right: 0;
+    }
+    .slick-prev::before{
+        display: none;
+    }
+    .slick-prev::after {
+      display: none;
+  }
+    .slick-next::before{
+        display: none;
+    }
+
+    .slick-next::after {
+      display: none;
+    }
+
+`

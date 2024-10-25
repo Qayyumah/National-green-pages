@@ -53,11 +53,12 @@ const Carousel = styled(Slider)`
     padding-bottom: 20px;
     color: #fff;
     cursor: pointer;
+    width: 100%;
 
     img{
-        width: 50% !important;
+        width: 70% !important;
         height: 40px;
-        padding: 0 40px;
+        padding: 0 50px;
 
         @media(max-width:600px){
             width: 20%;

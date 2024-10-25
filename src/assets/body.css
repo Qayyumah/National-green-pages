@@ -55,6 +55,9 @@
     @media (max-width: 1024px){
         font-size: 25px;
     }
+    @media(max-width: 768px){
+        text-align: center;
+    }
     @media (max-width: 600px){
         font-size: 23px;
     }
@@ -64,10 +67,17 @@
     font-size: 25px;
     margin-top: 0;
     text-align: left;
+    margin-bottom: 0;
+
+    @media(max-width: 768px){
+        text-align: center;
+    }
 }
 .body-content p{
     letter-spacing: .1em;
     font-size: 18px;
+    margin-top: 5px;
+    text-align: left;
 
     @media (max-width: 768px){
         font-size: 13px;
