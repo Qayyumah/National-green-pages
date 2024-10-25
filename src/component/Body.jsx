@@ -90,7 +90,7 @@ const Body = () => {
                 <div className='body-content'>
                   <h1>National GreenPages</h1>
                   <h3>Business Directory</h3>
-                  <p>it is all About Nigeria Businesses (state by state</p>
+                  <p>it is all About Nigeria Businesses (state by state) </p>
                 </div>
                 <select onChange={handleChange}>
                   <option value="option2">All Categories</option>
