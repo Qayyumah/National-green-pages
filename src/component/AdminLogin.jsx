@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import '../assets/dashboard.css';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
 
 const AdminLogin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,23 +22,29 @@ const AdminLogin = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleLogin = (data) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/api/admin/`, data)
-      .then((response) => {
-        console.log(response)
-        Cookies.set('token', response.data['key']);
-        Cookies.set('is_staff', response.data.is_staff)
+  const handleLogin = async (data) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/`, data);
+      if (response.data && response.data.key) {
+        Cookies.set('token', response.data.key);
+        Cookies.set('is_staff', response.data.is_staff);
         setModalMessage('You have successfully logged in');
         setModalType('success');
         setIsLoggedIn(true);
-      })
-      .catch((error) => {
-        setModalMessage(error.message);
+      } else {
+        setModalMessage('Login failed. Please check your credentials.');
         setModalType('error');
-      })
-      .finally(() => {
-        setIsModalOpen(true); 
-      });
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.detail) {
+        setModalMessage(error.response.data.detail);
+      } else {
+        setModalMessage('An error occurred. Please try again later.');
+      }
+      setModalType('error');
+    } finally {
+      setIsModalOpen(true);
+    }
   };
 
   if (isLoggedIn) {
@@ -54,6 +59,7 @@ const AdminLogin = () => {
     <div className="login-container">
       <div className="login-box">
         <div className='login-box-header'>
+          <h2>Admin Login</h2>
           <img src='/images/header-logo.jpg' alt="Header Logo" />
         </div>
         
@@ -64,7 +70,6 @@ const AdminLogin = () => {
             name='email'
             {...register('email')}
           />
-
           <input
             type="password"
             placeholder="Password"

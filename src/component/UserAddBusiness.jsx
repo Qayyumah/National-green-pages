@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Cookies from 'js-cookie';
-import AdminHeader from './AdminHeader'
-import AdminSidebar from './AdminSidebar'
+import UserHeader from './UserHeader';
+import UserSidebar from './UserSidebar';
 
-const AddBusiness = () => {
+const UserAddBusiness = () => {
   const [image, setImage] = useState('images/upload.png');
     const [productImage, setProductImage] = useState('images/upload.png');
     const [message, setMessage] = useState('');
@@ -105,8 +105,8 @@ const AddBusiness = () => {
 
   return (
     <div className="Addpost">
-      <AdminHeader/>
-      <AdminSidebar/>
+      <UserHeader/>
+      <UserSidebar/>
         <div className='form'>
           <h1>Data Collation Form</h1>
           <form onSubmit={handleSubmit(submitForm)}>
@@ -202,5 +202,5 @@ const AddBusiness = () => {
   );
 };
 
-export default AddBusiness;
+export default UserAddBusiness;
 

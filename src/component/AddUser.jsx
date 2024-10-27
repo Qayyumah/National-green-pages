@@ -7,6 +7,7 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
+import Cookies from 'js-cookie'
 
 const AddUser = () => {
   const [navigate, setNavigate] = useState(false);
@@ -27,7 +28,17 @@ const AddUser = () => {
 
   const signSubmit = async (data) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/register/`, data);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/add-user/`, {
+        fullname: data.fullname,
+        email: data.email,
+        password1: data.password1,
+        password2: data.password2
+      }, {
+        headers: {
+          Authorization: `Token ${Cookies.get('token')}`,
+        }
+      });
+      console.log(response)
       setSuccessMessage('Account created successfully');
       setErrorMessage('');
       setShowModal(true);
@@ -73,6 +84,7 @@ const AddUser = () => {
 
                   {...register('email')}
                 />
+                <p>{errors.email?.message}</p>
               </div>
               <div>
                 <label>Password:</label>
@@ -82,6 +94,7 @@ const AddUser = () => {
                   {...register('password1')}
                   
                 />
+                <p>{errors.password1?.message}</p>
               </div>
               <div>
                 <label>Confirm Password:</label>
@@ -91,6 +104,7 @@ const AddUser = () => {
                   {...register('password2')}
                   
                 />
+                <p>{errors.password2?.message}</p>
               </div>
               <button type="submit">Add User</button>
             </form>

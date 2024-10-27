@@ -16,7 +16,7 @@ const AdminPrivateRoute = () => {
         return <Navigate to="/admin"/>;
       }
       if(is_staff()){
-        return <Navigate to='/admin'/>
+        return <Navigate to='/dashboard'/>
       }
       return <Dashboard />;
 }

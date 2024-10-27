@@ -8,7 +8,7 @@ const FooterCarousel = () => {
     let settings = {
         dots: true,
         infinite: true,
-        speed: 600,
+        speed: 700,
         slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
@@ -54,6 +54,7 @@ const Carousel = styled(Slider)`
     color: #fff;
     cursor: pointer;
     width: 100%;
+    padding-right: 30px;
 
     img{
         width: 70% !important;

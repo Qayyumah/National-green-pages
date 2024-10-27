@@ -1,8 +1,9 @@
-.post{
+.Addpost{
     text-align: center;
     background-color: rgb(145, 203, 145);
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 330px;
 }
 
 .form{
@@ -179,4 +180,31 @@ textarea{
     padding: 5px 15px;
     background-color: rgb(2, 108, 2);
     border: none;
+}
+
+@media(max-width: 768px){
+    .Addpost{
+        padding-left: 0;
+        padding-top: 170px;
+    }
+}
+
+@media(max-width: 480px){
+    .checkbox-container{
+        display: flex;
+        align-items: center;
+        margin-left: -130px;
+        
+        input{
+            cursor: pointer;
+        }
+        label{
+            margin-left: -110px;
+            font-weight: 500;
+        }
+        strong{
+            font-size: 20px;
+            color: green;
+        }
+    }
 }

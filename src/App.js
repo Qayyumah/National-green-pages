@@ -25,6 +25,7 @@ import UserManagePage from './component/UserManagePage';
 import UserPendingBusiness from './component/UserPendingBusiness';
 import AdminPrivateRoute from './component/AdminPrivateRoute';
 import UserLogout from './component/UserLogout';
+import UserAddBusiness from './component/UserAddBusiness';
 
 
 
@@ -54,7 +55,7 @@ function App() {
         <Route exact path='/admin' element={<AdminLogin/>}/>
         <Route exact path='/post' element={<PrivateRoute />}/>
         <Route exact path='/contact' element={<Contact/>}/>
-        <Route exact path='/dashboard' element={<AdminPrivateRoute />} />
+        <Route exact path='/dashboard' element={<AdminPrivateRoute element={<Dashboard/>}/>} />
         <Route exact path='/all-users' element={<AllUser/>}/>
         <Route exact path='/all-business' element={<AllBusinesses/>}/>
         <Route exact path='/add-users' element={<AddUser/>}/>
@@ -63,9 +64,10 @@ function App() {
         <Route exact path='/pending' element={<PendingApproval/>}/>
         <Route exact path='manage-admin' element={<ManageAdmin/>}/>
         <Route exact path='add-admin' element={<AddAdmin/>}/>
-        <Route exact path='/user-dashboard' element={<UserDashboard/>}/>
+        <Route exact path='/user-dashboard' element={<UserDashboard element={<UserDashboard/>} />}/>
         <Route exact path='/user-all' element={<UserManagePage/>}/>
         <Route exact path='/user-pending' element={<UserPendingBusiness/>}/>
+        <Route exact path='/user-add' element={<UserAddBusiness/>}/>
         <Route exact path='/user-logout' element={<UserLogout/>}/>
       </Routes>
     }
